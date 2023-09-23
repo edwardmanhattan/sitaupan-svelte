@@ -4,7 +4,7 @@ import { formatTitle } from './string';
 
 export const getKeyModifier = (data, existing = {}) => {
 	let modifier = existing;
-	data = data[0];
+	data = data[0] ?? {};
 
 	Object.keys(data).forEach((key) => {
 		modifier[key] ??= {};
@@ -23,4 +23,18 @@ export const shownKeyModifier = (modifier) => {
 	}, {});
 
 	return Object.keys(filtered);
+};
+
+export const setModifierShown = (modifier, keys) => {
+	keys.forEach((key) => {
+		modifier[key].show = true;
+	});
+	return modifier;
+};
+
+export const setModifierHidden = (modifier, keys) => {
+	keys.forEach((key) => {
+		modifier[key].show = false;
+	});
+	return modifier;
 };

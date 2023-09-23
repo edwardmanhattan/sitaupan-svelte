@@ -11,8 +11,7 @@
 
 	export let data;
 	export let modifier;
-
-	console.log(data);
+	export let buttons;
 
 	let searchText = '';
 	let interval = '10';
@@ -46,8 +45,12 @@
 				<tr>
 					{#each shownKeyModifier(keyModifier) as key}
 						<th>{keyModifier[key].alias}</th>
+					{:else}
+						<div />
 					{/each}
-					<slot name="head" />
+					{#each buttons as button}
+						<th>{button.head}</th>
+					{/each}
 				</tr>
 			</thead>
 			<tbody>
@@ -62,32 +65,46 @@
 								<td>{tr[key]}</td>
 							{/if}
 						{/each}
-						<slot name="body" />
+						{#each buttons as button}
+							<td>
+								<button
+									on:click={() => {
+										button.action(tr[button.idKey]);
+									}}
+								>
+									{button.body}
+								</button>
+							</td>
+						{/each}
 					</tr>
 				{:else}
-					<span>Tidak ada data.</span>
+					<tr class="border border-gray-1">
+						<td class="border-0">Tidak ada data.</td>
+					</tr>
 				{/each}
 			</tbody>
 		</table>
 	</div>
 	<div class="flex mt-2">
-		<button
-			on:click={() => {
-				display = page.prev();
-				currentPage = page.getCurrentPage();
-			}}
-		>
-			<Icon icon="material-symbols:arrow-left" />
-		</button>
+		<div class="flex items-center">
+			<button
+				on:click={() => {
+					display = page.prev();
+					currentPage = page.getCurrentPage();
+				}}
+			>
+				<Icon icon="material-symbols:arrow-left" />
+			</button>
 
-		<button
-			on:click={() => {
-				display = page.next();
-				currentPage = page.getCurrentPage();
-			}}
-		>
-			<Icon icon="material-symbols:arrow-right" />
-		</button>
+			<button
+				on:click={() => {
+					display = page.next();
+					currentPage = page.getCurrentPage();
+				}}
+			>
+				<Icon icon="material-symbols:arrow-right" />
+			</button>
+		</div>
 		<div class="ml-2">
 			menampilkan {display.length} dari {page.root.length} data
 		</div>
