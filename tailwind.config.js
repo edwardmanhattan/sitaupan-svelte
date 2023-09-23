@@ -4,9 +4,13 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				'blue-1': '#18A0FB',
-				'blue-2': '#0B4D70',
-				'blue-3': '#062137'
+				'blue-1': '#A5DBDD',
+				'blue-2': '#407C87',
+				'blue-3': '#062137',
+				'white-1': '#F5F5F5',
+				'gray-1': '#B1CCCC',
+				'gray-2': '#323B3B',
+				'black-1': '#191A1A'
 			},
 			aspectRatio: {
 				hero: '3 / 1',

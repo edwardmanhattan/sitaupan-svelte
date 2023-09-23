@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	[type='text'],
+	[type='email'],
+	[type='url'],
+	[type='password'],
+	[type='number'],
+	[type='date'],
+	[type='datetime-local'],
+	[type='month'],
+	[type='search'],
+	[type='tel'],
+	[type='time'],
+	[type='week'],
+	[multiple],
+	textarea,
+	select {
+		@apply w-full px-2 py-1 my-1 text-sm text-black border rounded border-gray-1 placeholder:text-slate-800 placeholder:italic;
+	}
+
+	[type='checkbox'],
+	[type='radio'] {
+		@apply rounded;
+	}
+
+	table {
+		@apply w-full;
+	}
+
+	th,
+	td {
+		@apply p-2 text-sm border border-gray-1;
+	}
+
+	button {
+		@apply flex items-center justify-center px-2 py-1 text-sm text-white border rounded gap-x-2 bg-blue-2 hover:bg-slate-300 hover:text-blue-3;
+	}
+}

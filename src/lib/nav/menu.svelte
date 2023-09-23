@@ -18,7 +18,7 @@
 	on:mouseleave={() => {
 		open = !open;
 	}}
-	class="relative border-b border-b-white/30 bg-slate-950 hover:bg-blue-2/80 hover:border-white"
+	class="relative border-b border-b-white/30 bg-black-1 hover:bg-blue-2/80 hover:border-white"
 >
 	<div
 		on:click|stopPropagation={() => {
@@ -27,21 +27,21 @@
 		class="menu"
 	>
 		{#if icon !== ''}
-			<div class="w-2">
-				<Icon width="20px" {icon} />
+			<div>
+				<Icon width="18px" {icon} />
 			</div>
 		{:else}
-			<div class="w-2" />
+			<div />
 		{/if}
 
 		<a class="w-max" {href}>{anchor}</a>
 
 		{#if $$slots.default}
-			<div class="w-2">
-				<Icon icon="bi:caret-right" />
+			<div class="ml-auto">
+				<Icon width="10px" icon="bi:caret-right" />
 			</div>
 		{:else}
-			<div class="w-2" />
+			<div class="ml-auto" />
 		{/if}
 	</div>
 
@@ -56,7 +56,7 @@
 	@tailwind components;
 	@layer components {
 		.menu {
-			@apply py-2 px-4 flex items-end justify-center gap-6 hover:text-white cursor-pointer;
+			@apply p-3 flex items-center gap-6 hover:text-white cursor-pointer;
 		}
 	}
 </style>
