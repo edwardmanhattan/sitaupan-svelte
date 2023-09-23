@@ -30,7 +30,7 @@
 			closed();
 		}}
 	>
-		<div class="w-max py-4 px-8 bg-blue-2 text-white-1 rounded mx-auto max-h-[85vh] overflow-auto">
+		<div class="w-max py-6 px-8 bg-blue-2 text-white-1 rounded mx-auto max-h-[85vh] overflow-auto">
 			<slot />
 		</div>
 	</div>

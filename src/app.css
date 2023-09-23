@@ -26,6 +26,18 @@
 		@apply rounded;
 	}
 
+	[type='text'].disabled {
+		@apply bg-gray-1;
+	}
+
+	label {
+		@apply text-xs font-semibold;
+	}
+
+	h1 {
+		@apply my-2 font-bold;
+	}
+
 	table {
 		@apply w-full;
 	}

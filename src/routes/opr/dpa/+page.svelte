@@ -62,12 +62,15 @@
 
 	$: buttons = [
 		{
-			head: `List ${formatTitle(subPage)}`,
-			body: `Lihat ${formatTitle(subPage)}`,
+			head: `List ${formatTitle(subPages[subPages.findIndex((str) => str === subPage) + 1] ?? '')}`,
+			body: `Lihat ${formatTitle(
+				subPages[subPages.findIndex((str) => str === subPage) + 1] ?? ''
+			)}`,
 			action: (id) => {
-				subPage = subPages[subPages.findIndex((str) => str === subPage) + 1];
-				sourceAPI = `getChildDPA?id=${id}&`;
-				changeSubPage(subPage, sourceAPI);
+				changeSubPage(
+					subPages[subPages.findIndex((str) => str === subPage) + 1],
+					`getChildDPA?id=${id}&`
+				);
 			},
 			idKey: `id_kode_rekening`
 		}

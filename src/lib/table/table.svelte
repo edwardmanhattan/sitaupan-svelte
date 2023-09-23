@@ -10,8 +10,8 @@
 	import { Pagination } from '$lib/js/pagination';
 
 	export let data;
-	export let modifier;
-	export let buttons;
+	export let modifier = {};
+	export let buttons = [];
 
 	let searchText = '';
 	let interval = '10';
@@ -57,7 +57,7 @@
 				{#each display as tr}
 					<tr>
 						{#each shownKeyModifier(keyModifier) as key}
-							{#if keyModifier[key].type === 'timestamp'}
+							{#if keyModifier[key].type === 'datetime'}
 								<td>{formatFullDate(tr[key])}</td>
 							{:else if keyModifier[key].type === 'currency'}
 								<td>{rupiah(tr[key])}</td>
@@ -68,11 +68,18 @@
 						{#each buttons as button}
 							<td>
 								<button
+									class="px-4 mx-auto w-fit"
 									on:click={() => {
-										button.action(tr[button.idKey]);
+										button.action(
+											tr[button.idKey ?? 'id'],
+											display.find((obj) => obj[button.idKey ?? 'id'] === tr[button.idKey ?? 'id'])
+										);
 									}}
 								>
-									{button.body}
+									{#if button.icon}
+										<Icon icon={button.icon} />
+									{/if}
+									{button.body ?? ''}
 								</button>
 							</td>
 						{/each}

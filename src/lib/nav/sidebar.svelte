@@ -42,10 +42,27 @@
 		<Menu
 			anchor="Pengaturan"
 			href="/"
-			icon="streamline:interface-setting-cog-work-loading-cog-gear-settings-machine"
+			icon="streamline:interface-setting-slider-horizontal-adjustment-adjust-controls-fader-horizontal-settings-slider"
 		>
-			<Menu anchor="Pengaturan Umum" href="/" icon="" />
-			<Menu anchor="Pengaturan Data" href="/" icon="" />
+			<Menu
+				anchor="Pengaturan Umum"
+				href="/"
+				icon="streamline:interface-setting-cog-work-loading-cog-gear-settings-machine"
+			/>
+			<Menu
+				anchor="Pengaturan Data"
+				href="/"
+				icon="streamline:computer-database-raid-storage-code-disk-programming-database-array-hard-disc"
+			>
+				<Menu anchor="Data Master" href="/">
+					<Menu anchor="Bidang Proyek" href="/opr/pengaturan/bidang proyek" />
+					<Menu anchor="Jenis Proyek" href="/opr/pengaturan/jenis proyek" />
+					<Menu anchor="Asal Proyek" href="/opr/pengaturan/asal proyek" />
+					<Menu anchor="Kode Rekening" href="/opr/pengaturan/kode rekening" />
+					<Menu anchor="Nomor DPA" href="/opr/pengaturan/nomor dpa" />
+					<Menu anchor="Jabatan" href="/opr/pengaturan/jabatan" />
+				</Menu>
+			</Menu>
 		</Menu>
 
 		<div class="mt-auto" />
