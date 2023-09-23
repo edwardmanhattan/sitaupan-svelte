@@ -54,13 +54,17 @@
 				href="/"
 				icon="streamline:computer-database-raid-storage-code-disk-programming-database-array-hard-disc"
 			>
-				<Menu anchor="Data Master" href="/">
+				<Menu anchor="Data Master" href="/opr/pengaturan/bidang proyek">
 					<Menu anchor="Bidang Proyek" href="/opr/pengaturan/bidang proyek" />
 					<Menu anchor="Jenis Proyek" href="/opr/pengaturan/jenis proyek" />
 					<Menu anchor="Asal Proyek" href="/opr/pengaturan/asal proyek" />
 					<Menu anchor="Kode Rekening" href="/opr/pengaturan/kode rekening" />
 					<Menu anchor="Nomor DPA" href="/opr/pengaturan/nomor dpa" />
 					<Menu anchor="Jabatan" href="/opr/pengaturan/jabatan" />
+				</Menu>
+				<Menu anchor="Data User" href="/">
+					<Menu anchor="User Operator" href="/opr/pengaturan/user operator" />
+					<Menu anchor="User Mitra" href="/opr/pengaturan/user mitra" />
 				</Menu>
 			</Menu>
 		</Menu>
