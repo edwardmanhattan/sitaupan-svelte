@@ -13,6 +13,8 @@
 	export let modifier = {};
 	export let buttons = [];
 
+	console.log(data);
+
 	let searchText = '';
 	let interval = '10';
 

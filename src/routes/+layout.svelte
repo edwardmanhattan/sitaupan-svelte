@@ -5,6 +5,7 @@
 <svelte:head>
 	<title>Si Taupan</title>
 </svelte:head>
+
 <div class="bg-white-1">
 	<slot />
 </div>
