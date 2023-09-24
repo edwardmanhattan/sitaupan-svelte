@@ -10,7 +10,7 @@
 	<nav class="flex flex-col text-sm grow">
 		<Menu
 			anchor="Beranda"
-			href="/"
+			href="/opr"
 			icon="streamline:interface-home-2-door-entrance-home-house-map-roof-round"
 		/>
 		<Menu
@@ -20,20 +20,36 @@
 		>
 			<Menu
 				anchor="Penambahan DPA"
-				href="/"
+				href="/opr/dpa/penambahan"
 				icon="streamline:interface-file-clipboard-add-edit-task-edition-add-clipboard-form"
 			/>
-			<Menu anchor="Penyelesaian Proyek" href="/" icon="" />
-			<Menu anchor="Surat Pengantar" href="/" icon="" />
-			<Menu anchor="Pembayaran" href="/" icon="" />
-			<Menu anchor="Daftar Proyek" href="/" icon="" />
-			<Menu anchor="Tim Kegiatan" href="/" icon="" />
+			<Menu
+				anchor="Penyelesaian Proyek"
+				href="/opr/dpa/penyelesaian"
+				icon="streamline:interface-file-clipboard-check-checkmark-edit-task-edition-checklist-check-success-clipboard-form"
+			/>
+			<Menu
+				anchor="Tim Kegiatan"
+				href="/opr/dpa/tim"
+				icon="streamline:interface-user-multiple-close-geometric-human-multiple-person-up-user"
+			/>
 		</Menu>
 		<Menu
 			anchor="Data Files"
-			href="/"
+			href="/opr/files/bpjs"
 			icon="streamline:interface-file-folder-work-office-company-folder-supplies-file"
-		/>
+		>
+			<Menu
+				anchor="BPJS Ketenagakerjaan"
+				href="/opr/files/bpjs"
+				icon="streamline:interface-add-square-square-remove-cross-buttons-add-plus-button"
+			/>
+			<Menu
+				anchor="Daftar Hutang"
+				href="/opr/files/hutang"
+				icon="streamline:money-cash-bag-dollar-bag-payment-cash-money-finance"
+			/>
+		</Menu>
 		<Menu
 			anchor="Laporan"
 			href="/"
@@ -71,7 +87,7 @@
 
 		<div class="mt-auto" />
 
-		<Menu anchor="Logout" href="/logout" icon="mdi:logout" />
+		<Menu anchor="Logout" href="/logout" icon="basil:logout-solid" />
 	</nav>
 </div>
 

@@ -1,6 +1,6 @@
 // @ts-nocheck
 /** @type {import('./$types').PageLoad} */
-export async function load() {
+export async function load({ params }) {
 	const data = {
 		id_form: '12345',
 		bidang: 'Some Field Value',
@@ -161,6 +161,7 @@ export async function load() {
 	};
 
 	return {
-		data: data
+		data: data,
+		formulirId: params.formulirId
 	};
 }

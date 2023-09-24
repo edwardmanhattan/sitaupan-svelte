@@ -5,6 +5,8 @@
 	import Icon from '@iconify/svelte';
 	import Row from './row.svelte';
 	export let data;
+
+	const id = data.formulirId;
 	const form = data.data;
 </script>
 
