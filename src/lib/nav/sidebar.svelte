@@ -15,7 +15,7 @@
 		/>
 		<Menu
 			anchor="DPA"
-			href="/"
+			href="/opr/dpa/penambahan"
 			icon="streamline:interface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
 		>
 			<Menu

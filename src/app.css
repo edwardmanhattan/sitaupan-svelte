@@ -27,7 +27,7 @@
 	}
 
 	[type='text'].disabled {
-		@apply bg-gray-1;
+		@apply bg-gray-1 text-gray-2;
 	}
 
 	label {

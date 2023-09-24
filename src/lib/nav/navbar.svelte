@@ -18,8 +18,8 @@
 			<div>Terius Jeremiah</div>
 			<div class="text-xs">Partner</div>
 		</div>
-		<div class="cursor-pointer hover:text-blue-2">
+		<a href="/logout" class="cursor-pointer hover:text-blue-2">
 			<Icon width="24px" icon="basil:login-solid" />
-		</div>
+		</a>
 	</div>
 </div>

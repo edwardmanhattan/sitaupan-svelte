@@ -13,8 +13,6 @@
 	export let modifier = {};
 	export let buttons = [];
 
-	console.log(data);
-
 	let searchText = '';
 	let interval = '10';
 
@@ -81,7 +79,16 @@
 									{#if button.icon}
 										<Icon icon={button.icon} />
 									{/if}
-									{button.body ?? ''}
+
+									{#each button.exception ?? [] as exc}
+										{#if tr[exc.key] === exc.value}
+											{exc.body ?? ''}
+										{:else}
+											{button.body ?? ''}
+										{/if}
+									{:else}
+										{button.body ?? ''}
+									{/each}
 								</button>
 							</td>
 						{/each}

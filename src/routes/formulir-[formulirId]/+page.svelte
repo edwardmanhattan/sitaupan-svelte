@@ -4,6 +4,7 @@
 	import { indonesianMonths } from '$lib/js/datetime';
 	import Icon from '@iconify/svelte';
 	import Row from './row.svelte';
+	import { fiero } from '$lib/js/fiero';
 	export let data;
 
 	const id = data.formulirId;
@@ -15,7 +16,7 @@
 	<br />
 
 	<Row number="1" title="Nomor SPM">
-		<input type="text" bind:value={form.no_spm} />
+		<input type="text" bind:value={form.no_spm} disabled class="bg-transparent disabled" />
 	</Row>
 
 	<Row number="2" title="Tanggal Perjanjian / Kontrak / SPK">
@@ -27,7 +28,7 @@
 	</Row>
 
 	<Row number="" title="Sub Kegiatan / Pekerjaan / Uraian Pekerjaan / Nama Pekerjaan">
-		<input type="text" bind:value={form.uraian_sub_kegiatan} disabled />
+		<input type="text" bind:value={form.uraian_sub_kegiatan} disabled class="disabled" />
 	</Row>
 
 	<Row number="3" title="Nilai Kontrak">
@@ -128,11 +129,11 @@
 	</Row>
 
 	<Row number="" title="b. Tanggal Mulai">
-		<input type="text" bind:value={form.tanggal_mulai} />
+		<input type="date" bind:value={form.tanggal_mulai} />
 	</Row>
 
 	<Row number="" title="c. Tanggal Berakhir">
-		<input type="text" bind:value={form.tanggal_selesai} />
+		<input type="date" bind:value={form.tanggal_selesai} />
 	</Row>
 
 	<Row number="12" title="Nomor dan Tanggal Adendum" />
@@ -687,4 +688,19 @@
 		</tbody>
 	</table>
 	<br />
+	<br />
+
+	<button
+		on:click={async () => {
+			const res = await fiero(
+				`/mitra/pengisianFormPenyediaJasa`,
+				{ form_penyedia_jasa: JSON.stringify(form) },
+				'POST'
+			);
+
+			console.log(res);
+		}}
+	>
+		Simpan
+	</button>
 </div>

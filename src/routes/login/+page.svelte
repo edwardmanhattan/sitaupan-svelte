@@ -1,6 +1,7 @@
 <script>
 	import bg from '$lib/assets/login.webp';
 	import logo from '$lib/assets/logo.webp';
+	import { snack } from '$lib/js/vanilla';
 
 	let username = '';
 	let password = '';
@@ -30,6 +31,27 @@
 			</select>
 		</div>
 
-		<button>Masuk</button>
+		<button
+			on:click={() => {
+				if (password !== '1234') {
+					snack.info('Password Salah');
+					return;
+				}
+
+				if (role === 'operator' && username === 'leon') {
+					snack.info('Berhasil Masuk');
+					document.location.href = '/opr';
+					return;
+				} else if (role === 'mitra' && username === 'terri') {
+					snack.info('Berhasil Masuk');
+					document.location.href = '/user';
+					return;
+				} else {
+					snack.info('Terdapat Kesalahan Data');
+				}
+			}}
+		>
+			Masuk
+		</button>
 	</div>
 </div>
