@@ -49,12 +49,69 @@
 				href="/opr/files/hutang"
 				icon="streamline:money-cash-bag-dollar-bag-payment-cash-money-finance"
 			/>
+			<Menu
+				anchor="Data Aset"
+				href="/opr/files/aset/aset tetap"
+				icon="streamline:interface-align-layers-1-design-layer-layers-pile-stack"
+			>
+				<Menu anchor="Aset Tetap" href="/opr/files/aset/aset tetap" />
+				<Menu anchor="Persediaan" href="/opr/files/aset/persediaan" />
+				<Menu anchor="Berita Acara Pembayaran" href="/opr/files/aset/berita" />
+				<Menu anchor="KIB" href="/opr/files/aset/kib a">
+					<Menu anchor="KIB A" href="/opr/files/aset/kib a" />
+					<Menu anchor="KIB B" href="/opr/files/aset/kib b" />
+					<Menu anchor="KIB C" href="/opr/files/aset/kib c" />
+					<Menu anchor="KIB D" href="/opr/files/aset/kib d" />
+					<Menu anchor="KIB E" href="/opr/files/aset/kib e" />
+					<Menu anchor="KIB F" href="/opr/files/aset/kib f" />
+				</Menu>
+				<Menu anchor="Jaminan Uang Muka" href="/opr/files/aset/jaminan" />
+			</Menu>
+			<Menu
+				anchor="Inspektorat"
+				href="/opr/files/inspektorat/p3dn perencanaan"
+				icon="streamline:interface-edit-zoom-in-enhance-glass-in-magnify-magnifying-zoom"
+			>
+				<Menu anchor="P3DN (Perencanaan)" href="/opr/files/inspektorat/p3dn perencanaan" />
+				<Menu anchor="P3DN (Realisasi)" href="/opr/files/inspektorat/p3dn realisasi" />
+				<Menu anchor="Data Kontrak" href="/opr/files/inspektorat/data kontrak" />
+				<Menu anchor="Bukti Bayar" href="/opr/files/inspektorat/bukti bayar" />
+				<Menu anchor="SK" href="/opr/files/inspektorat/sk" />
+				<Menu anchor="Realisasi Keuangan" href="/opr/files/inspektorat/realisasi keuangan" />
+				<Menu anchor="Serapan Anggaran" href="/opr/files/inspektorat/serapan anggaran" />
+			</Menu>
 		</Menu>
 		<Menu
 			anchor="Laporan"
 			href="/"
 			icon="streamline:interface-edit-clip-binder-clip-clipper-company-office-supplies-work"
-		/>
+		>
+			<Menu
+				anchor="Capaian Realisasi"
+				href="/opr/laporan/capaian"
+				icon="streamline:interface-file-bookmark-text-common-bookmark"
+			/>
+			<Menu
+				anchor="Lampiran"
+				href="/opr/laporan/lampiran"
+				icon="streamline:interface-file-bookmark-text-common-bookmark"
+			/>
+			<Menu
+				anchor="Laporan BANKEU"
+				href="/opr/laporan/bankeu"
+				icon="streamline:interface-file-bookmark-text-common-bookmark"
+			/>
+			<Menu
+				anchor="Laporan DAK"
+				href="/opr/laporan/dak"
+				icon="streamline:interface-file-bookmark-text-common-bookmark"
+			/>
+			<Menu
+				anchor="Laporan DBH"
+				href="/opr/laporan/dbh"
+				icon="streamline:interface-file-bookmark-text-common-bookmark"
+			/>
+		</Menu>
 		<Menu
 			anchor="Pengaturan"
 			href="/"

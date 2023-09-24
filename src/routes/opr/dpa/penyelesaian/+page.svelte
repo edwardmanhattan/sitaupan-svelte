@@ -24,6 +24,7 @@
 	let modifier;
 	let buttons;
 
+	let selected;
 	function changeSubPage(sub) {
 		subPage = sub;
 		if (sub === 'rincian') {
@@ -42,6 +43,9 @@
 					body: 'Lihat List',
 					action: (_, obj) => {
 						if (obj.id_penyedia_jasa === 0) {
+							selected = obj;
+							console.log(obj);
+							console.log(listMitra);
 							modal.open();
 						} else {
 							changeSubPage('formulir');
@@ -135,7 +139,17 @@
 	<br />
 	<button
 		on:click={async () => {
-			const res = await fiero(`/operator/`);
+			const res = await fiero(
+				`/operator/createFormPenyediaJasa`,
+				{
+					id_mapping_dpa: selected.id,
+					id_penyedia_jasa: mitra,
+					id_jenis_penyedia_jasa: selected.id_jenis_pekerjaan
+				},
+				'POST'
+			);
+
+			console.log(res);
 		}}
 	>
 		Pilih
