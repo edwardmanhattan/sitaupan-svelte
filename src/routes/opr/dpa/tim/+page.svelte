@@ -4,16 +4,20 @@
 	import Table from '$lib/table/table.svelte';
 	import Icon from '@iconify/svelte';
 
+	export let data;
+
 	let source = fiero(`/operator/getAllTimKegiatan`);
 	let modifier = {
 		id: { show: false }
 	};
 </script>
 
-<button class="ml-auto w-fit">
-	<Icon icon="bi:plus" />
-	Tambah Tim
-</button>
+<a href="/opr/dpa/tim/add">
+	<button class="ml-auto w-fit">
+		<Icon icon="bi:plus" />
+		Tambah Tim
+	</button>
+</a>
 <br />
 
 {#await source}

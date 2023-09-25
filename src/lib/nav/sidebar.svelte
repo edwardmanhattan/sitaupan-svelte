@@ -83,7 +83,7 @@
 		</Menu>
 		<Menu
 			anchor="Laporan"
-			href="/"
+			href="/opr/laporan/capaian"
 			icon="streamline:interface-edit-clip-binder-clip-clipper-company-office-supplies-work"
 		>
 			<Menu

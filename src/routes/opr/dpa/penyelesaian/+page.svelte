@@ -6,6 +6,7 @@
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
 	import Modal from '$lib/modal/modal.svelte';
+	import { snack } from '$lib/js/vanilla.js';
 	let modal;
 
 	export let data;
@@ -139,16 +140,15 @@
 	<br />
 	<button
 		on:click={async () => {
-			const res = await fiero(
-				`/operator/createFormPenyediaJasa`,
-				{
-					id_mapping_dpa: selected.id,
-					id_penyedia_jasa: mitra,
-					id_jenis_penyedia_jasa: selected.id_jenis_pekerjaan
-				},
-				'POST'
-			);
+			const res = await fiero(`/operator/createFormPenyediaJasa`, 'POST', {
+				id_mapping_dpa: parseInt(selected.id),
+				id_penyedia_jasa: parseInt(mitra),
+				id_jenis_penyedia_jasa: parseInt(selected.id_jenis_pekerjaan)
+			});
 
+			if (res.message === 'berhasil') {
+				snack.info('Berhasil membuat formulir penyedia jasa.');
+			}
 			console.log(res);
 		}}
 	>

@@ -168,6 +168,7 @@ export async function load({ params }) {
 			(res) => res.json()
 		);
 	return {
+		// data: data,
 		data: (await form()).data,
 		formulirId: params.formulirId
 	};

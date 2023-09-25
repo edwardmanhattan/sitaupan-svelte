@@ -6,12 +6,10 @@
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
 
-	let subPage = 'formulir_baru';
+	let subPage = 'menunggu';
 	let subPages = ['formulir_baru', 'menunggu', 'selesai'];
 
-	$: source = fiero(
-		`/mitra/getListFormPenyediaJasa?id_penyedia_jasa=${$identity.id}&mode=${subPage}`
-	);
+	$: source = fiero(`/mitra/getListFormPenyediaJasa?id_penyedia_jasa=1&mode=menunggu`);
 
 	let modifier = {
 		id_form: { show: false },
@@ -19,7 +17,15 @@
 		nomor_dpa: { alias: 'Nomor DPA-SKPD/DPPA-SKPD/DPA.L-SKPD' }
 	};
 
-	let buttons = [{ head: 'Aksi', body: 'Mulai Pengisian' }];
+	let buttons = [
+		{
+			head: 'Aksi',
+			body: 'Mulai Pengisian',
+			action: (idx, obj) => {
+				document.location.href = `/formulir-${obj.id_form}`;
+			}
+		}
+	];
 
 	function changeSubPage(sub) {
 		subPage = sub;

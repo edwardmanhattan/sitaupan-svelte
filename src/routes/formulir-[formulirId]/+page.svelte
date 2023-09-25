@@ -3,8 +3,11 @@
 
 	import { indonesianMonths } from '$lib/js/datetime';
 	import Icon from '@iconify/svelte';
-	import Row from './row.svelte';
+	import Row from '$lib/table/row.svelte';
 	import { fiero } from '$lib/js/fiero';
+	import Modal from '$lib/modal/modal.svelte';
+	import { snack } from '$lib/js/vanilla.js';
+	let modal;
 	export let data;
 
 	const id = data.formulirId;
@@ -153,7 +156,7 @@
 	</Row>
 
 	<Row number="" title="b. Nilai Adendum">
-		<input type="date" bind:value={form.nilai_adendum} />
+		<input type="number" bind:value={form.nilai_adendum} />
 	</Row>
 
 	<Row number="14" title="Jangka Waktu Adendum" />
@@ -189,7 +192,7 @@
 	</Row>
 
 	<Row number="" title="c. Masa Berlaku">
-		<input type="date" bind:value={form.jaminan_pelaksanaan_masa_berlaku} />
+		<input type="number" bind:value={form.jaminan_pelaksanaan_masa_berlaku} />
 	</Row>
 
 	<Row number="16" title="Jaminan Pemeliharaan" />
@@ -203,7 +206,7 @@
 	</Row>
 
 	<Row number="" title="c. Masa Berlaku">
-		<input type="date" bind:value={form.jaminan_pemeliharaan_masa_berlaku} />
+		<input type="number" bind:value={form.jaminan_pemeliharaan_masa_berlaku} />
 	</Row>
 
 	<Row number="17" title="Metode Pengadaan">
@@ -263,7 +266,7 @@
 	</Row>
 
 	<Row number="" title="c. Masa Berlaku">
-		<input type="date" bind:value={form.jaminan_uang_muka_masa_berlaku} />
+		<input type="number" bind:value={form.jaminan_uang_muka_masa_berlaku} />
 	</Row>
 
 	<Row number="22" title="No. SPK / SPB / Nota Permintaan" />
@@ -289,7 +292,7 @@
 	</Row>
 
 	<Row number="25" title="Nama Barang">
-		<button>Buka Nota Tagihan</button>
+		<button on:click={modal.open}>Buka Nota Tagihan</button>
 	</Row>
 
 	<Row number="26" title="Kategori">
@@ -692,15 +695,117 @@
 
 	<button
 		on:click={async () => {
-			const res = await fiero(
-				`/mitra/pengisianFormPenyediaJasa`,
-				{ form_penyedia_jasa: JSON.stringify(form) },
-				'POST'
-			);
+			const res = await fiero(`/mitra/pengisianFormPenyediaJasa`, 'POST', {
+				form_penyedia_jasa: JSON.stringify(form)
+			});
 
-			console.log(res);
+			if (res.message === 'berhasil') {
+				snack.info('Berhasil menyimpan');
+			}
 		}}
 	>
 		Simpan
 	</button>
 </div>
+
+<Modal bind:this={modal}>
+	<h1>Penambahan Invoice</h1>
+	<br />
+
+	<Row number="none" title="ID Nota">
+		<input type="text" bind:value={form.nota_tagihan.id_nota} />
+	</Row>
+
+	<Row number="none" title="Tanggal">
+		<input type="date" bind:value={form.nota_tagihan.tanggal_nota} />
+	</Row>
+
+	<Row number="none" title="Nama Toko">
+		<input type="text" bind:value={form.nota_tagihan.nama_toko} />
+	</Row>
+
+	<Row number="none" title="Rincian Data">
+		<input type="text" bind:value={form.nota_tagihan.rincian_data} />
+	</Row>
+
+	<Row number="none" title="Detail Pembelian">
+		<button
+			on:click={() => {
+				form.nota_tagihan.detail_pembelian = [
+					...form.nota_tagihan.detail_pembelian,
+					{
+						uraian: '',
+						harga: '',
+						jumlah_barang: 0,
+						total: 0
+					}
+				];
+			}}
+			class="ml-auto w-fit"
+		>
+			<Icon icon="bi:plus" />
+			Tambah
+		</button>
+	</Row>
+
+	<table>
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>Uraian</th>
+				<th>Harga</th>
+				<th>Jumlah Barang</th>
+				<th>Total</th>
+				<th>Aksi</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each form.nota_tagihan.detail_pembelian as det, i (i)}
+				<tr>
+					<td>{i + 1}</td>
+					<td><input type="text" bind:value={det.uraian} /></td>
+					<td>
+						<input
+							type="number"
+							bind:value={det.harga}
+							on:change={() => {
+								det.total = det.harga * det.jumlah_barang;
+							}}
+						/>
+					</td>
+					<td>
+						<input
+							type="number"
+							bind:value={det.jumlah_barang}
+							on:change={() => {
+								det.total = det.harga * det.jumlah_barang;
+							}}
+						/>
+					</td>
+					<td>
+						<input
+							type="number"
+							bind:value={det.total}
+							on:change={() => {
+								det.harga = det.total / det.jumlah_barang;
+							}}
+						/>
+					</td>
+					<td>
+						<button
+							on:click={() => {
+								form.nota_tagihan.detail_pembelian = form.nota_tagihan.detail_pembelian.filter(
+									(_, idx) => idx !== i
+								);
+							}}
+							class="bg-red-600"
+						>
+							<Icon icon="bi:trash" />
+						</button>
+					</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+	<br />
+</Modal>
