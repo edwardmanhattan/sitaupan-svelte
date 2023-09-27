@@ -19,7 +19,7 @@ export class Pagination {
 	}
 
 	getCurrentPage() {
-		return this.page + 1;
+		return this.root.length === 0 ? 0 : this.page + 1;
 	}
 
 	prev() {

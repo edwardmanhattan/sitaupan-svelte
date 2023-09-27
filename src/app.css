@@ -26,8 +26,8 @@
 		@apply rounded;
 	}
 
-	[type='text'].disabled {
-		@apply bg-gray-1 text-gray-2;
+	input:disabled {
+		@apply bg-slate-200 text-slate-900;
 	}
 
 	label {

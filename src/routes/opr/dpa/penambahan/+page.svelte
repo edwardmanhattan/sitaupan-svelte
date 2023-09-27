@@ -8,6 +8,11 @@
 	import { fiero } from '$lib/js/fiero';
 	import { formatTitle } from '$lib/js/string';
 	import { setModifierHidden, setModifierShown } from '$lib/js/modifier';
+	import Row from '$lib/table/row.svelte';
+	import Select from '$lib/table/select.svelte';
+
+	export let data;
+	const { barebone, dpa, bidang, jenis } = data;
 
 	let modal;
 
@@ -81,7 +86,7 @@
 	}
 </script>
 
-<div class="flex items-center justify-between">
+<div class="flex items-center justify-between mb-2">
 	<div class="flex items-center gap-2">
 		{#each subPages as sub}
 			<button
@@ -98,7 +103,7 @@
 	<div>
 		<button on:click={modal.open}>
 			<Icon icon="bi:plus" />
-			Tambah Program
+			Tambah {formatTitle(subPage)}
 		</button>
 	</div>
 </div>
@@ -112,6 +117,125 @@
 {/await}
 
 <Modal bind:this={modal}>
-	<div>Say Something</div>
+	<h1>Tambah {formatTitle(subPage)}</h1>
+	<br />
+
+	{#if subPage === 'program'}
+		<Row number="1" title="Nomor DPA">
+			<Select
+				bind:key={barebone.program.nomor_dpa}
+				data={dpa}
+				config={{ key: 'nomor_dpa', title: 'nomor_dpa' }}
+				onChange={() => {
+					barebone.program.tanggal_dpa =
+						dpa.find((d) => d.nomor_dpa === barebone.program.nomor_dpa)?.tanggal_dpa ?? '';
+				}}
+			/>
+		</Row>
+
+		<Row number="" title="Tanggal DPA">
+			<input type="date" bind:value={barebone.program.tanggal_dpa} disabled class="disabled" />
+		</Row>
+
+		<Row number="2" title="Bidang">
+			<Select
+				bind:key={barebone.program.bidang}
+				data={bidang}
+				config={{ key: 'id', title: 'nama_bidang' }}
+			/>
+		</Row>
+
+		<Row number="3" title="Kode Rekening & Uraian Program">
+			<svelte:fragment>
+				<input type="text" bind:value={barebone.program.kode_rekening} />
+				<span>/</span>
+				<input type="text" bind:value={barebone.program.uraian_program} />
+			</svelte:fragment>
+		</Row>
+
+		<Row number="4" title="Anggaran Program">
+			<input type="text" bind:value={barebone.program.anggaran} />
+		</Row>
+	{:else if subPage === 'kegiatan'}
+		<Row number="1" title="Kode Rekening Program">
+			{#await source then data}
+				<Select
+					bind:key={barebone.kegiatan.kode_rekening_program}
+					{data}
+					config={{ key: 'kode_rek_program', title: 'kode_rek_program' }}
+				/>
+			{/await}
+		</Row>
+
+		<Row number="2" title="Kode Rekening & Uraian Kegiatan">
+			<svelte:fragment>
+				<input type="text" bind:value={barebone.kegiatan.kode_rekening} />
+				<span>/</span>
+				<input type="text" bind:value={barebone.kegiatan.uraian} />
+			</svelte:fragment>
+		</Row>
+
+		<Row number="3" title="Anggaran Kegiatan">
+			<input type="number" bind:value={barebone.kegiatan.anggaran} />
+		</Row>
+	{:else if subPage === 'sub_kegiatan'}
+		<Row number="1" title="Kode Rekening Kegiatan">
+			{#await source then data}
+				<Select
+					bind:key={barebone.sub_kegiatan.kode_rekening_kegiatan}
+					{data}
+					config={{ key: 'kode_rek_kegiatan', title: 'kode_rek_kegiatan' }}
+				/>
+			{/await}
+		</Row>
+
+		<Row number="2" title="Kode Rekening & Uraian Sub Kegiatan">
+			<svelte:fragment>
+				<input type="text" bind:value={barebone.sub_kegiatan.kode_rekening} />
+				<span>/</span>
+				<input type="text" bind:value={barebone.sub_kegiatan.uraian} />
+			</svelte:fragment>
+		</Row>
+
+		<Row number="3" title="Anggaran Sub Kegiatan">
+			<input type="number" bind:value={barebone.sub_kegiatan.anggaran} />
+		</Row>
+	{:else}
+		<Row number="1" title="Kode Rekening Sub Kegiatan">
+			{#await source then data}
+				<Select
+					bind:key={barebone.rincian.kode_rekening_sub_kegiatan}
+					{data}
+					config={{ key: 'kode_rek_sub_kegiatan', title: 'kode_rek_sub_kegiatan' }}
+				/>
+			{/await}
+		</Row>
+
+		<Row number="2" title="Jenis Kegiatan">
+			<Select
+				bind:key={barebone.rincian.jenis_pekerjaan}
+				data={jenis}
+				config={{ key: 'id', title: 'jenis_proyek' }}
+			/>
+		</Row>
+
+		<Row number="3" title="Kode Rekening & Uraian Rincian  Sub Kegiatan">
+			<svelte:fragment>
+				<input type="text" bind:value={barebone.rincian.kode_rekening} />
+				<span>/</span>
+				<input type="text" bind:value={barebone.rincian.uraian} />
+			</svelte:fragment>
+		</Row>
+
+		<Row number="4" title="Anggaran Rincian Sub Kegiatan">
+			<input type="number" bind:value={barebone.rincian.anggaran} />
+		</Row>
+
+		<Row number="5" title="Keterangan Rincian Sub Kegiatan">
+			<textarea bind:value={barebone.rincian.keterangan} />
+		</Row>
+	{/if}
+
+	<br />
 	<button>Simpan</button>
 </Modal>

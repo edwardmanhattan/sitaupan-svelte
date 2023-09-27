@@ -13,8 +13,6 @@
 	export let modifier = {};
 	export let buttons = [];
 
-	console.log(data);
-
 	let searchText = '';
 	let interval = '10';
 
@@ -26,6 +24,18 @@
 		pageNum: { alias: 'No', show: true, export: true },
 		...modifier
 	});
+
+	///////////////////////////////////////////////////////////
+
+	function prev() {
+		display = page.prev();
+		currentPage = page.getCurrentPage();
+	}
+
+	function next() {
+		display = page.next();
+		currentPage = page.getCurrentPage();
+	}
 </script>
 
 <div>
@@ -59,7 +69,9 @@
 				{#each display as tr}
 					<tr>
 						{#each shownKeyModifier(keyModifier) as key}
-							{#if keyModifier[key].type === 'datetime'}
+							{#if key === 'pageNum'}
+								<td class="text-center">{tr[key]}</td>
+							{:else if keyModifier[key].type === 'datetime'}
 								<td>{formatFullDate(tr[key])}</td>
 							{:else if keyModifier[key].type === 'currency'}
 								<td>{rupiah(tr[key])}</td>
@@ -96,38 +108,31 @@
 						{/each}
 					</tr>
 				{:else}
-					<tr class="border border-gray-1">
-						<td class="border-0">Tidak ada data.</td>
+					<tr class="text-center border border-gray-1">
+						<td colspan={shownKeyModifier(keyModifier).length + buttons.length} class="border-0">
+							Tidak ada data.
+						</td>
 					</tr>
 				{/each}
 			</tbody>
 		</table>
 	</div>
-	<div class="flex mt-2">
+
+	<div class="flex items-center px-2 mt-2 text-sm">
 		<div class="flex items-center">
-			<button
-				on:click={() => {
-					display = page.prev();
-					currentPage = page.getCurrentPage();
-				}}
-			>
-				<Icon icon="material-symbols:arrow-left" />
+			<button class="bg-transparent rounded-none text-slate-950 rounded-s" on:click={prev}>
+				<Icon width="20px" icon="basil:caret-left-solid" />
 			</button>
 
-			<button
-				on:click={() => {
-					display = page.next();
-					currentPage = page.getCurrentPage();
-				}}
-			>
-				<Icon icon="material-symbols:arrow-right" />
+			<button class="bg-transparent rounded-none text-slate-950 rounded-e" on:click={next}>
+				<Icon width="20px" icon="basil:caret-right-solid" />
 			</button>
 		</div>
 		<div class="ml-2">
-			menampilkan {display.length} dari {page.root.length} data
+			{display.length} dari {page.root.length} data
 		</div>
 		<div class="ml-auto">
-			halaman {currentPage} dari {page.pageLength + 1}
+			{currentPage} dari {page.pageLength + 1} halaman
 		</div>
 	</div>
 </div>

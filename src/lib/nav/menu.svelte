@@ -7,29 +7,24 @@
 	export let href;
 
 	let open = false;
+	function hover() {
+		open = !open;
+	}
+	function goToHref() {
+		document.location.href = href;
+	}
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	on:mouseenter={() => {
-		open = !open;
-	}}
-	on:mouseleave={() => {
-		open = !open;
-	}}
+	on:mouseenter={hover}
+	on:mouseleave={hover}
 	class="relative border-b border-b-white/30 bg-black-1 hover:bg-blue-2/80 hover:border-white"
 >
-	<div
-		on:click|stopPropagation={() => {
-			document.location.href = href;
-		}}
-		class="menu"
-	>
+	<div on:click|stopPropagation={goToHref} class="menu">
 		{#if icon !== ''}
-			<div>
-				<Icon width="18px" {icon} />
-			</div>
+			<Icon width="18px" {icon} />
 		{:else}
 			<div />
 		{/if}
