@@ -2,7 +2,7 @@
 	// @ts-nocheck
 
 	import Row from '$lib/table/row.svelte';
-	import Select from '$lib/table/select.svelte';
+	import Select from '$lib/form/select.svelte';
 	import Icon from '@iconify/svelte';
 	export let data;
 	let { form, bidang, operator, kegiatan } = data;

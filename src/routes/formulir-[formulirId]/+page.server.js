@@ -167,6 +167,7 @@ export async function load({ params }) {
 		await fetch(config.api + `/mitra/getFormPenyediaJasaById?id_form=${params.formulirId}`).then(
 			(res) => res.json()
 		);
+
 	return {
 		// data: data,
 		data: (await form()).data,

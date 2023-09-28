@@ -9,7 +9,7 @@
 	import { formatTitle } from '$lib/js/string';
 	import { setModifierHidden, setModifierShown } from '$lib/js/modifier';
 	import Row from '$lib/table/row.svelte';
-	import Select from '$lib/table/select.svelte';
+	import Select from '$lib/form/select.svelte';
 	import Currency from '$lib/form/currency.svelte';
 
 	export let data;
@@ -155,7 +155,7 @@
 		</Row>
 
 		<Row number="4" title="Anggaran Program">
-			<input type="text" bind:value={barebone.program.anggaran} />
+			<Currency bind:value={barebone.program.anggaran} />
 		</Row>
 	{:else if subPage === 'kegiatan'}
 		<Row number="1" title="Kode Rekening Program">
@@ -177,7 +177,7 @@
 		</Row>
 
 		<Row number="3" title="Anggaran Kegiatan">
-			<input type="number" bind:value={barebone.kegiatan.anggaran} />
+			<Currency bind:value={barebone.kegiatan.anggaran} />
 		</Row>
 	{:else if subPage === 'sub_kegiatan'}
 		<Row number="1" title="Kode Rekening Kegiatan">
@@ -199,7 +199,7 @@
 		</Row>
 
 		<Row number="3" title="Anggaran Sub Kegiatan">
-			<input type="number" bind:value={barebone.sub_kegiatan.anggaran} />
+			<Currency bind:value={barebone.sub_kegiatan.anggaran} />
 		</Row>
 	{:else}
 		<Row number="1" title="Kode Rekening Sub Kegiatan">
@@ -230,7 +230,6 @@
 
 		<Row number="4" title="Anggaran Rincian Sub Kegiatan">
 			<Currency bind:value={barebone.rincian.anggaran} />
-			<!-- <input type="number" bind:value={barebone.rincian.anggaran} /> -->
 		</Row>
 
 		<Row number="5" title="Keterangan Rincian Sub Kegiatan">

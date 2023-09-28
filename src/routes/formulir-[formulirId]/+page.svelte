@@ -7,6 +7,7 @@
 	import { fiero } from '$lib/js/fiero';
 	import Modal from '$lib/modal/modal.svelte';
 	import { snack } from '$lib/js/vanilla.js';
+	import Currency from '$lib/form/currency.svelte';
 	let modal;
 	export let data;
 
@@ -35,7 +36,7 @@
 	</Row>
 
 	<Row number="3" title="Nilai Kontrak">
-		<input type="text" bind:value={form.nilai_kontrak} />
+		<Currency bind:value={form.nilai_kontrak} />
 	</Row>
 
 	<Row number="4" title="Lokasi / Alamat Kegiatan">
@@ -88,12 +89,12 @@
 		number="9"
 		title="Nilai Permohonan Pembayaran / Nilai Realisasi / Realisasi Keuangan / Sub Total Harga / Pembayaran / Pembayaran Saat Ini / Total Realisasi Sampai Saat Ini"
 	>
-		<input type="text" bind:value={form.nilai_permohonan} />
+		<Currency bind:value={form.nilai_permohonan} />
 	</Row>
 
 	<Row number="" title="a. Realisasi Keuangan / Persen Keuangan">
 		<svelte:fragment>
-			<input type="text" bind:value={form.realisasi_keuangan} />
+			<Currency bind:value={form.realisasi_keuangan} />
 			<span class="mx-auto">/</span>
 			<div class="flex items-center gap-2">
 				<input type="text" bind:value={form.presentase_keuangan} />
@@ -104,7 +105,7 @@
 
 	<Row number="" title="b. Realisasi Fisik / Persen Fisik">
 		<svelte:fragment>
-			<input type="text" bind:value={form.realisasi_fisik} />
+			<Currency bind:value={form.realisasi_fisik} />
 			<span class="mx-auto">/</span>
 			<div class="flex items-center gap-2">
 				<input type="text" bind:value={form.presentase_fisik} />
@@ -188,7 +189,7 @@
 	</Row>
 
 	<Row number="" title="b. Nilai">
-		<input type="text" bind:value={form.jaminan_pelaksanaan_nilai} />
+		<Currency bind:value={form.jaminan_pelaksanaan_nilai} />
 	</Row>
 
 	<Row number="" title="c. Masa Berlaku">
@@ -202,7 +203,7 @@
 	</Row>
 
 	<Row number="" title="b. Nilai">
-		<input type="text" bind:value={form.jaminan_pemeliharaan_nilai} />
+		<Currency bind:value={form.jaminan_pemeliharaan_nilai} />
 	</Row>
 
 	<Row number="" title="c. Masa Berlaku">
@@ -234,7 +235,7 @@
 	</Row>
 
 	<Row number="" title="c. Nilai">
-		<input type="text" bind:value={form.bast_nilai} />
+		<Currency bind:value={form.bast_nilai} />
 	</Row>
 
 	<Row number="20" title="Tanggal PHO dan FHO" />
@@ -262,7 +263,7 @@
 	</Row>
 
 	<Row number="" title="b. Nilai">
-		<input type="text" bind:value={form.jaminan_uang_muka_nilai} />
+		<Currency bind:value={form.jaminan_uang_muka_nilai} />
 	</Row>
 
 	<Row number="" title="c. Masa Berlaku">
@@ -365,7 +366,7 @@
 					<td> <input type="text" bind:value={key.kode_barang} /></td>
 					<td> <input type="text" bind:value={key.nama_barang} /></td>
 					<td> <input type="text" bind:value={key.luas} /></td>
-					<td> <input type="text" bind:value={key.harga} /></td>
+					<td> <Currency bind:value={key.harga} /></td>
 					<td> <input type="text" bind:value={key.keterangan} /></td>
 					<td>
 						<div class="flex items-center gap-2">
@@ -765,11 +766,10 @@
 					<td>{i + 1}</td>
 					<td><input type="text" bind:value={det.uraian} /></td>
 					<td>
-						<input
-							type="number"
+						<Currency
 							bind:value={det.harga}
-							on:change={() => {
-								det.total = det.harga * det.jumlah_barang;
+							onChange={() => {
+								det.total = parseFloat(det.harga) * det.jumlah_barang;
 							}}
 						/>
 					</td>
@@ -778,16 +778,15 @@
 							type="number"
 							bind:value={det.jumlah_barang}
 							on:change={() => {
-								det.total = det.harga * det.jumlah_barang;
+								det.total = parseFloat(det.harga) * det.jumlah_barang;
 							}}
 						/>
 					</td>
 					<td>
-						<input
-							type="number"
+						<Currency
 							bind:value={det.total}
-							on:change={() => {
-								det.harga = det.total / det.jumlah_barang;
+							onChange={() => {
+								det.harga = parseFloat(det.total) / det.jumlah_barang;
 							}}
 						/>
 					</td>
