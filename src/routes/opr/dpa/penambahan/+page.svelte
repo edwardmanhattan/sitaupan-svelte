@@ -10,6 +10,7 @@
 	import { setModifierHidden, setModifierShown } from '$lib/js/modifier';
 	import Row from '$lib/table/row.svelte';
 	import Select from '$lib/table/select.svelte';
+	import Currency from '$lib/form/currency.svelte';
 
 	export let data;
 	const { barebone, dpa, bidang, jenis } = data;
@@ -228,7 +229,8 @@
 		</Row>
 
 		<Row number="4" title="Anggaran Rincian Sub Kegiatan">
-			<input type="number" bind:value={barebone.rincian.anggaran} />
+			<Currency bind:value={barebone.rincian.anggaran} />
+			<!-- <input type="number" bind:value={barebone.rincian.anggaran} /> -->
 		</Row>
 
 		<Row number="5" title="Keterangan Rincian Sub Kegiatan">
