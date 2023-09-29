@@ -34,6 +34,7 @@ export const getMonthNow = () => {
 	}
 };
 
+// 12 Agustus 2023
 export function formatFullDate(date = getTodayDate()) {
 	return new Intl.DateTimeFormat('id-ID', {
 		day: 'numeric',

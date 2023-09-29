@@ -2,7 +2,8 @@
 	// @ts-nocheck
 	import { numeric, rupiah } from '$lib/js/currency';
 
-	export let value = 0;
+	export let value;
+	value ??= 0;
 
 	let display = rupiah(value);
 	$: value = numeric(display);
