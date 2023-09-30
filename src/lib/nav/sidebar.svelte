@@ -31,7 +31,7 @@
 			<Menu
 				anchor="Daftar Proyek"
 				href="/opr/dpa/daftar"
-				icon="streamline:interfaceinterface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
+				icon="streamline:interface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
 			/>
 			<Menu
 				anchor="Tim Kegiatan"

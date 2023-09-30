@@ -112,7 +112,7 @@
 {#await source}
 	<Skeleton />
 {:then data}
-	<Table {data} {modifier} {buttons} {elements} />
+	<Table {data} {modifier} {buttons} />
 {:catch err}
 	<div>{err}</div>
 {/await}
