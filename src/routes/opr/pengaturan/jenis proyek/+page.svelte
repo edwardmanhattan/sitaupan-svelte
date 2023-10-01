@@ -2,6 +2,7 @@
 	// @ts-nocheck
 
 	import { fiero } from '$lib/js/fiero';
+	import { snack } from '$lib/js/vanilla';
 	import Modal from '$lib/modal/modal.svelte';
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
@@ -16,11 +17,20 @@
 
 	let buttons = [
 		{
-			head: 'Edit',
-			icon: 'mdi:pencil',
-			action: (id, obj) => {
-				selected = obj;
-				modal.open();
+			head: 'Aksi',
+			icon: 'basil:trash-solid',
+			color: 'rose-700',
+			action: (id) => {
+				snack.confirm(
+					'Anda akan menghapus jenis proyek ini secara permanen. Lanjutkan?',
+					async () => {
+						const res = await fiero(`/operator/deleteJenisProyek`, 'POST', { id: id });
+						if (res.status === 200) {
+							snack.info('Berhasil menghapus jenis proyek.');
+							source = fiero(`/operator/getAllJenisProyek`);
+						}
+					}
+				);
 			}
 		}
 	];
@@ -60,5 +70,16 @@
 
 	<br />
 	<br />
-	<button>Simpan</button>
+	<button
+		on:click={async () => {
+			const res = await fiero(`/operator/insertJenisProyek`, 'POST', selected);
+			if (res.status === 200) {
+				snack.info('Berhasil menambah jenis proyek baru.');
+				source = fiero(`/operator/getAllJenisProyek`);
+				modal.close();
+			}
+		}}
+	>
+		Simpan
+	</button>
 </Modal>

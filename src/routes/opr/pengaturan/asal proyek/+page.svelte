@@ -2,6 +2,7 @@
 	// @ts-nocheck
 
 	import { fiero } from '$lib/js/fiero';
+	import { snack } from '$lib/js/vanilla';
 	import Modal from '$lib/modal/modal.svelte';
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
@@ -16,11 +17,20 @@
 
 	let buttons = [
 		{
-			head: 'Edit',
+			head: 'Aksi',
 			icon: 'mdi:pencil',
-			action: (id, obj) => {
-				selected = obj;
-				modal.open();
+			color: 'rose-700',
+			action: (id) => {
+				snack.confirm(
+					'Anda akan menghapus asal proyek ini secara permanen. Lanjutkan?',
+					async () => {
+						const res = await fiero(`/operator/deleteAsalProyek`, 'POST', { id: id });
+						if (res.status === 200) {
+							snack.info('Berhasil menghapus asal proyek.');
+							source = fiero(`/operator/getAllAsalProyek`);
+						}
+					}
+				);
 			}
 		}
 	];
@@ -33,7 +43,7 @@
 	<div>
 		<button
 			on:click={() => {
-				selected = { asal_proyek: '' };
+				selected = { asal: '' };
 				modal.open();
 			}}
 		>
@@ -56,9 +66,20 @@
 	<h1 class="w-96">Asal Proyek</h1>
 
 	<label>Asal</label>
-	<input type="text" bind:value={selected.asal_proyek} />
+	<input type="text" bind:value={selected.asal} />
 
 	<br />
 	<br />
-	<button>Simpan</button>
+	<button
+		on:click={async () => {
+			const res = await fiero(`/operator/insertAsalProyek`, 'POST', selected);
+			if (res.status === 200) {
+				snack.info('Berhasil menambah asal proyek baru.');
+				source = fiero(`/operator/getAllAsalProyek`);
+				modal.close();
+			}
+		}}
+	>
+		Simpan
+	</button>
 </Modal>

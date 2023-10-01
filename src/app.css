@@ -59,3 +59,154 @@
 		@apply bg-blue-1/80;
 	}
 }
+
+/* width */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #cbcbcb;
+	border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+/*///////////////////////////////////////*/
+
+@keyframes fadeIn {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes drawerIn {
+	from {
+		left: 100%;
+		right: unset;
+	}
+	to {
+		right: 0;
+		left: unset;
+	}
+}
+
+@keyframes drawerOut {
+	from {
+		right: 0;
+		left: unset;
+	}
+	to {
+		left: 100%;
+		right: unset;
+	}
+}
+
+@keyframes pulsating {
+	0% {
+		background-color: rgba(114, 114, 114, 0);
+	}
+	50% {
+		background-color: rgba(114, 114, 114, 0.3);
+	}
+	100% {
+		background-color: rgba(114, 114, 114, 0);
+	}
+}
+
+/* //////////////////////////////////////// */
+
+#info-bar {
+	visibility: hidden;
+	min-width: 250px;
+	margin-left: -125px;
+	padding: 6px 16px;
+	background-color: rgba(199, 191, 191, 0.8);
+	color: rgb(33, 33, 33);
+	text-align: center;
+	font-size: 0.85rem;
+	border-radius: 15px;
+	position: fixed;
+	z-index: 1000000;
+	left: 50%;
+	bottom: 30px;
+	font-size: var(--s1);
+}
+
+#info-bar.show {
+	visibility: visible;
+	-webkit-animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+	animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+}
+
+/*///////////////////////////////////////*/
+
+#confirm-bar-wrapper {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10000000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(234, 234, 234, 0.5);
+}
+
+#confirm-bar {
+	padding: 12px 18px;
+	font-size: 1rem;
+	border-radius: 12px;
+	position: absolute;
+	bottom: 10%;
+	border: 1px solid white;
+	background-color: rgba(199, 191, 191, 0.8);
+	color: rgb(33, 33, 33);
+}
+
+#confirm-bar .core-click {
+	font-size: 0.85rem;
+	padding: 2px 8px;
+	border-radius: 3px;
+}
+
+#confirm-bar .core-click:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+#confirm-yes-button:hover {
+	background-color: rgba(86, 178, 128, 0.5);
+}
+
+#confirm-no-button:hover {
+	background-color: rgba(189, 56, 44, 0.5);
+}

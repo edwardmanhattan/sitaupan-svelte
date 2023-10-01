@@ -82,11 +82,13 @@
 						{#each buttons as button}
 							<td>
 								<button
-									class="px-4 mx-auto w-fit"
+									class="px-4 mx-auto w-fit bg-{button.color ?? 'blue-2'}"
 									on:click={() => {
 										button.action(
 											tr[button.idKey ?? 'id'],
-											display.find((obj) => obj[button.idKey ?? 'id'] === tr[button.idKey ?? 'id'])
+											display.find((obj) => obj[button.idKey ?? 'id'] === tr[button.idKey ?? 'id']),
+											display,
+											tr
 										);
 									}}
 								>

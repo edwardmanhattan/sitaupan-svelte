@@ -2,19 +2,28 @@
 	// @ts-nocheck
 	import { rupiah } from '$lib/js/currency.js';
 	import { formatFullDate } from '$lib/js/datetime.js';
+	import { fiero } from '$lib/js/fiero.js';
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { Pagination } from '$lib/js/pagination.js';
 	import { searchEachText } from '$lib/js/search.js';
+	import { snack } from '$lib/js/vanilla.js';
 	import Icon from '@iconify/svelte';
 
 	export let data;
 
-	const { _data = [], modifier = {} } = data;
+	let { _data = [], modifier = {} } = data;
+
+	_data = _data.map((obj) => ({ ...obj, edit_spm: false }));
 
 	let searchText = '';
 	let interval = '10';
 
-	$: page = new Pagination(searchEachText(_data, searchText), parseInt(interval));
+	let shakeUp = true;
+	let page;
+
+	$: if (shakeUp) {
+		page = new Pagination(searchEachText(_data, searchText), parseInt(interval));
+	}
 	$: display = page.chop();
 	$: currentPage = page.getCurrentPage();
 
@@ -59,10 +68,15 @@
 					{:else}
 						<div />
 					{/each}
+
+					<th>Detail Kontrak</th>
+					<th>Surat Pengantar</th>
+					<th>Surat Bukti</th>
+					<th>Nomor SPM</th>
 				</tr>
 			</thead>
 			<tbody>
-				{#each display as tr}
+				{#each display as tr (tr.id_form)}
 					<tr>
 						{#each shownKeyModifier(keyModifier) as key}
 							{#if key === 'pageNum'}
@@ -75,10 +89,70 @@
 								<td>{tr[key]}</td>
 							{/if}
 						{/each}
+
+						<td class="w-32">
+							<button>Detail Kontrak</button>
+						</td>
+
+						<td class="w-32">
+							<button>Lihat Surat</button>
+						</td>
+
+						<td class="w-32">
+							<button>Lihat Surat</button>
+						</td>
+
+						<td class="w-64">
+							<div class="flex items-center gap-2">
+								{#if !tr.edit_spm}
+									<div class="text-center grow">{tr.nomor_spm}</div>
+									<button
+										on:click={() => {
+											if (!display.find((x) => x.edit_spm)) {
+												shakeUp = false;
+												tr.edit_spm = true;
+											} else snack.info('masih ada kolom edit yang aktif');
+										}}
+										class="p-1 w-fit"
+									>
+										<Icon width="18px" icon="basil:edit-outline" />
+									</button>
+								{:else}
+									<input type="text" bind:value={tr.nomor_spm} />
+									<button
+										on:click={() => {
+											tr.edit_spm = false;
+											shakeUp = true;
+										}}
+										class="p-1 w-fit bg-rose-700"
+									>
+										<Icon width="18px" icon="basil:cancel-outline" />
+									</button>
+									<button
+										on:click={async () => {
+											await fiero(`/operator/updateNomorSPM`, 'POST', {
+												id_formulir: tr.id_form,
+												nomor_spm: parseInt(tr.nomor_spm)
+											}).then((res) => {
+												const origin = _data.find((x) => x.id_form === tr.id_form);
+												origin.nomor_spm = tr.nomor_spm;
+												tr.edit_spm = false;
+												shakeUp = true;
+
+												snack.info('Berhasil mengubah Nomor SPM');
+											});
+										}}
+										class="p-1 w-fit bg-emerald-600"
+									>
+										<Icon width="18px" icon="basil:checked-box-outline" />
+									</button>
+								{/if}
+							</div>
+						</td>
 					</tr>
 				{:else}
 					<tr class="text-center border border-gray-1">
-						<td colspan={shownKeyModifier(keyModifier).length} class="border-0">
+						<td colspan={shownKeyModifier(keyModifier).length + 4} class="border-0">
 							Tidak ada data.
 						</td>
 					</tr>
