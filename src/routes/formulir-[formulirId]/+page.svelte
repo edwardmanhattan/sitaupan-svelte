@@ -351,7 +351,6 @@
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Kode Barang</th>
 				<th>Nama / Jenis Barang</th>
 				<th>Luas</th>
 				<th>Harga</th>
@@ -363,7 +362,6 @@
 			{#each form.kib_a as key, i (i)}
 				<tr>
 					<td>{i + 1}</td>
-					<td> <input type="text" bind:value={key.kode_barang} /></td>
 					<td> <input type="text" bind:value={key.nama_barang} /></td>
 					<td> <input type="text" bind:value={key.luas} /></td>
 					<td> <Currency bind:value={key.harga} /></td>
@@ -761,7 +759,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each form.nota_tagihan.detail_pembelian as det, i (i)}
+			{#each form.nota_tagihan?.detail_pembelian ?? [] as det, i (i)}
 				<tr>
 					<td>{i + 1}</td>
 					<td><input type="text" bind:value={det.uraian} /></td>

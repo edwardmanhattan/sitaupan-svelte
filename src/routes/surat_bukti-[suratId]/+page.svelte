@@ -12,7 +12,7 @@
 </script>
 
 <div class="h-screen px-24 py-12 overflow-auto">
-	<div class="w-[21cm] px-[2cm] pb-[2.54cm]">
+	<div class="w-[21cm] px-[2cm] pb-[2.54cm] border border-black">
 		<Kop />
 
 		<Row number="1" title="Kode Rekening">
@@ -59,7 +59,7 @@
 
 		<div class="flex items-center justify-between">
 			<div>
-				Terbilang {terbilang(form.nilai)} Rupiah
+				Terbilang {terbilang(0)} Rupiah
 			</div>
 
 			<div class="text-center">
@@ -129,7 +129,7 @@
 		}
 
 		* {
-			@apply font-times;
+			/* @apply font-times; */
 		}
 
 		h1,

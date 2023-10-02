@@ -6,10 +6,10 @@
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
 
-	let subPage = 'menunggu';
+	let subPage = 'formulir_baru';
 	let subPages = ['formulir_baru', 'menunggu', 'selesai'];
 
-	$: source = fiero(`/mitra/getListFormPenyediaJasa?id_penyedia_jasa=1&mode=menunggu`);
+	$: source = fiero(`/mitra/getListFormPenyediaJasa?id_penyedia_jasa=1&mode=${subPage}`);
 
 	let modifier = {
 		id_form: { show: false },
@@ -29,6 +29,18 @@
 
 	function changeSubPage(sub) {
 		subPage = sub;
+
+		if (subPage === 'formulir_baru') {
+			buttons = [
+				{
+					head: 'Aksi',
+					body: 'Mulai Pengisian',
+					action: (idx, obj) => {
+						document.location.href = `/formulir-${obj.id_form}`;
+					}
+				}
+			];
+		}
 	}
 </script>
 

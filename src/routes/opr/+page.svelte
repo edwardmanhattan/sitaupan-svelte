@@ -13,9 +13,9 @@
 		{/each}
 	{:then data}
 		{#each data as d}
-			<div class="rounded bg-blue-1">
+			<div class="rounded bg-slate-300">
 				<div
-					class="grid h-20 p-2 text-sm font-semibold text-center rounded-t bg-blue-2 place-items-center"
+					class="grid h-20 text-white p-2 text-sm font-semibold text-center rounded-t bg-blue-2 place-items-center"
 				>
 					{d.tipe_kotak}
 				</div>

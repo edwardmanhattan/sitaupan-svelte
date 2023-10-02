@@ -16,8 +16,8 @@
 	let subPage = 'rincian';
 	let subPages = ['rincian', 'formulir'];
 
-	let mode = 'menunggu';
-	let modes = ['on_progress', 'menunggu', 'approved'];
+	let mode = 'formulir_baru';
+	let modes = ['formulir_baru', 'menunggu', 'approved'];
 
 	let sourceApi = `/operator/getListRincianSubKegiatanFormulir`;
 	$: source = fiero(sourceApi);
@@ -45,8 +45,6 @@
 					action: (_, obj) => {
 						if (obj.id_penyedia_jasa === 0) {
 							selected = obj;
-							console.log(obj);
-							console.log(listMitra);
 							modal.open();
 						} else {
 							changeSubPage('formulir');
@@ -62,6 +60,29 @@
 				no_spm: { alias: 'Nomor SPM' },
 				nomor_dpa: { alias: 'Nomor DPA' }
 			};
+		}
+	}
+	changeSubPage('rincian');
+
+	function changeMode(md, parent) {
+		mode = md;
+		sourceApi = `/operator/getListFormPenyediaJasa?mode=${mode}&`;
+
+		if (mode === 'menunggu') {
+			buttons = [
+				{
+					head: 'Lihat Formulir',
+					body: 'Lihat',
+					action: (_, obj) => {
+						document.location.href = `/formulir-${obj.id_form}`;
+					}
+				},
+				{
+					head: '',
+					icon: 'basil:checked-box-outline'
+				}
+			];
+		} else {
 			buttons = [
 				{
 					head: 'Lihat Formulir',
@@ -72,12 +93,6 @@
 				}
 			];
 		}
-	}
-	changeSubPage('rincian');
-
-	function changeMode(md) {
-		mode = md;
-		sourceApi = `/operator/getListFormPenyediaJasa?mode=${mode}&`;
 	}
 </script>
 
@@ -123,14 +138,14 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modal}>
-	<div class="p-2 font-mono text-sm rounded bg-rose-300/50 text-white-1">
+	<div class="p-2 font-mono text-sm rounded text-amber-200">
 		belum ada mitra penyedia jasa pada sub kegiatan ini.
 	</div>
 
 	<h1>Tambah Penyedia Jasa</h1>
 
 	<label>Mitra</label>
-	<select bind:this={mitra}>
+	<select bind:value={mitra}>
 		{#each listMitra as mtr (mtr.id)}
 			<option value={mtr.id}>{mtr.nama_perusahaan}</option>
 		{/each}
@@ -140,16 +155,23 @@
 	<br />
 	<button
 		on:click={async () => {
+			console.log({
+				id_mapping_dpa: parseInt(selected.id),
+				id_penyedia_jasa: parseInt(mitra),
+				id_jenis_penyedia_jasa: parseInt(selected.id_jenis_pekerjaan)
+			});
+
 			const res = await fiero(`/operator/createFormPenyediaJasa`, 'POST', {
 				id_mapping_dpa: parseInt(selected.id),
 				id_penyedia_jasa: parseInt(mitra),
 				id_jenis_penyedia_jasa: parseInt(selected.id_jenis_pekerjaan)
 			});
 
-			if (res.message === 'berhasil') {
+			if (res.status === 200) {
 				snack.info('Berhasil membuat formulir penyedia jasa.');
+				source = fiero(sourceApi);
+				modal.close();
 			}
-			console.log(res);
 		}}
 	>
 		Pilih

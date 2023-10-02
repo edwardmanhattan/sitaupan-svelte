@@ -34,6 +34,11 @@
 				icon="streamline:interface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
 			/>
 			<Menu
+				anchor="Pembuatan Serah Terima Berkas"
+				href="/opr/dpa/stb"
+				icon="streamline:interface-file-clipboard-check-checkmark-edit-task-edition-checklist-check-success-clipboard-form"
+			/>
+			<Menu
 				anchor="Tim Kegiatan"
 				href="/opr/dpa/tim"
 				icon="streamline:interface-user-multiple-close-geometric-human-multiple-person-up-user"
