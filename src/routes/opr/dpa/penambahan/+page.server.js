@@ -47,7 +47,7 @@ export async function load({ fetch }) {
 			program: program,
 			kegiatan: kegiatan,
 			sub_kegiatan: sub_kegiatan,
-			rincian: rincian
+			rincian_sub_kegiatan: rincian
 		},
 		dpa: (await dpa()).data,
 		bidang: (await bidang()).data,

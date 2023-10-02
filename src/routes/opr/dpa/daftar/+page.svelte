@@ -70,8 +70,8 @@
 					{/each}
 
 					<th>Detail Kontrak</th>
-					<th>Surat Pengantar</th>
 					<th>Surat Bukti</th>
+					<th>Surat Pengantar</th>
 					<th>Nomor SPM</th>
 				</tr>
 			</thead>
@@ -91,15 +91,33 @@
 						{/each}
 
 						<td class="w-32">
-							<button>Detail Kontrak</button>
+							{#if tr.id_kontrak_fisik === '0'}
+								<button>Buat Kontrak</button>
+							{:else}
+								<a href="/kontrak-{tr.id_kontrak_fisik}">
+									<button> Detail Kontrak </button>
+								</a>
+							{/if}
 						</td>
 
 						<td class="w-32">
-							<button>Lihat Surat</button>
+							{#if tr.id_surat_bukti === '0'}
+								<button>Buat Surat</button>
+							{:else}
+								<a href="/surat_bukti-{tr.id_surat_bukti}">
+									<button> Detail Surat </button>
+								</a>
+							{/if}
 						</td>
 
 						<td class="w-32">
-							<button>Lihat Surat</button>
+							{#if tr.id_surat_pengantar === '0'}
+								<button>Buat Surat</button>
+							{:else}
+								<a href="/surat_pengantar-{tr.id_surat_pengantar}">
+									<button> Detail Surat </button>
+								</a>
+							{/if}
 						</td>
 
 						<td class="w-64">

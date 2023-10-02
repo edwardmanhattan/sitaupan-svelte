@@ -19,12 +19,12 @@
 			icon="streamline:interface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
 		>
 			<Menu
-				anchor="Penambahan DPA"
+				anchor="Mapping DPA"
 				href="/opr/dpa/penambahan"
 				icon="streamline:interface-file-clipboard-add-edit-task-edition-add-clipboard-form"
 			/>
 			<Menu
-				anchor="Penyelesaian Proyek"
+				anchor="Pembuatan Formulir"
 				href="/opr/dpa/penyelesaian"
 				icon="streamline:interface-file-clipboard-check-checkmark-edit-task-edition-checklist-check-success-clipboard-form"
 			/>

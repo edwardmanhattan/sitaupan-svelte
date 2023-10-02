@@ -38,13 +38,13 @@ export async function load({ params }) {
 	};
 
 	const form = async () =>
-		await fetch(config.api + `/mitra/getFormPenyediaJasaById?id_form=${params.kontrakId}`).then(
-			(res) => res.json()
+		await fetch(config.api + `/mitra/getSuratBuktiById?id=${params.suratId}`).then((res) =>
+			res.json()
 		);
 
 	return {
-		data: data,
-		// data: (await form()).data,
+		// data: data,
+		data: (await form()).data,
 		formulirId: params.suratId
 	};
 }

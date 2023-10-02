@@ -10,11 +10,13 @@
 	import Icon from '@iconify/svelte';
 	let modal;
 
-	let source = fiero(`/operator/getAllJabatan`);
+	let source = fiero(`/operator/getAllUserOperator`);
 
 	let modifier = {
 		id: { show: false },
-		jabatan: { alias: 'Nama Jabatan' }
+		foto: { show: false },
+		status: { show: false },
+		privilege: { show: false }
 	};
 
 	let modalModifier = {
@@ -22,32 +24,39 @@
 	};
 
 	let buttons = [
-		// {
-		// 	head: 'Edit',
-		// 	icon: 'mdi:pencil',
-		// 	action: (_, obj) => {
-		// 		selected = obj;
-		// 		modal.open();
-		// 	}
-		// }
+		{
+			head: 'Aksi',
+			icon: 'mdi:pencil',
+			action: (_, obj) => {
+				selected = obj;
+				modal.open();
+			}
+		}
 	];
 
 	let selected = {};
 </script>
 
 <div class="flex items-center justify-between">
-	<h1>Jabatan</h1>
-	<!-- <div>
+	<h1>User Operator</h1>
+	<div>
 		<button
 			on:click={async () => {
-				selected = { jabatan: '' };
+				selected = {
+					nama: '',
+					username: '',
+					password: '',
+					nama_perusahaan: '',
+					no_telepon: '',
+					email: ''
+				};
 				modal.open();
 			}}
 		>
 			<Icon icon="bi:plus" />
 			Tambah
 		</button>
-	</div> -->
+	</div>
 </div>
 
 {#await source}
@@ -60,7 +69,7 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modal}>
-	<h1 class="w-96">Jabatan</h1>
+	<h1>User Operator</h1>
 
 	{#each shownKeyModifier(getKeyModifier([selected], { ...modifier, ...modalModifier })) as key}
 		<label>{formatTitle(key)}</label>
@@ -68,6 +77,8 @@
 			<input type="text" bind:value={selected[key]} class="disabled" disabled />
 		{:else if modifier[key]?.type === 'datetime'}
 			<input type="date" bind:value={selected[key]} />
+		{:else if key === 'password'}
+			<input type="password" bind:value={selected[key]} />
 		{:else}
 			<input type="text" bind:value={selected[key]} />
 		{/if}

@@ -4,6 +4,7 @@
 	import { fiero } from '$lib/js/fiero';
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { formatTitle } from '$lib/js/string';
+	import { snack } from '$lib/js/vanilla';
 	import Modal from '$lib/modal/modal.svelte';
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
@@ -24,16 +25,31 @@
 
 	let buttons = [
 		{
-			head: 'Edit',
+			head: '',
 			icon: 'mdi:pencil',
 			action: (_, obj) => {
 				selected = obj;
+				mode = 'edit';
 				modal.open();
+			}
+		},
+		{
+			head: '',
+			icon: 'basil:trash-solid',
+			color: 'rose-700',
+			action: (id) => {
+				snack.confirm('Anda akan menghapus Nomor DPA ini secara permanen. Lanjutkan?', async () => {
+					const res = await fiero(`/operator/deleteNomorDPA`, 'POST', { id: id });
+					if (res.status === 200) snack.info('Nomor DPA berhasil dihapus.');
+					source = fiero(`/operator/getAllNomorDPA`);
+					modal.close();
+				});
 			}
 		}
 	];
 
 	let selected = {};
+	let mode = 'insert';
 </script>
 
 <div class="flex items-center justify-between">
@@ -42,6 +58,7 @@
 		<button
 			on:click={async () => {
 				selected = { nomor_dpa: '', tanggal_dpa: '' };
+				mode = 'insert';
 				modal.open();
 			}}
 		>
@@ -76,5 +93,22 @@
 
 	<br />
 	<br />
-	<button>Simpan</button>
+	<button
+		on:click={async () => {
+			if (mode === 'insert') {
+				const res = await fiero(`/operator/insertNomorDPA`, 'POST', selected);
+				if (res.status === 200) snack.info('Nomor DPA berhasil ditambahkan.');
+				source = fiero(`/operator/getAllNomorDPA`);
+				modal.close();
+			} else {
+				const res = await fiero(`/operator/updateNomorDPA`, 'POST', selected);
+				console.log(res);
+				if (res.status === 200) snack.info('Nomor DPA berhasil diubah.');
+				source = fiero(`/operator/getAllNomorDPA`);
+				modal.close();
+			}
+		}}
+	>
+		Simpan
+	</button>
 </Modal>

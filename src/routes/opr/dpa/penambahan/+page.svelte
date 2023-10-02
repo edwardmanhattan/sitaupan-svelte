@@ -11,6 +11,7 @@
 	import Row from '$lib/table/row.svelte';
 	import Select from '$lib/form/select.svelte';
 	import Currency from '$lib/form/currency.svelte';
+	import { snack } from '$lib/js/vanilla.js';
 
 	export let data;
 	const { barebone, dpa, bidang, jenis } = data;
@@ -85,6 +86,8 @@
 	$: {
 		if (subPage === 'rincian_sub_kegiatan') buttons = [];
 	}
+
+	let selected = { program: {}, kegiatan: {}, sub_kegiatan: {}, rincian_sub_kegiatan: {} };
 </script>
 
 <div class="flex items-center justify-between mb-2">
@@ -102,7 +105,12 @@
 		{/each}
 	</div>
 	<div>
-		<button on:click={modal.open}>
+		<button
+			on:click={() => {
+				selected[subPage] = JSON.parse(JSON.stringify(barebone[subPage]));
+				modal.open();
+			}}
+		>
 			<Icon icon="bi:plus" />
 			Tambah {formatTitle(subPage)}
 		</button>
@@ -124,23 +132,23 @@
 	{#if subPage === 'program'}
 		<Row number="1" title="Nomor DPA">
 			<Select
-				bind:key={barebone.program.nomor_dpa}
+				bind:key={selected.program.nomor_dpa}
 				data={dpa}
 				config={{ key: 'nomor_dpa', title: 'nomor_dpa' }}
 				onChange={() => {
-					barebone.program.tanggal_dpa =
-						dpa.find((d) => d.nomor_dpa === barebone.program.nomor_dpa)?.tanggal_dpa ?? '';
+					selected.program.tanggal_dpa =
+						dpa.find((d) => d.nomor_dpa === selected.program.nomor_dpa)?.tanggal_dpa ?? '';
 				}}
 			/>
 		</Row>
 
 		<Row number="" title="Tanggal DPA">
-			<input type="date" bind:value={barebone.program.tanggal_dpa} disabled class="disabled" />
+			<input type="date" bind:value={selected.program.tanggal_dpa} disabled class="disabled" />
 		</Row>
 
 		<Row number="2" title="Bidang">
 			<Select
-				bind:key={barebone.program.bidang}
+				bind:key={selected.program.bidang}
 				data={bidang}
 				config={{ key: 'id', title: 'nama_bidang' }}
 			/>
@@ -148,73 +156,173 @@
 
 		<Row number="3" title="Kode Rekening & Uraian Program">
 			<svelte:fragment>
-				<input type="text" bind:value={barebone.program.kode_rekening} />
+				<input type="text" bind:value={selected.program.kode_rekening} />
 				<span>/</span>
-				<input type="text" bind:value={barebone.program.uraian_program} />
+				<input type="text" bind:value={selected.program.uraian_program} />
 			</svelte:fragment>
 		</Row>
 
 		<Row number="4" title="Anggaran Program">
-			<Currency bind:value={barebone.program.anggaran} />
+			<Currency bind:value={selected.program.anggaran} />
 		</Row>
+
+		<br />
+		<button
+			on:click={async () => {
+				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+					jenis: subPage,
+					no_dpa: selected.program.nomor_dpa,
+					uraian: selected.program.uraian_program,
+					...selected.program
+				});
+				if (res.status === 200) {
+					snack.info('Berhasil menambah program baru');
+					modal.close();
+					changeSubPage('program');
+					source = fiero(`/operator/getListDataDPAByJenis?jenis=${subPage}`);
+				}
+			}}
+		>
+			Simpan
+		</button>
 	{:else if subPage === 'kegiatan'}
 		<Row number="1" title="Kode Rekening Program">
-			{#await source then data}
+			{#await fiero(`/operator/getListDataDPAByJenis?jenis=program`) then data}
 				<Select
-					bind:key={barebone.kegiatan.kode_rekening_program}
+					bind:key={selected.kegiatan.kode_rekening_program}
 					{data}
 					config={{ key: 'kode_rek_program', title: 'kode_rek_program' }}
+					onChange={async () => {
+						const list = await fiero(`/operator/getListDataDPAByJenis?jenis=kegiatan`);
+						const num =
+							list.filter((x) => x.kode_rek_program === selected.kegiatan.kode_rekening_program)
+								.length + 1;
+						selected.kegiatan.kode_rekening = selected.kegiatan.kode_rekening_program + `.${num}`;
+
+						selected.kegiatan.id_parent =
+							data.find((x) => x.kode_rek_program === selected.kegiatan.kode_rekening_program)
+								?.id_kode_rekening ?? 0;
+					}}
 				/>
 			{/await}
 		</Row>
 
 		<Row number="2" title="Kode Rekening & Uraian Kegiatan">
 			<svelte:fragment>
-				<input type="text" bind:value={barebone.kegiatan.kode_rekening} />
+				<input type="text" bind:value={selected.kegiatan.kode_rekening} />
 				<span>/</span>
-				<input type="text" bind:value={barebone.kegiatan.uraian} />
+				<input type="text" bind:value={selected.kegiatan.uraian} />
 			</svelte:fragment>
 		</Row>
 
 		<Row number="3" title="Anggaran Kegiatan">
-			<Currency bind:value={barebone.kegiatan.anggaran} />
+			<Currency bind:value={selected.kegiatan.anggaran} />
 		</Row>
+
+		<br />
+		<button
+			on:click={async () => {
+				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+					jenis: subPage,
+					...selected.kegiatan
+				});
+				if (res.status === 200) {
+					snack.info('Berhasil menambah kegiatan baru');
+					modal.close();
+					changeSubPage('kegiatan');
+					source = fiero(`/operator/getListDataDPAByJenis?jenis=${subPage}`);
+				}
+			}}
+		>
+			Simpan
+		</button>
 	{:else if subPage === 'sub_kegiatan'}
 		<Row number="1" title="Kode Rekening Kegiatan">
-			{#await source then data}
+			{#await fiero(`/operator/getListDataDPAByJenis?jenis=kegiatan`) then data}
 				<Select
-					bind:key={barebone.sub_kegiatan.kode_rekening_kegiatan}
+					bind:key={selected.sub_kegiatan.kode_rekening_kegiatan}
 					{data}
 					config={{ key: 'kode_rek_kegiatan', title: 'kode_rek_kegiatan' }}
+					onChange={async () => {
+						const list = await fiero(`/operator/getListDataDPAByJenis?jenis=sub_kegiatan`);
+						const num =
+							list.filter(
+								(x) => x.kode_rek_kegiatan === selected.sub_kegiatan.kode_rekening_kegiatan
+							).length + 1;
+
+						selected.sub_kegiatan.kode_rekening =
+							selected.sub_kegiatan.kode_rekening_kegiatan + `.${num}`;
+
+						selected.sub_kegiatan.id_parent =
+							data.find((x) => x.kode_rek_kegiatan === selected.sub_kegiatan.kode_rekening_kegiatan)
+								?.id_kode_rekening ?? 0;
+					}}
 				/>
 			{/await}
 		</Row>
 
 		<Row number="2" title="Kode Rekening & Uraian Sub Kegiatan">
 			<svelte:fragment>
-				<input type="text" bind:value={barebone.sub_kegiatan.kode_rekening} />
+				<input type="text" bind:value={selected.sub_kegiatan.kode_rekening} />
 				<span>/</span>
-				<input type="text" bind:value={barebone.sub_kegiatan.uraian} />
+				<input type="text" bind:value={selected.sub_kegiatan.uraian} />
 			</svelte:fragment>
 		</Row>
 
 		<Row number="3" title="Anggaran Sub Kegiatan">
-			<Currency bind:value={barebone.sub_kegiatan.anggaran} />
+			<Currency bind:value={selected.sub_kegiatan.anggaran} />
 		</Row>
+
+		<br />
+		<button
+			on:click={async () => {
+				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+					jenis: subPage,
+					...selected.sub_kegiatan
+				});
+				if (res.status === 200) {
+					snack.info('Berhasil menambah sub kegiatan baru');
+					modal.close();
+					changeSubPage('sub_kegiatan');
+					source = fiero(`/operator/getListDataDPAByJenis?jenis=${subPage}`);
+				}
+			}}
+		>
+			Simpan
+		</button>
 	{:else}
 		<Row number="1" title="Kode Rekening Sub Kegiatan">
-			{#await source then data}
+			{#await fiero(`/operator/getListDataDPAByJenis?jenis=sub_kegiatan`) then data}
 				<Select
-					bind:key={barebone.rincian.kode_rekening_sub_kegiatan}
+					bind:key={selected.rincian_sub_kegiatan.kode_rekening_sub_kegiatan}
 					{data}
 					config={{ key: 'kode_rek_sub_kegiatan', title: 'kode_rek_sub_kegiatan' }}
+					onChange={async () => {
+						const list = await fiero(`/operator/getListDataDPAByJenis?jenis=rincian_sub_kegiatan`);
+						const num =
+							list.filter(
+								(x) =>
+									x.kode_rek_sub_kegiatan ===
+									selected.rincian_sub_kegiatan.kode_rekening_sub_kegiatan
+							).length + 1;
+
+						selected.rincian_sub_kegiatan.kode_rekening =
+							selected.rincian_sub_kegiatan.kode_rekening_sub_kegiatan + `.${num}`;
+
+						selected.rincian_sub_kegiatan.id_parent =
+							data.find(
+								(x) =>
+									x.kode_rek_sub_kegiatan ===
+									selected.rincian_sub_kegiatan.kode_rekening_sub_kegiatan
+							)?.id_kode_rekening ?? 0;
+					}}
 				/>
 			{/await}
 		</Row>
 
 		<Row number="2" title="Jenis Kegiatan">
 			<Select
-				bind:key={barebone.rincian.jenis_pekerjaan}
+				bind:key={selected.rincian_sub_kegiatan.jenis_pekerjaan}
 				data={jenis}
 				config={{ key: 'id', title: 'jenis_proyek' }}
 			/>
@@ -222,21 +330,36 @@
 
 		<Row number="3" title="Kode Rekening & Uraian Rincian  Sub Kegiatan">
 			<svelte:fragment>
-				<input type="text" bind:value={barebone.rincian.kode_rekening} />
+				<input type="text" bind:value={selected.rincian_sub_kegiatan.kode_rekening} />
 				<span>/</span>
-				<input type="text" bind:value={barebone.rincian.uraian} />
+				<input type="text" bind:value={selected.rincian_sub_kegiatan.uraian} />
 			</svelte:fragment>
 		</Row>
 
 		<Row number="4" title="Anggaran Rincian Sub Kegiatan">
-			<Currency bind:value={barebone.rincian.anggaran} />
+			<Currency bind:value={selected.rincian_sub_kegiatan.anggaran} />
 		</Row>
 
 		<Row number="5" title="Keterangan Rincian Sub Kegiatan">
-			<textarea bind:value={barebone.rincian.keterangan} />
+			<textarea bind:value={selected.rincian_sub_kegiatan.keterangan} />
 		</Row>
-	{/if}
 
-	<br />
-	<button>Simpan</button>
+		<br />
+		<button
+			on:click={async () => {
+				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+					jenis: subPage,
+					...selected.rincian_sub_kegiatan
+				});
+				if (res.status === 200) {
+					snack.info('Berhasil menambah rincian sub kegiatan baru');
+					modal.close();
+					changeSubPage('rincian_sub_kegiatan');
+					source = fiero(`/operator/getListDataDPAByJenis?jenis=${subPage}`);
+				}
+			}}
+		>
+			Simpan
+		</button>
+	{/if}
 </Modal>
