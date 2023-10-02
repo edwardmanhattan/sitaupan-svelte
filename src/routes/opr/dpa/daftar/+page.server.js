@@ -7,6 +7,8 @@ export async function load({ fetch }) {
 	const data = async () =>
 		await fetch(config.api + `/operator/getListSpm`).then((res) => res.json());
 
+	const operator = async () =>
+		await fetch(config.api + `/operator/getAllUserOperator`).then((res) => res.json());
 	return {
 		_data: (await data()).data,
 		// _data: [{ id: 0 }, { id: 1 }],
@@ -21,6 +23,7 @@ export async function load({ fetch }) {
 			id_surat_bukti: { show: false },
 			id_surat_pengantar: { show: false },
 			edit_spm: { show: false }
-		}
+		},
+		operator: (await operator()).data
 	};
 }

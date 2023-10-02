@@ -7,11 +7,13 @@
 	import { Pagination } from '$lib/js/pagination.js';
 	import { searchEachText } from '$lib/js/search.js';
 	import { snack } from '$lib/js/vanilla.js';
+	import Modal from '$lib/modal/modal.svelte';
 	import Icon from '@iconify/svelte';
+	import Select from '$lib/form/select.svelte';
 
 	export let data;
 
-	let { _data = [], modifier = {} } = data;
+	let { _data = [], modifier = {}, operator } = data;
 
 	_data = _data.map((obj) => ({ ...obj, edit_spm: false }));
 
@@ -43,6 +45,20 @@
 		display = page.next();
 		currentPage = page.getCurrentPage();
 	}
+
+	let modalKontrak;
+	let modalBukti;
+	let modalPengantar;
+
+	let kontrak = { id_penjabat: 0 };
+	let bukti = {
+		id_penjabat1: 0,
+		id_penjabat2: 0,
+		id_penjabat3: 0,
+		id_penjabat4: 0,
+		tipe_surat: '3'
+	};
+	let pengantar = { id_penjabat: 0 };
 </script>
 
 <div>
@@ -90,9 +106,18 @@
 							{/if}
 						{/each}
 
-						<td class="w-32">
+						<td class="w-36">
 							{#if tr.id_kontrak_fisik === '0'}
-								<button>Buat Kontrak</button>
+								<button
+									on:click={() => {
+										modalKontrak.open();
+										kontrak.id_formulir = tr.id_form;
+									}}
+									class="bg-emerald-700"
+								>
+									<Icon width="16px" icon="bx:pen" />
+									Buat Kontrak
+								</button>
 							{:else}
 								<a href="/kontrak-{tr.id_kontrak_fisik}">
 									<button> Detail Kontrak </button>
@@ -102,7 +127,16 @@
 
 						<td class="w-32">
 							{#if tr.id_surat_bukti === '0'}
-								<button>Buat Surat</button>
+								<button
+									on:click={() => {
+										modalBukti.open();
+										bukti.id_formulir = tr.id_form;
+									}}
+									class="bg-emerald-700"
+								>
+									<Icon icon="bi:envelope-paper-fill" />
+									Buat Surat
+								</button>
 							{:else}
 								<a href="/surat_bukti-{tr.id_surat_bukti}">
 									<button> Detail Surat </button>
@@ -111,8 +145,19 @@
 						</td>
 
 						<td class="w-32">
-							{#if tr.id_surat_pengantar === '0'}
-								<button>Buat Surat</button>
+							{#if tr.nomor_spm.toString() === '0' || tr.nomor_spm === '-'}
+								Nomor SPM belum dibuat
+							{:else if tr.id_surat_pengantar === '0'}
+								<button
+									on:click={() => {
+										modalPengantar.open();
+										pengantar.id_formulir = tr.id_form;
+									}}
+									class="bg-emerald-700"
+								>
+									<Icon icon="bi:envelope-paper-fill" />
+									Buat Surat
+								</button>
 							{:else}
 								<a href="/surat_pengantar-{tr.id_surat_pengantar}">
 									<button> Detail Surat </button>
@@ -197,3 +242,89 @@
 		</div>
 	</div>
 </div>
+
+<!-- svelte-ignore a11y-label-has-associated-control -->
+<Modal bind:this={modalKontrak}>
+	<label>Penjabat</label>
+	<Select bind:key={kontrak.id_penjabat} data={operator} config={{ key: 'id', title: 'nama' }} />
+
+	<br />
+	<br />
+	<button
+		on:click={async () => {
+			const res = await fiero(`/operator/createKontrakFisikWithForm`, 'POST', kontrak);
+			if (res.status === 200) {
+				const tr = _data.find((x) => x.id_form === kontrak.id_formulir);
+				tr.id_kontrak_fisik = res.data;
+				_data = _data;
+				snack.info('Berhasil membuat kontrak fisik');
+				modalKontrak.close();
+			}
+		}}
+	>
+		Simpan
+	</button>
+</Modal>
+
+<!-- svelte-ignore a11y-label-has-associated-control -->
+<Modal bind:this={modalBukti}>
+	<label>Penjabat I</label>
+	<Select bind:key={bukti.id_penjabat1} data={operator} config={{ key: 'id', title: 'nama' }} />
+
+	<label>Penjabat II</label>
+	<Select bind:key={bukti.id_penjabat2} data={operator} config={{ key: 'id', title: 'nama' }} />
+
+	<label>Penjabat III</label>
+	<Select bind:key={bukti.id_penjabat3} data={operator} config={{ key: 'id', title: 'nama' }} />
+
+	{#if bukti.tipe_surat === '4'}
+		<label>Penjabat IV</label>
+		<Select bind:key={bukti.id_penjabat4} data={operator} config={{ key: 'id', title: 'nama' }} />
+	{/if}
+
+	<label>Jumlah Penjabat</label>
+	<select bind:value={bukti.tipe_surat}>
+		<option value="3">3</option>
+		<option value="4">4</option>
+	</select>
+
+	<br />
+	<br />
+	<button
+		on:click={async () => {
+			const res = await fiero(`/operator/createSuratBuktiWithForm`, 'POST', bukti);
+			if (res.status === 200) {
+				const tr = _data.find((x) => x.id_form === bukti.id_formulir);
+				tr.id_surat_bukti = res.data;
+				_data = _data;
+				snack.info('Berhasil membuat surat bukti');
+				modalBukti.close();
+			}
+		}}
+	>
+		Simpan
+	</button>
+</Modal>
+
+<!-- svelte-ignore a11y-label-has-associated-control -->
+<Modal bind:this={modalPengantar}>
+	<label>Penjabat</label>
+	<Select bind:key={pengantar.id_penjabat} data={operator} config={{ key: 'id', title: 'nama' }} />
+
+	<br />
+	<br />
+	<button
+		on:click={async () => {
+			const res = await fiero(`/operator/createSuratPengantar`, 'POST', pengantar);
+			if (res.status === 200) {
+				const tr = _data.find((x) => x.id_form === pengantar.id_formulir);
+				tr.id_surat_pengantar = res.data;
+				_data = _data;
+				snack.info('Berhasil membuat surat pengantar');
+				modalPengantar.close();
+			}
+		}}
+	>
+		Simpan
+	</button>
+</Modal>

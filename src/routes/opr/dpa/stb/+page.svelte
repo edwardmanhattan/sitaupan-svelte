@@ -76,9 +76,7 @@
 	<h1>Serah Terima Berkas</h1>
 
 	<label>Staf</label>
-	{#await fiero(`/operator/getAllUserOperator`) then data}
-		<input type="text" bind:value={nama} disabled />
-	{/await}
+	<input type="text" bind:value={nama} disabled />
 
 	<label>Bidang</label>
 	{#await fiero(`/operator/getAllBidangProyek`) then data}
