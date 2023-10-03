@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const indonesianMonths = [
 	'Januari',
 	'Februari',
@@ -42,4 +43,16 @@ export function formatFullDate(date = getTodayDate()) {
 		year: 'numeric',
 		timeZone: 'UTC'
 	}).format(new Date(date));
+}
+
+// [2021,2022,2023]
+export function getYearsSince(year) {
+	const currentYear = new Date().getFullYear();
+	const years = [];
+
+	for (let i = year; i <= currentYear; i++) {
+		years.push(i);
+	}
+
+	return years;
 }

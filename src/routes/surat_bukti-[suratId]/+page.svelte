@@ -1,123 +1,152 @@
 <script>
 	// @ts-nocheck
 
+	import { rupiah, terbilang } from '$lib/js/currency';
 	import { formatFullDate } from '$lib/js/datetime';
+	import jsPDF from 'jspdf';
 	import Row from '$lib/table/row.svelte';
 	import Kop from '$lib/kop.svelte';
-	import { rupiah, terbilang } from '$lib/js/currency';
+	import Icon from '@iconify/svelte';
 	export let data;
 
 	const id = data.kontrakId;
 	const form = data.data;
+
+	const doc = new jsPDF({
+		unit: 'pt'
+	});
+	let pdf;
 </script>
 
-<div class="h-screen px-24 py-12 overflow-auto">
-	<div class="w-[21cm] px-[2cm] pb-[2.54cm] border border-black">
-		<Kop />
+<div class="flex flex-col h-screen overflow-auto">
+	<div class="flex items-center justify-between p-2 text-white shrink-0 bg-slate-400">
+		<h1>Surat Bukti</h1>
+		<button
+			on:click={() => {
+				doc.html(pdf, {
+					callback: function (doc) {
+						doc.save(`Surat Bukti ${formatFullDate()}`);
+					},
+					x: 0,
+					y: 0,
+					html2canvas: { scale: 0.75 }
+				});
+			}}
+			class="w-36"
+		>
+			<Icon icon="basil:printer-outline" />
+			Print
+		</button>
+	</div>
+	<div class="flex justify-center p-6 overflow-auto grow">
+		<div class="w-[21cm] h-max px-[2cm] pb-[2.54cm] bg-white border border-black" bind:this={pdf}>
+			<Kop />
 
-		<Row number="1" title="Kode Rekening">
-			<div>{form.kode_rekening_sub_kegiatan}</div>
-		</Row>
+			<Row number="1" title="Kode Rekening">
+				<div>{form.kode_rekening_sub_kegiatan}</div>
+			</Row>
 
-		<Row number="2" title="Nomor Dibukukan">
-			<div>???</div>
-		</Row>
+			<Row number="2" title="Nomor Dibukukan">
+				<div>???</div>
+			</Row>
 
-		<Row number="3" title="Program">
-			<div>{form.program}</div>
-		</Row>
+			<Row number="3" title="Program">
+				<div>{form.program}</div>
+			</Row>
 
-		<Row number="4" title="Kegiatan">
-			<div>{form.kegiatan}</div>
-		</Row>
+			<Row number="4" title="Kegiatan">
+				<div>{form.kegiatan}</div>
+			</Row>
 
-		<Row number="5" title="Sub Kegiatan">
-			<div>{form.sub_kegiatan}</div>
-		</Row>
+			<Row number="5" title="Sub Kegiatan">
+				<div>{form.sub_kegiatan}</div>
+			</Row>
 
-		<Row number="" title="Catatan Tambahan">
-			<div>{form.catatan}</div>
-		</Row>
+			<Row number="" title="Catatan Tambahan">
+				<div>{form.catatan}</div>
+			</Row>
 
-		<Row number="6" title="Sudah Terima Dari">
-			<div>{form.sudah_terima}</div>
-		</Row>
+			<Row number="6" title="Sudah Terima Dari">
+				<div>{form.sudah_terima}</div>
+			</Row>
 
-		<Row number="7" title="Uang Sebesar">
-			<div>{form.nilai}</div>
-		</Row>
+			<Row number="7" title="Uang Sebesar">
+				<div>{form.nilai}</div>
+			</Row>
 
-		<Row number="8" title="Untuk Pembayaran">
-			<div>{form.sub_kegiatan}</div>
-		</Row>
+			<Row number="8" title="Untuk Pembayaran">
+				<div>{form.sub_kegiatan}</div>
+			</Row>
 
-		<Row number="" title="Catatan Tambahan">
-			<div>{form.catatan}</div>
-		</Row>
+			<Row number="" title="Catatan Tambahan">
+				<div>{form.catatan}</div>
+			</Row>
 
-		<!--  -->
+			<!--  -->
 
-		<div class="flex items-center justify-between">
-			<div>
-				Terbilang {terbilang(0)} Rupiah
+			<div class="flex items-center justify-between text-sm">
+				<div>
+					Terbilang {terbilang(0)} Rupiah
+				</div>
+
+				<div class="text-center">
+					<div>Tanjung Redep, {formatFullDate()}</div>
+
+					<div class="spacer" />
+					<div class="spacer" />
+					<div class="spacer" />
+
+					<div>AHMAD RIFAI</div>
+					<div>Direktur</div>
+				</div>
+			</div>
+			<div class="spacer" />
+			<div class="spacer" />
+			<div class="spacer" />
+
+			<!--  -->
+
+			<div class="flex justify-between gap-4 text-sm text-center">
+				<div>
+					<div>Mengetahui / Menyetujui</div>
+					<div>Kuasa Penggunaan Anggaran</div>
+					<div class="spacer" />
+					<div class="spacer" />
+					<div class="spacer" />
+					<div>Junaidi, S.T, M.T</div>
+					<div>NIP</div>
+				</div>
+
+				<div>
+					<div>Pejabat Pelaksana Teknis Kegiatan</div>
+
+					<div class="spacer" />
+					<div class="spacer" />
+					<div class="spacer" />
+					<div class="spacer" />
+
+					<div>Bambang Edy Maryono, SE, M.A.P</div>
+					<div>NIP</div>
+				</div>
+
+				<div>
+					<div>Bendahara Pengeluaran Pembantu</div>
+					<div>Dibayar Tanggal 31 Mei 2023</div>
+					<div class="spacer" />
+					<div class="spacer" />
+					<div class="spacer" />
+					<div>Tumini Rahayu</div>
+					<div>NIP</div>
+				</div>
 			</div>
 
-			<div class="text-center">
-				<div>Tanjung Redep, {formatFullDate()}</div>
+			<!--  -->
 
-				<div class="spacer" />
-				<div class="spacer" />
-				<div class="spacer" />
-
-				<div>AHMAD RIFAI</div>
-				<div>Direktur</div>
-			</div>
+			<br />
+			<Row number="" title="Keterangan">
+				<div>{form.keterangan}</div>
+			</Row>
 		</div>
-		<div class="spacer" />
-		<div class="spacer" />
-		<div class="spacer" />
-
-		<!--  -->
-
-		<div class="flex justify-between gap-4 text-center">
-			<div>
-				<div>Mengetahui / Menyetujui</div>
-				<div>Kuasa Penggunaan Anggaran</div>
-				<div class="spacer" />
-				<div class="spacer" />
-				<div class="spacer" />
-				<div>Junaidi, S.T, M.T</div>
-				<div>NIP</div>
-			</div>
-
-			<div>
-				<div>Pejabat Pelaksana Teknis Kegiatan</div>
-
-				<div class="spacer" />
-				<div class="spacer" />
-				<div class="spacer" />
-				<div class="spacer" />
-
-				<div>Bambang Edy Maryono, SE, M.A.P</div>
-				<div>NIP</div>
-			</div>
-
-			<div>
-				<div>Bendahara Pengeluaran Pembantu</div>
-				<div>Dibayar Tanggal 31 Mei 2023</div>
-				<div class="spacer" />
-				<div class="spacer" />
-				<div class="spacer" />
-				<div>Tumini Rahayu</div>
-				<div>NIP</div>
-			</div>
-		</div>
-
-		<!--  -->
-
-		<Row number="" title="Keterangan">
-			<div>{form.keterangan}</div>
-		</Row>
 	</div>
 </div>
 
@@ -129,7 +158,7 @@
 		}
 
 		* {
-			/* @apply font-times; */
+			@apply font-times;
 		}
 
 		h1,

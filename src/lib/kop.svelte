@@ -2,17 +2,34 @@
 	import berau from '$lib/assets/berau.webp';
 </script>
 
-<div class="flex items-center justify-between font-semibold">
-	<div class="w-28">
-		<img src={berau} alt="Logo Kabupaten Berau" />
+<div class="flex items-center justify-between">
+	<div class="shrink-0">
+		<img src={berau} class="w-[2.77cm] h-[3cm]" alt="Logo Kabupaten Berau" />
 	</div>
 	<div class="text-center">
-		<div class="text-xl">PEMERINTAH KABUPATEN BERAU</div>
-		<div class="text-2xl">DINAS PEKERJAAN UMUM DAN PENATAAN RUANG</div>
-		<div class="text-sm">Jalan Jend. Gatot Subroto No. 123 Telp.(0554)21065-24446 Fax.22797</div>
-		<div class="text-sm">Tanjung Redep</div>
+		<div class="text-[12pt] font-semibold">PEMERINTAH KABUPATEN BERAU</div>
+		<div class="text-[14pt] font-semibold">DINAS PEKERJAAN UMUM DAN PENATAAN RUANG</div>
+		<p class="">Jalan Jend. Gatot Subroto No. 123 Telp.(0554)21065-24446 Fax.22797</p>
+		<p class="">Tanjung Redep</p>
 	</div>
-	<div class="self-end text-sm">Kode Pos : 77311</div>
+	<p class="self-end">Kode Pos : 77311</p>
 </div>
 
-<hr class="mt-3 mb-6 border-b border-b-black" />
+<hr class="my-2 border-b border-b-black" />
+
+<style lang="postcss">
+	@tailwind components;
+	@layer components {
+		.font-times {
+			font-family: 'Times New Roman', Times, serif;
+		}
+
+		* {
+			@apply font-times leading-5;
+		}
+
+		p {
+			@apply text-[11pt] leading-4;
+		}
+	}
+</style>

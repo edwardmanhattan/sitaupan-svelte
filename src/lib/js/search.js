@@ -5,6 +5,7 @@ export const searchComparison = (a, b) => {
 };
 
 export const searchEachText = (data, text, key) => {
+	data ??= [];
 	const iterator = key ?? Object.keys(data[0] ?? {});
 	return data.filter((obj) => {
 		let found = false;
