@@ -64,16 +64,16 @@
 				href="/opr/files/aset/aset tetap"
 				icon="streamline:interface-align-layers-1-design-layer-layers-pile-stack"
 			>
-				<Menu anchor="Aset Tetap" href="/opr/files/aset/aset tetap" />
+				<Menu anchor="Aset Tetap" href="/opr/files/aset/tetap" />
 				<Menu anchor="Persediaan" href="/opr/files/aset/persediaan" />
-				<Menu anchor="Berita Acara Pembayaran" href="/opr/files/aset/berita" />
-				<Menu anchor="KIB" href="/opr/files/aset/kib a">
-					<Menu anchor="KIB A" href="/opr/files/aset/kib a" />
-					<Menu anchor="KIB B" href="/opr/files/aset/kib b" />
-					<Menu anchor="KIB C" href="/opr/files/aset/kib c" />
-					<Menu anchor="KIB D" href="/opr/files/aset/kib d" />
-					<Menu anchor="KIB E" href="/opr/files/aset/kib e" />
-					<Menu anchor="KIB F" href="/opr/files/aset/kib f" />
+				<Menu anchor="Berita Acara Pembayaran" href="/opr/files/aset/bap" />
+				<Menu anchor="KIB" href="/opr/files/aset/kib-a">
+					<Menu anchor="KIB A" href="/opr/files/aset/kib-a" />
+					<Menu anchor="KIB B" href="/opr/files/aset/kib-b" />
+					<Menu anchor="KIB C" href="/opr/files/aset/kib-c" />
+					<Menu anchor="KIB D" href="/opr/files/aset/kib-d" />
+					<Menu anchor="KIB E" href="/opr/files/aset/kib-e" />
+					<Menu anchor="KIB F" href="/opr/files/aset/kib-f" />
 				</Menu>
 				<Menu anchor="Jaminan Uang Muka" href="/opr/files/aset/jaminan" />
 			</Menu>
