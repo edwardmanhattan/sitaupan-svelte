@@ -3,11 +3,12 @@
 import { formatTitle } from './string';
 
 export const getKeyModifier = (data, existing = {}) => {
-	let modifier = existing;
 	data = data[0] ?? {};
-
+	let modifier = {};
+	if (existing.pageNum) modifier.pageNum = existing.pageNum;
 	Object.keys(data).forEach((key) => {
 		modifier[key] ??= {};
+		if (existing[key]) modifier[key] = existing[key];
 		modifier[key].show ??= true;
 		modifier[key].export ??= true;
 		modifier[key].alias ??= formatTitle(key);

@@ -13,10 +13,12 @@ export async function load({ fetch, params }) {
 		).then((res) => res.json());
 
 	return {
-		kib: (await kib()).data ?? [],
+		kib: (await kib()).data.map((x) => ({ ...x, ...x.detail_kib })) ?? [],
 		kode: params.kode,
 		modifier: {
-			id: { show: false }
+			id: { show: false },
+			detail_kib: { show: false },
+			harga: { type: 'currency' }
 		},
 		buttons: []
 	};

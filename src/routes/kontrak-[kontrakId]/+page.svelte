@@ -42,6 +42,7 @@
 		<div class="w-[21cm] h-max px-[2cm] pb-[2.54cm] bg-white border border-black" bind:this={pdf}>
 			<Kop />
 
+			<h1 class="text-center">RESUME SPK / KONTRAK FISIK</h1>
 			<div>
 				<Row number="1" title="Nomor DPA-SKPD / DPPA-SKPD / DPA.L-SKPD">
 					<div>{form.nomor_dpa}</div>

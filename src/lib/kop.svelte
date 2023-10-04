@@ -10,12 +10,13 @@
 		<div class="text-[12pt] font-semibold">PEMERINTAH KABUPATEN BERAU</div>
 		<div class="text-[14pt] font-semibold">DINAS PEKERJAAN UMUM DAN PENATAAN RUANG</div>
 		<p class="">Jalan Jend. Gatot Subroto No. 123 Telp.(0554)21065-24446 Fax.22797</p>
-		<p class="">Tanjung Redep</p>
+		<p class="uppercase">Tanjung Redep</p>
 	</div>
 	<p class="self-end">Kode Pos : 77311</p>
 </div>
 
-<hr class="my-2 border-b border-b-black" />
+<hr class="mt-2 border-b border-b-black" />
+<hr class="mt-1 mb-2 border-b border-b-black" />
 
 <style lang="postcss">
 	@tailwind components;

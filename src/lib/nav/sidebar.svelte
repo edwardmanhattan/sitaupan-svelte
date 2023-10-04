@@ -85,7 +85,7 @@
 				<Menu anchor="P3DN (Perencanaan)" href="/opr/files/inspektorat/p3dn perencanaan" />
 				<Menu anchor="P3DN (Realisasi)" href="/opr/files/inspektorat/p3dn realisasi" />
 				<Menu anchor="Data Kontrak" href="/opr/files/inspektorat/data kontrak" />
-				<Menu anchor="Bukti Bayar" href="/opr/files/inspektorat/bukti bayar" />
+				<Menu anchor="Bukti Bayar (SP2D)" href="/opr/files/inspektorat/bukti bayar" />
 				<Menu anchor="SK" href="/opr/files/inspektorat/sk" />
 				<Menu anchor="Realisasi Keuangan" href="/opr/files/inspektorat/realisasi keuangan" />
 				<Menu anchor="Serapan Anggaran" href="/opr/files/inspektorat/serapan anggaran" />

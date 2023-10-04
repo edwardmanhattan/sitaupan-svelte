@@ -9,7 +9,8 @@
 	let year = '';
 	$: source = `/operator/getLaporanBAP?tanggal=${year}`;
 	let modifier = {
-		id: { show: false }
+		id: { show: false },
+		nilai_kontrak: { type: 'currency' }
 	};
 	let buttons = [];
 </script>

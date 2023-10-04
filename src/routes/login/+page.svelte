@@ -1,11 +1,20 @@
 <script>
+	// @ts-nocheck
+
+	import { enhance } from '$app/forms';
 	import bg from '$lib/assets/login.webp';
 	import logo from '$lib/assets/logo.webp';
-	import { snack } from '$lib/js/vanilla';
+
+	export let data;
+	export let form = {
+		username: '',
+		password: '',
+		tipe: 'operator'
+	};
 
 	let username = '';
 	let password = '';
-	let role = 'operator';
+	let tipe = 'operator';
 </script>
 
 <div class="flex w-screen h-screen">
@@ -17,41 +26,35 @@
 		<h1 class="text-3xl">Selamat Datang</h1>
 
 		<br />
-		<div class="w-full">
+		<form use:enhance method="post" action="?/login" class="w-full">
 			<div>Username</div>
-			<input type="text" placeholder="masukkan username..." bind:value={username} />
+			<input
+				type="text"
+				placeholder="masukkan username..."
+				name="username"
+				value={form?.username ?? ''}
+			/>
+
 			<div>Password</div>
-			<input type="password" placeholder="masukkan password..." bind:value={password} />
+			<input
+				type="password"
+				placeholder="masukkan password..."
+				name="password"
+				value={form?.password ?? ''}
+			/>
+
 			<br />
 			<br />
 			<div>Masuk Sebagai</div>
-			<select bind:value={role}>
+
+			<select name="tipe" value={form?.tipe ?? ''}>
 				<option value="operator">Operator</option>
 				<option value="mitra">Mitra</option>
 			</select>
-		</div>
 
-		<button
-			on:click={() => {
-				if (password !== '1234') {
-					snack.info('Password Salah');
-					return;
-				}
-
-				if (role === 'operator' && username === 'leon') {
-					snack.info('Berhasil Masuk');
-					document.location.href = '/opr';
-					return;
-				} else if (role === 'mitra' && username === 'terri') {
-					snack.info('Berhasil Masuk');
-					document.location.href = '/user';
-					return;
-				} else {
-					snack.info('Terdapat Kesalahan Data');
-				}
-			}}
-		>
-			Masuk
-		</button>
+			<br />
+			<br />
+			<button class="bg-blue-3" type="submit"> Masuk </button>
+		</form>
 	</div>
 </div>
