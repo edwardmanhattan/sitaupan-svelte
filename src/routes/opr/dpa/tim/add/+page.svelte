@@ -4,6 +4,9 @@
 	import Row from '$lib/table/row.svelte';
 	import Select from '$lib/form/select.svelte';
 	import Icon from '@iconify/svelte';
+	import { fiero } from '$lib/js/fiero.js';
+	import { snack } from '$lib/js/vanilla.js';
+	import { redirect } from '@sveltejs/kit';
 	export let data;
 	let { form, bidang, operator, kegiatan } = data;
 </script>
@@ -216,4 +219,14 @@
 <br />
 
 <br />
-<button>Simpan</button>
+<button
+	on:click={async () => {
+		const res = await fiero(`/operator/createTimKegiatan`, 'POST', form);
+		if (res.status === 200) {
+			snack.info('Berhasil membuat Tim Kegiatan baru.');
+			throw redirect(302, '../');
+		}
+	}}
+>
+	Simpan
+</button>

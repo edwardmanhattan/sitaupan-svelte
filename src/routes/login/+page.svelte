@@ -5,16 +5,11 @@
 	import bg from '$lib/assets/login.webp';
 	import logo from '$lib/assets/logo.webp';
 
-	export let data;
 	export let form = {
 		username: '',
 		password: '',
 		tipe: 'operator'
 	};
-
-	let username = '';
-	let password = '';
-	let tipe = 'operator';
 </script>
 
 <div class="flex w-screen h-screen">
@@ -47,7 +42,7 @@
 			<br />
 			<div>Masuk Sebagai</div>
 
-			<select name="tipe" value={form?.tipe ?? ''}>
+			<select name="tipe" value={form?.tipe ?? 'operator'}>
 				<option value="operator">Operator</option>
 				<option value="mitra">Mitra</option>
 			</select>
