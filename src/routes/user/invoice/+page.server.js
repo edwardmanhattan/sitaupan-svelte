@@ -10,9 +10,15 @@ export async function load() {
 	};
 
 	const detail = {
+		id: 0,
 		uraian: '',
 		harga: 0,
 		jumlah: 0,
 		total: 0
+	};
+
+	return {
+		barebone,
+		detail
 	};
 }

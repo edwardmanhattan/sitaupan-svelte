@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { fiero } from '$lib/js/fiero.js';
+import { config, fiero } from '$lib/js/fiero.js';
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ cookies }) {
@@ -8,7 +8,7 @@ export async function load({ cookies }) {
 }
 
 export const actions = {
-	login: async ({ cookies, request, locals }) => {
+	login: async ({ cookies, request, locals, fetch }) => {
 		const loginFormData = await request.formData();
 
 		const username = loginFormData.get('username');
@@ -22,11 +22,13 @@ export const actions = {
 		};
 
 		try {
-			let { status, data } = await fiero(`/login`, 'POST', { username, password, tipe });
-
-			status = 200;
-			data ??= { key: 0, user: { id: 0 }, privilege: '0', tipe: 'mitra' };
-			// data ??= {key: 0, user:{id:0}, privilege: '0', tipe: 'operator'}
+			// let { status, data } = await fiero(`/login`, 'POST', { username, password, tipe });
+			let { status, data } = await fetch(
+				config.api + `/login?username=${username}&password=${password}&tipe=${tipe}`,
+				{
+					method: 'POST'
+				}
+			).then((res) => res.json());
 
 			if (status !== 200) {
 				loginResponse.message = data;
@@ -36,6 +38,14 @@ export const actions = {
 					httpOnly: true,
 					maxAge: 60 * 60 * 24,
 					sameSite: 'strict'
+				});
+
+				cookies.set('UserTipe', data.tipe, {
+					maxAge: 60 * 60 * 24
+				});
+
+				cookies.set('UserPrivilege', data.privilege, {
+					maxAge: 60 * 60 * 24
 				});
 
 				if (tipe === 'operator') throw redirect(302, '/opr');

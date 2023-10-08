@@ -2,8 +2,8 @@
 	// @ts-nocheck
 
 	export let key;
-	export let data;
-	export let config;
+	export let data = [{}];
+	export let config = '';
 
 	key ||= data[0][config.key];
 

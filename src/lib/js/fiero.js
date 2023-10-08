@@ -10,10 +10,15 @@ export const defaultHeaders = {
 	Accept: 'application/json',
 	'Content-Type': 'application/x-www-form-urlencoded',
 	Token: 'rahasia',
-	ID_User: 0
+	ID_User: 0,
+	Tipe: 'operator'
 };
 
 export async function fiero(url, method = 'GET', data = null, headers = defaultHeaders) {
+	headers.Tipe = 'operator';
+
+	/////////////////////////////
+
 	const abort = new AbortController();
 	const abortFn = () => {
 		abort.abort();
@@ -56,9 +61,8 @@ export async function fiero(url, method = 'GET', data = null, headers = defaultH
 		clearTimeout(abortTimeout);
 
 		if (method === 'GET') {
-			if (data.data === null) data.data = [];
-			return data.data;
-		} else return data;
+			return data.data ?? [];
+		} else return data ?? { status: 500, message: `Something's Not Right`, data: [] };
 	} catch (error) {
 		if (error.name === 'AbortError')
 			console.error('Request Timed Out : Fetch took longer than 10 seconds!');

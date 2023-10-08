@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { formatTitle } from './string';
+import { formatProperUppercase, formatTitle } from './string';
 
 export const getKeyModifier = (data, existing = {}) => {
 	data = data[0] ?? {};
@@ -11,7 +11,7 @@ export const getKeyModifier = (data, existing = {}) => {
 		if (existing[key]) modifier[key] = existing[key];
 		modifier[key].show ??= true;
 		modifier[key].export ??= true;
-		modifier[key].alias ??= formatTitle(key);
+		modifier[key].alias ??= formatProperUppercase(formatTitle(key));
 	});
 
 	return modifier;

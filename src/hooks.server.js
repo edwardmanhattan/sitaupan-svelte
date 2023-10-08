@@ -10,6 +10,8 @@ export const handle = async ({ event, resolve }) => {
 	const userPrivilege = auth?.split('.')[2];
 	const userTipe = auth?.split('.')[3];
 
+	console.log(auth);
+
 	if (auth) {
 		event.locals = { apiKey, userId, userPrivilege, userTipe };
 	} else {
