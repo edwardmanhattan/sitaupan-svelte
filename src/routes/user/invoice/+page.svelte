@@ -8,6 +8,7 @@
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
 	import Icon from '@iconify/svelte';
+	import { stringify } from 'postcss';
 
 	let source = fiero(`/mitra/getListNotaAset?id_penyedia_jasa=1`);
 
@@ -63,7 +64,7 @@
 		<div>Detail Pembelian</div>
 		<button
 			on:click={() => {
-				form.detail = [...form.detail, detail];
+				form.detail = [...form.detail, JSON.parse(JSON.stringify(detail))];
 			}}
 			class="text-sm w-fit"
 		>
@@ -88,17 +89,42 @@
 				<tr>
 					<td>{i + 1}</td>
 					<td><input type="text" bind:value={d.uraian} /></td>
-					<td><input type="text" bind:value={d.harga} /></td>
-					<td><input type="text" bind:value={d.jumlah} /></td>
-					<td><input type="text" bind:value={d.total} /></td>
+					<td>
+						<input
+							type="number"
+							on:change={() => {
+								d.total = parseFloat(d.harga) * d.jumlah;
+							}}
+							bind:value={d.harga}
+						/>
+					</td>
+					<td>
+						<input
+							type="number"
+							on:change={() => {
+								d.total = parseFloat(d.harga) * d.jumlah;
+							}}
+							min="1"
+							bind:value={d.jumlah}
+						/>
+					</td>
+					<td>
+						<input
+							type="number"
+							on:change={() => {
+								d.harga = parseFloat(d.total) / d.jumlah;
+							}}
+							bind:value={d.total}
+						/>
+					</td>
 					<td>
 						<button
 							on:click={() => {
-								form.detail = form.detail.filter((x) => x.id !== d.id);
+								form.detail = form.detail.filter((x, idx) => idx !== i);
 							}}
 							class="p-1 bg-rose-700"
 						>
-							<Icon icon="basil:trash-outline" />
+							<Icon icon="bi:trash" />
 						</button>
 					</td>
 				</tr>

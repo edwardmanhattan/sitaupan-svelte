@@ -8,6 +8,7 @@
 	import Modal from '$lib/modal/modal.svelte';
 	import { snack } from '$lib/js/vanilla.js';
 	import Currency from '$lib/form/currency.svelte';
+	import Select from '$lib/form/select.svelte';
 	let modal;
 	export let data;
 
@@ -38,7 +39,20 @@
 	</Row>
 
 	<Row {userId} number="3" title="Nilai Kontrak">
-		<Currency bind:value={form.nilai_kontrak} />
+		<Currency
+			bind:value={form.nilai_kontrak}
+			onChange={() => {
+				form.presentase_keuangan = (
+					(parseFloat(form.realisasi_keuangan) / parseFloat(form.nilai_kontrak)) *
+					100.0
+				).toFixed(2);
+
+				form.presentase_fisik = (
+					(parseFloat(form.realisasi_fisik) / parseFloat(form.nilai_kontrak)) *
+					100.0
+				).toFixed(2);
+			}}
+		/>
 	</Row>
 
 	<Row {userId} number="4" title="Lokasi / Alamat Kegiatan">
@@ -46,7 +60,7 @@
 	</Row>
 
 	<Row {userId} number="5" title="Jenis Belanja Modal">
-		<select bind:value={form.jenis_belanja_modal} />
+		<input type="text" bind:value={form.jenis_belanja_modal} disabled />
 	</Row>
 
 	<Row
@@ -98,10 +112,18 @@
 
 	<Row {userId} number="" title="a. Realisasi Keuangan / Persen Keuangan">
 		<svelte:fragment>
-			<Currency bind:value={form.realisasi_keuangan} />
+			<Currency
+				bind:value={form.realisasi_keuangan}
+				onChange={() => {
+					form.presentase_keuangan = (
+						(parseFloat(form.realisasi_keuangan) / parseFloat(form.nilai_kontrak)) *
+						100.0
+					).toFixed(2);
+				}}
+			/>
 			<span class="mx-auto">/</span>
 			<div class="flex items-center gap-2">
-				<input type="text" bind:value={form.presentase_keuangan} />
+				<input disabled type="text" bind:value={form.presentase_keuangan} />
 				<span>%</span>
 			</div>
 		</svelte:fragment>
@@ -109,10 +131,18 @@
 
 	<Row {userId} number="" title="b. Realisasi Fisik / Persen Fisik">
 		<svelte:fragment>
-			<Currency bind:value={form.realisasi_fisik} />
+			<Currency
+				bind:value={form.realisasi_fisik}
+				onChange={() => {
+					form.presentase_fisik = (
+						(parseFloat(form.realisasi_fisik) / parseFloat(form.nilai_kontrak)) *
+						100.0
+					).toFixed(2);
+				}}
+			/>
 			<span class="mx-auto">/</span>
 			<div class="flex items-center gap-2">
-				<input type="text" bind:value={form.presentase_fisik} />
+				<input disabled type="text" bind:value={form.presentase_fisik} />
 				<span>%</span>
 			</div>
 		</svelte:fragment>
@@ -248,7 +278,7 @@
 		<svelte:fragment>
 			<input type="date" bind:value={form.tanggal_pho} />
 			<span class="mx-auto">/</span>
-			<input type="number" bind:value={form.nomor_pho} />
+			<input type="text" bind:value={form.nomor_pho} />
 		</svelte:fragment>
 	</Row>
 
@@ -256,7 +286,7 @@
 		<svelte:fragment>
 			<input type="date" bind:value={form.tanggal_fho} />
 			<span class="mx-auto">/</span>
-			<input type="number" bind:value={form.nomor_fho} />
+			<input type="text" bind:value={form.nomor_fho} />
 		</svelte:fragment>
 	</Row>
 
@@ -285,7 +315,9 @@
 	</Row>
 
 	<Row {userId} number="23" title="Nota Tagihan / Persediaan Masuk">
-		<select bind:value={form.nota_tagihan} />
+		{#await fiero(`/operator/getListPersediaanAset`) then data}
+			<Select bind:key={form.nota_tagihan} {data} config={{ key: 'id', title: 'nama_barang' }} />
+		{/await}
 	</Row>
 
 	<Row {userId} number="24" title="Bulan">
@@ -301,7 +333,9 @@
 	</Row>
 
 	<Row {userId} number="26" title="Kategori">
-		<select bind:value={form.kategori} />
+		{#await fiero(`/operator/getListPersediaanAset`) then data}
+			<Select bind:key={form.kategori} {data} config={{ key: 'id', title: 'nama_barang' }} />
+		{/await}
 	</Row>
 
 	<Row {userId} number="27" title="Ukuran" />
@@ -730,17 +764,23 @@
 	</Row>
 
 	<Row {userId} number="none" title="Rincian Data">
-		<input type="text" bind:value={form.nota_tagihan.rincian_data} />
+		{#await fiero(`/operator/getListPersediaanAset`) then data}
+			<Select
+				bind:key={form.nota_tagihan.rincian_data}
+				{data}
+				config={{ key: 'id', title: 'nama_barang' }}
+			/>
+		{/await}
 	</Row>
 
 	<Row {userId} number="none" title="Detail Pembelian">
 		<button
 			on:click={() => {
 				form.nota_tagihan.detail_pembelian = [
-					...form.nota_tagihan.detail_pembelian,
+					...(form.nota_tagihan.detail_pembelian ?? []),
 					{
 						uraian: '',
-						harga: '',
+						harga: 0,
 						jumlah_barang: 0,
 						total: 0
 					}
@@ -770,9 +810,10 @@
 					<td>{i + 1}</td>
 					<td><input type="text" bind:value={det.uraian} /></td>
 					<td>
-						<Currency
+						<input
+							type="number"
 							bind:value={det.harga}
-							onChange={() => {
+							on:change={() => {
 								det.total = parseFloat(det.harga) * det.jumlah_barang;
 							}}
 						/>
@@ -780,6 +821,7 @@
 					<td>
 						<input
 							type="number"
+							min="1"
 							bind:value={det.jumlah_barang}
 							on:change={() => {
 								det.total = parseFloat(det.harga) * det.jumlah_barang;
@@ -787,9 +829,10 @@
 						/>
 					</td>
 					<td>
-						<Currency
+						<input
+							type="number"
 							bind:value={det.total}
-							onChange={() => {
+							on:change={() => {
 								det.harga = parseFloat(det.total) / det.jumlah_barang;
 							}}
 						/>
