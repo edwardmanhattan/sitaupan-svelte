@@ -29,7 +29,7 @@
 				icon="streamline:interface-file-clipboard-check-checkmark-edit-task-edition-checklist-check-success-clipboard-form"
 			/>
 			<Menu
-				anchor="Daftar Proyek"
+				anchor="Daftar Kegiatan"
 				href="/opr/dpa/daftar"
 				icon="streamline:interface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
 			/>
@@ -85,7 +85,7 @@
 				<Menu anchor="P3DN (Perencanaan)" href="/opr/files/inspektorat/p3dn perencanaan" />
 				<Menu anchor="P3DN (Realisasi)" href="/opr/files/inspektorat/p3dn realisasi" />
 				<Menu anchor="Data Kontrak" href="/opr/files/inspektorat/data kontrak" />
-				<Menu anchor="Bukti Bayar (SP2D)" href="/opr/files/inspektorat/bukti bayar" />
+				<Menu anchor="Bukti Bayar (SP2D)" href="/opr/files/inspektorat/sp2d" />
 				<Menu anchor="SK" href="/opr/files/inspektorat/sk" />
 				<Menu anchor="Realisasi Keuangan" href="/opr/files/inspektorat/realisasi keuangan" />
 				<Menu anchor="Serapan Anggaran" href="/opr/files/inspektorat/serapan anggaran" />
@@ -137,13 +137,14 @@
 				href="/"
 				icon="streamline:computer-database-raid-storage-code-disk-programming-database-array-hard-disc"
 			>
-				<Menu anchor="Data Master" href="/opr/pengaturan/bidang proyek">
-					<Menu anchor="Bidang Proyek" href="/opr/pengaturan/bidang proyek" />
-					<Menu anchor="Jenis Proyek" href="/opr/pengaturan/jenis proyek" />
-					<Menu anchor="Asal Proyek" href="/opr/pengaturan/asal proyek" />
+				<Menu anchor="Data Master" href="/opr/pengaturan/bidang kegiatan">
+					<Menu anchor="Bidang Kegiatan" href="/opr/pengaturan/bidang kegiatan" />
+					<Menu anchor="Jenis Kegiatan" href="/opr/pengaturan/jenis kegiatan" />
+					<Menu anchor="Asal Kegiatan" href="/opr/pengaturan/asal kegiatan" />
 					<Menu anchor="Kode Rekening" href="/opr/pengaturan/kode rekening" />
 					<Menu anchor="Nomor DPA" href="/opr/pengaturan/nomor dpa" />
 					<Menu anchor="Jabatan" href="/opr/pengaturan/jabatan" />
+					<Menu anchor="Persediaan" href="/opr/pengaturan/persediaan" />
 				</Menu>
 				<Menu anchor="Data User" href="/">
 					<Menu anchor="User Operator" href="/opr/pengaturan/user operator" />

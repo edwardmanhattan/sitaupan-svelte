@@ -9,36 +9,37 @@
 	import Icon from '@iconify/svelte';
 	let modal;
 
-	let source = fiero(`/operator/getAllBidangProyek`);
+	let source = fiero(`/operator/getListPersediaanAset`);
 
 	let modifier = {
-		id: { show: false }
+		id: { show: false },
+		id_rincian_rekening: { show: false }
 	};
 
 	let buttons = [
-		{
-			head: 'Aksi',
-			icon: 'basil:trash-solid',
-			color: 'rose-700',
-			action: (id, obj) => {
-				snack.confirm('Anda akan menghapus bidang ini secara permanen. Lanjutkan?', async () => {
-					const res = await fiero(`/operator/deleteBidangProyek`, 'POST', { id: id });
-					if (res.status === 200) {
-						snack.info('Berhasil menghapus bidang.');
-						source = fiero(`/operator/getAllBidangProyek`);
-					}
-				});
-			}
-		}
+		// {
+		// 	head: 'Aksi',
+		// 	icon: 'basil:trash-solid',
+		// 	color: 'rose-700',
+		// 	action: (id, obj) => {
+		// 		snack.confirm('Anda akan menghapus bidang ini secara permanen. Lanjutkan?', async () => {
+		// 			const res = await fiero(`/operator/deleteBidangProyek`, 'POST', { id: id });
+		// 			if (res.status === 200) {
+		// 				snack.info('Berhasil menghapus bidang.');
+		// 				source = fiero(`/operator/getAllBidangProyek`);
+		// 			}
+		// 		});
+		// 	}
+		// }
 	];
 
 	let selected = {};
 </script>
 
 <div class="flex items-center justify-between">
-	<h1>Bidang Proyek</h1>
+	<h1>Kategori Persediaan Aset</h1>
 	<div>
-		<button
+		<!-- <button
 			on:click={() => {
 				selected = { nama_bidang: '', kode_bidang: '' };
 				modal.open();
@@ -46,7 +47,7 @@
 		>
 			<Icon icon="bi:plus" />
 			Tambah
-		</button>
+		</button> -->
 	</div>
 </div>
 
@@ -60,7 +61,7 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modal}>
-	<h1>Bidang Proyek</h1>
+	<h1>Kategori Persediaan Aset</h1>
 
 	<label>Nama Bidang</label>
 	<input type="text" bind:value={selected.nama_bidang} />

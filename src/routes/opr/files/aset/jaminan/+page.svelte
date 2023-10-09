@@ -7,7 +7,8 @@
 	import Table from '$lib/table/table.svelte';
 
 	let year = getYearNow();
-	$: source = `/operator/getLaporanAsetTetap?tanggal=${year}`;
+	console.log(year);
+	$: source = `/operator/getLaporanJaminanUangmuka?tanggal=${year}`;
 	let modifier = {
 		id: { show: false }
 	};
@@ -16,7 +17,7 @@
 
 <div>
 	<div class="flex items-center justify-between">
-		<h1>Aset Tetap</h1>
+		<h1>Jaminan Uang Muka</h1>
 		<select bind:value={year} class="w-32">
 			<option value="">Semua</option>
 			{#each getYearsSince(2023) as y}

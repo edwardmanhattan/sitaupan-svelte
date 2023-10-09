@@ -71,9 +71,9 @@
 						{#each shownKeyModifier(keyModifier) as key}
 							{#if key === 'pageNum'}
 								<td class="text-center">{tr[key]}</td>
-							{:else if keyModifier[key].type === 'datetime'}
+							{:else if keyModifier[key].type === 'datetime' || key.includes('tanggal')}
 								<td>{formatFullDate(tr[key])}</td>
-							{:else if keyModifier[key].type === 'currency'}
+							{:else if keyModifier[key].type === 'currency' || key.includes('nilai')}
 								<td>{rupiah(tr[key])}</td>
 							{:else}
 								<td>{tr[key]}</td>

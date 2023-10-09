@@ -7,14 +7,12 @@
 	import { rupiah, terbilang } from '$lib/js/currency';
 	export let data;
 
-	console.log(data);
-
 	const form = data.data;
 </script>
 
 <div class="h-screen px-24 py-12 overflow-auto">
 	<div class="border border-black">
-		<h1 class="text-center font-semibold underline">SERAH TERIMA BERKAS</h1>
+		<h1 class="font-semibold text-center underline">SERAH TERIMA BERKAS</h1>
 		<br />
 
 		<div class="flex items-center gap-4">
@@ -47,7 +45,7 @@
 				{#each form.formulir as form, i}
 					<tr>
 						<td>{i + 1}</td>
-						<td>{form.tanggal}</td>
+						<td>{formatFullDate(form.tanggal)}</td>
 						<td>{form.bidang}</td>
 						<td>{form.nomor_spm}</td>
 						<td>{form.uraian_pekerjaan}</td>

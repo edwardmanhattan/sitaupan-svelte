@@ -53,7 +53,10 @@
 	</Row>
 
 	<Row number="4" title="Rincian Data">
-		<Select />
+		{#await fiero(`/operator/getListPersediaanAset`) then data}
+			<Select bind:key={form.rincian} {data} config={{ key: 'id', title: 'nama_barang' }} />
+		{/await}
+		<!-- <Select bind:key={kontrak.id_penjabat} data={operator} config={{ key: 'id', title: 'nama' }} /> -->
 	</Row>
 
 	<div class="flex items-center justify-between mb-2">

@@ -144,7 +144,7 @@
 					</div>
 				</Row>
 
-				<Row number="18" title="">
+				<Row number="" title="">
 					<div class="text-justify">
 						Terhadap setiap dari keterlambatan pelaksanaan/ penyelesaian pekerjaan Penyedia akan
 						dikenakan Denda Keterlambatan sebesar 1/1000 (satu per seribu) dari bagian tertentu dari
@@ -153,7 +153,7 @@
 					</div>
 				</Row>
 
-				<Row number="19" title="Nomor BA Pemeriksaan Kemajuan Pekerjaan">
+				<Row number="18" title="Nomor BA Pemeriksaan Kemajuan Pekerjaan">
 					<div>{form.no_ba_pemeriksaan}</div>
 				</Row>
 
@@ -161,7 +161,7 @@
 					<div>{formatFullDate(form.tgl_ba_pemeriksaan)}</div>
 				</Row>
 
-				<Row number="20" title="Nomor BA Serah Terima I Pekerjaan">
+				<Row number="19" title="Nomor BA Serah Terima I Pekerjaan">
 					<div>{form.no_ba_terima1}</div>
 				</Row>
 
@@ -169,7 +169,7 @@
 					<div>{formatFullDate(form.tgl_ba_terima1)}</div>
 				</Row>
 
-				<Row number="21" title="Nomor BA Serah Terima II Pekerjaan">
+				<Row number="20" title="Nomor BA Serah Terima II Pekerjaan">
 					<div>{form.no_ba_terima2}</div>
 				</Row>
 
@@ -177,7 +177,7 @@
 					<div>{formatFullDate(form.tgl_ba_terima2)}</div>
 				</Row>
 
-				<Row number="22" title="Nomor BA Serah Terima Konsultasi">
+				<Row number="21" title="Nomor BA Serah Terima Konsultasi">
 					<div>{form.no_ba_konsul}</div>
 				</Row>
 
@@ -185,7 +185,7 @@
 					<div>{formatFullDate(form.tgl_ba_konsul)}</div>
 				</Row>
 
-				<Row number="23" title="Nomor Berita Acara Pembayaran">
+				<Row number="22" title="Nomor Berita Acara Pembayaran">
 					<div>{form.no_ba_pembayaran}</div>
 				</Row>
 
@@ -193,7 +193,7 @@
 					<div>{formatFullDate(form.tgl_ba_pembayaran)}</div>
 				</Row>
 
-				<Row number="24" title="Lampiran Perincian Total Pengeluaran" />
+				<Row number="23" title="Lampiran Perincian Total Pengeluaran" />
 			</div>
 		</div>
 	</div>

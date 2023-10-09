@@ -7,16 +7,19 @@
 	import Table from '$lib/table/table.svelte';
 
 	let year = getYearNow();
-	$: source = `/operator/getLaporanAsetTetap?tanggal=${year}`;
+	$: source = `/operator/getLaporanSp2d?tanggal=${year}`;
 	let modifier = {
-		id: { show: false }
+		id: { show: false },
+		id_sp2d: { show: false },
+		id_bidang: { show: false },
+		id_master_formulir: { show: false }
 	};
 	let buttons = [];
 </script>
 
 <div>
 	<div class="flex items-center justify-between">
-		<h1>Aset Tetap</h1>
+		<h1>Bukti Bayar (SP2D)</h1>
 		<select bind:value={year} class="w-32">
 			<option value="">Semua</option>
 			{#each getYearsSince(2023) as y}

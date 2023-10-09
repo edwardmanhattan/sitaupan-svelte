@@ -39,7 +39,7 @@
 </script>
 
 <div class="flex items-center justify-between">
-	<h1>Jenis Proyek</h1>
+	<h1>Jenis Kegiatan</h1>
 	<div>
 		<button
 			on:click={() => {

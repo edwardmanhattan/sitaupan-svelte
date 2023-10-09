@@ -11,6 +11,8 @@
 	let modal;
 	export let data;
 
+	const { userId } = data;
+
 	const id = data.formulirId;
 	const form = data.data;
 </script>
@@ -19,58 +21,59 @@
 	<h1>FORMULIR PENYEDIA JASA</h1>
 	<br />
 
-	<Row number="1" title="Nomor SPM">
+	<Row {userId} number="1" title="Nomor SPM">
 		<input type="text" bind:value={form.no_spm} disabled class="bg-transparent disabled" />
 	</Row>
 
-	<Row number="2" title="Tanggal Perjanjian / Kontrak / SPK">
+	<Row {userId} number="2" title="Tanggal Perjanjian / Kontrak / SPK">
 		<input type="date" bind:value={form.tanggal_kontrak} />
 	</Row>
 
-	<Row number="" title="Nomor Perjanjian / Kontrak / SPK">
+	<Row {userId} number="" title="Nomor Perjanjian / Kontrak / SPK">
 		<input type="text" bind:value={form.nomor_kontrak} />
 	</Row>
 
-	<Row number="" title="Sub Kegiatan / Pekerjaan / Uraian Pekerjaan / Nama Pekerjaan">
+	<Row {userId} number="" title="Sub Kegiatan / Pekerjaan / Uraian Pekerjaan / Nama Pekerjaan">
 		<input type="text" bind:value={form.uraian_sub_kegiatan} disabled class="disabled" />
 	</Row>
 
-	<Row number="3" title="Nilai Kontrak">
+	<Row {userId} number="3" title="Nilai Kontrak">
 		<Currency bind:value={form.nilai_kontrak} />
 	</Row>
 
-	<Row number="4" title="Lokasi / Alamat Kegiatan">
+	<Row {userId} number="4" title="Lokasi / Alamat Kegiatan">
 		<textarea rows="3" bind:value={form.alamat_kegiatan} />
 	</Row>
 
-	<Row number="5" title="Jenis Belanja Modal">
+	<Row {userId} number="5" title="Jenis Belanja Modal">
 		<select bind:value={form.jenis_belanja_modal} />
 	</Row>
 
 	<Row
+		{userId}
 		number="6"
 		title="Nama Penyedia Barang / Kontraktor / Pelaksana / Penyedia Jasa / Nama Penyedia"
 	>
 		<input type="text" bind:value={form.nama_penyedia} />
 	</Row>
 
-	<Row number="" title="a. Nama Pimpinan Penyedia Jasa">
+	<Row {userId} number="" title="a. Nama Pimpinan Penyedia Jasa">
 		<input type="text" bind:value={form.nama_pimpinan} />
 	</Row>
 
-	<Row number="" title="b. Handphone">
+	<Row {userId} number="" title="b. Handphone">
 		<input type="text" bind:value={form.no_hp} />
 	</Row>
 
-	<Row number="" title="c. Email">
+	<Row {userId} number="" title="c. Email">
 		<input type="text" bind:value={form.email} />
 	</Row>
 
-	<Row number="7" title="Uraian Pengadaan Sesuai Kontrak">
+	<Row {userId} number="7" title="Uraian Pengadaan Sesuai Kontrak">
 		<input type="text" bind:value={form.uraian_kontrak} />
 	</Row>
 
-	<Row number="8" title="Persen Pekerjaan / Tahap">
+	<Row {userId} number="8" title="Persen Pekerjaan / Tahap">
 		<svelte:fragment>
 			<select bind:value={form.pilihan_pencairan}>
 				<option value="Uang Muka">Uang Muka</option>
@@ -86,13 +89,14 @@
 	</Row>
 
 	<Row
+		{userId}
 		number="9"
 		title="Nilai Permohonan Pembayaran / Nilai Realisasi / Realisasi Keuangan / Sub Total Harga / Pembayaran / Pembayaran Saat Ini / Total Realisasi Sampai Saat Ini"
 	>
 		<Currency bind:value={form.nilai_permohonan} />
 	</Row>
 
-	<Row number="" title="a. Realisasi Keuangan / Persen Keuangan">
+	<Row {userId} number="" title="a. Realisasi Keuangan / Persen Keuangan">
 		<svelte:fragment>
 			<Currency bind:value={form.realisasi_keuangan} />
 			<span class="mx-auto">/</span>
@@ -103,7 +107,7 @@
 		</svelte:fragment>
 	</Row>
 
-	<Row number="" title="b. Realisasi Fisik / Persen Fisik">
+	<Row {userId} number="" title="b. Realisasi Fisik / Persen Fisik">
 		<svelte:fragment>
 			<Currency bind:value={form.realisasi_fisik} />
 			<span class="mx-auto">/</span>
@@ -114,11 +118,11 @@
 		</svelte:fragment>
 	</Row>
 
-	<Row number="" title="c. Kode Rekening Rincian Sub Kegiatan">
+	<Row {userId} number="" title="c. Kode Rekening Rincian Sub Kegiatan">
 		<input type="text" bind:value={form.rincian_sub_kegiatan} />
 	</Row>
 
-	<Row number="10" title="Satuan (Paket)">
+	<Row {userId} number="10" title="Satuan (Paket)">
 		<select bind:value={form.satuan}>
 			<option value="1">1</option>
 			<option value="2">2</option>
@@ -126,55 +130,55 @@
 		</select>
 	</Row>
 
-	<Row number="11" title="Jangka Waktu Kontrak / Masa Kontrak" />
+	<Row {userId} number="11" title="Jangka Waktu Kontrak / Masa Kontrak" />
 
-	<Row number="" title="a. Jumlah Hari">
+	<Row {userId} number="" title="a. Jumlah Hari">
 		<input type="number" bind:value={form.jumlah_hari} />
 	</Row>
 
-	<Row number="" title="b. Tanggal Mulai">
+	<Row {userId} number="" title="b. Tanggal Mulai">
 		<input type="date" bind:value={form.tanggal_mulai} />
 	</Row>
 
-	<Row number="" title="c. Tanggal Berakhir">
+	<Row {userId} number="" title="c. Tanggal Berakhir">
 		<input type="date" bind:value={form.tanggal_selesai} />
 	</Row>
 
-	<Row number="12" title="Nomor dan Tanggal Adendum" />
+	<Row {userId} number="12" title="Nomor dan Tanggal Adendum" />
 
-	<Row number="" title="a. Nomor">
+	<Row {userId} number="" title="a. Nomor">
 		<input type="text" bind:value={form.nomor_adendum} />
 	</Row>
 
-	<Row number="" title="b. Tanggal">
+	<Row {userId} number="" title="b. Tanggal">
 		<input type="date" bind:value={form.tanggal_adendum} />
 	</Row>
 
-	<Row number="13" title="Uraian dan Nilai Adendum" />
+	<Row {userId} number="13" title="Uraian dan Nilai Adendum" />
 
-	<Row number="" title="a. Uraian Adendum">
+	<Row {userId} number="" title="a. Uraian Adendum">
 		<textarea rows="3" bind:value={form.uraian_adendum} />
 	</Row>
 
-	<Row number="" title="b. Nilai Adendum">
+	<Row {userId} number="" title="b. Nilai Adendum">
 		<input type="number" bind:value={form.nilai_adendum} />
 	</Row>
 
-	<Row number="14" title="Jangka Waktu Adendum" />
+	<Row {userId} number="14" title="Jangka Waktu Adendum" />
 
-	<Row number="" title="a. Jumlah Hari">
+	<Row {userId} number="" title="a. Jumlah Hari">
 		<input type="number" bind:value={form.jumlah_hari_adendum} />
 	</Row>
 
-	<Row number="" title="b. Tanggal Mulai">
+	<Row {userId} number="" title="b. Tanggal Mulai">
 		<input type="date" bind:value={form.tanggal_mulai_adendum} />
 	</Row>
 
-	<Row number="" title="c. Tanggal Berakhir">
+	<Row {userId} number="" title="c. Tanggal Berakhir">
 		<input type="date" bind:value={form.tanggal_berakhir_adendum} />
 	</Row>
 
-	<Row number="" title="d. Adendum ke-">
+	<Row {userId} number="" title="d. Adendum ke-">
 		<select bind:value={form.adendum_ke}>
 			<option value="1">1</option>
 			<option value="2">2</option>
@@ -182,65 +186,65 @@
 		</select>
 	</Row>
 
-	<Row number="15" title="Jaminan Pelaksanaan" />
+	<Row {userId} number="15" title="Jaminan Pelaksanaan" />
 
-	<Row number="" title="a. Bentuk">
+	<Row {userId} number="" title="a. Bentuk">
 		<input type="text" bind:value={form.jaminan_pelaksanaan_bentuk} />
 	</Row>
 
-	<Row number="" title="b. Nilai">
+	<Row {userId} number="" title="b. Nilai">
 		<Currency bind:value={form.jaminan_pelaksanaan_nilai} />
 	</Row>
 
-	<Row number="" title="c. Masa Berlaku">
+	<Row {userId} number="" title="c. Masa Berlaku">
 		<input type="number" bind:value={form.jaminan_pelaksanaan_masa_berlaku} />
 	</Row>
 
-	<Row number="16" title="Jaminan Pemeliharaan" />
+	<Row {userId} number="16" title="Jaminan Pemeliharaan" />
 
-	<Row number="" title="a. Bentuk">
+	<Row {userId} number="" title="a. Bentuk">
 		<input type="text" bind:value={form.jaminan_pemeliharaan_bentuk} />
 	</Row>
 
-	<Row number="" title="b. Nilai">
+	<Row {userId} number="" title="b. Nilai">
 		<Currency bind:value={form.jaminan_pemeliharaan_nilai} />
 	</Row>
 
-	<Row number="" title="c. Masa Berlaku">
+	<Row {userId} number="" title="c. Masa Berlaku">
 		<input type="number" bind:value={form.jaminan_pemeliharaan_masa_berlaku} />
 	</Row>
 
-	<Row number="17" title="Metode Pengadaan">
+	<Row {userId} number="17" title="Metode Pengadaan">
 		<select bind:value={form.metode_pengadaan}>
 			<option value="Tender">Tender</option>
 			<option value="PL">PL</option>
 		</select>
 	</Row>
 
-	<Row number="18" title="Manual / LPSE">
+	<Row {userId} number="18" title="Manual / LPSE">
 		<select bind:value={form.manual_lpse}>
 			<option value="Manual">Manual</option>
 			<option value="LPSE">LPSE</option>
 		</select>
 	</Row>
 
-	<Row number="19" title="Berita Acara Serah Terima (BAST)" />
+	<Row {userId} number="19" title="Berita Acara Serah Terima (BAST)" />
 
-	<Row number="" title="a. Nomor">
+	<Row {userId} number="" title="a. Nomor">
 		<input type="text" bind:value={form.bast_nomor} />
 	</Row>
 
-	<Row number="" title="b. Tanggal">
+	<Row {userId} number="" title="b. Tanggal">
 		<input type="date" bind:value={form.bast_tanggal} />
 	</Row>
 
-	<Row number="" title="c. Nilai">
+	<Row {userId} number="" title="c. Nilai">
 		<Currency bind:value={form.bast_nilai} />
 	</Row>
 
-	<Row number="20" title="Tanggal PHO dan FHO" />
+	<Row {userId} number="20" title="Tanggal PHO dan FHO" />
 
-	<Row number="" title="a. Tanggal PHO / Nomor PHO">
+	<Row {userId} number="" title="a. Tanggal PHO / Nomor PHO">
 		<svelte:fragment>
 			<input type="date" bind:value={form.tanggal_pho} />
 			<span class="mx-auto">/</span>
@@ -248,7 +252,7 @@
 		</svelte:fragment>
 	</Row>
 
-	<Row number="" title="a. Tanggal FHO / Nomor FHO">
+	<Row {userId} number="" title="a. Tanggal FHO / Nomor FHO">
 		<svelte:fragment>
 			<input type="date" bind:value={form.tanggal_fho} />
 			<span class="mx-auto">/</span>
@@ -256,35 +260,35 @@
 		</svelte:fragment>
 	</Row>
 
-	<Row number="21" title="Jaminan Uang Muka" />
+	<Row {userId} number="21" title="Jaminan Uang Muka" />
 
-	<Row number="" title="a. Bentuk">
+	<Row {userId} number="" title="a. Bentuk">
 		<input type="text" bind:value={form.jaminan_uang_muka_bentuk} />
 	</Row>
 
-	<Row number="" title="b. Nilai">
+	<Row {userId} number="" title="b. Nilai">
 		<Currency bind:value={form.jaminan_uang_muka_nilai} />
 	</Row>
 
-	<Row number="" title="c. Masa Berlaku">
+	<Row {userId} number="" title="c. Masa Berlaku">
 		<input type="number" bind:value={form.jaminan_uang_muka_masa_berlaku} />
 	</Row>
 
-	<Row number="22" title="No. SPK / SPB / Nota Permintaan" />
+	<Row {userId} number="22" title="No. SPK / SPB / Nota Permintaan" />
 
-	<Row number="" title="a. Tanggal">
+	<Row {userId} number="" title="a. Tanggal">
 		<input type="date" bind:value={form.tanggal_spk} />
 	</Row>
 
-	<Row number="" title="b. Nomor">
+	<Row {userId} number="" title="b. Nomor">
 		<input type="text" bind:value={form.nomor_spk} />
 	</Row>
 
-	<Row number="23" title="Nota Tagihan / Persediaan Masuk">
+	<Row {userId} number="23" title="Nota Tagihan / Persediaan Masuk">
 		<select bind:value={form.nota_tagihan} />
 	</Row>
 
-	<Row number="24" title="Bulan">
+	<Row {userId} number="24" title="Bulan">
 		<select bind:value={form.bulan}>
 			{#each indonesianMonths as month}
 				<option value={month}>{month}</option>
@@ -292,41 +296,41 @@
 		</select>
 	</Row>
 
-	<Row number="25" title="Nama Barang">
+	<Row {userId} number="25" title="Nama Barang">
 		<button on:click={modal.open}>Buka Nota Tagihan</button>
 	</Row>
 
-	<Row number="26" title="Kategori">
+	<Row {userId} number="26" title="Kategori">
 		<select bind:value={form.kategori} />
 	</Row>
 
-	<Row number="27" title="Ukuran" />
+	<Row {userId} number="27" title="Ukuran" />
 
-	<Row number="" title="a. Panjang">
+	<Row {userId} number="" title="a. Panjang">
 		<input type="number" bind:value={form.ukuran_panjang} />
 	</Row>
 
-	<Row number="" title="b. Lebar">
+	<Row {userId} number="" title="b. Lebar">
 		<input type="number" bind:value={form.ukuran_lebar} />
 	</Row>
 
-	<Row number="28" title="Konstruksi">
+	<Row {userId} number="28" title="Konstruksi">
 		<input type="text" bind:value={form.kontruksi} />
 	</Row>
 
-	<Row number="29" title="Berita Acara Pembayaran" />
+	<Row {userId} number="29" title="Berita Acara Pembayaran" />
 
-	<Row number="" title="a. Nomor">
+	<Row {userId} number="" title="a. Nomor">
 		<input type="text" bind:value={form.bap_nomor} />
 	</Row>
 
-	<Row number="" title="b. Tanggal">
+	<Row {userId} number="" title="b. Tanggal">
 		<input type="date" bind:value={form.bap_tanggal} />
 	</Row>
 
-	<Row number="30" title="Rincian KIB (Aset)" />
+	<Row {userId} number="30" title="Rincian KIB (Aset)" />
 
-	<Row number="" title="a. Rincian Spesifikasi Barang Untuk Pekerjaan TANAH">
+	<Row {userId} number="" title="a. Rincian Spesifikasi Barang Untuk Pekerjaan TANAH">
 		<button
 			on:click={() => {
 				form.kib_a = [
@@ -386,7 +390,7 @@
 	</table>
 	<br />
 
-	<Row number="" title="b. Rincian Spesifikasi Barang Untuk Pekerjaan / Pengadaan">
+	<Row {userId} number="" title="b. Rincian Spesifikasi Barang Untuk Pekerjaan / Pengadaan">
 		<button
 			on:click={() => {
 				form.kib_b = [
@@ -446,7 +450,7 @@
 	</table>
 	<br />
 
-	<Row number="" title="c. Rincian Spesifikasi Barang Untuk Pekerjaan BANGUNAN GEDUNG">
+	<Row {userId} number="" title="c. Rincian Spesifikasi Barang Untuk Pekerjaan BANGUNAN GEDUNG">
 		<button
 			on:click={() => {
 				form.kib_c = [
@@ -507,6 +511,7 @@
 	<br />
 
 	<Row
+		{userId}
 		number=""
 		title="d. Rincian Spesifikasi Barang Untuk Pekerjaan FISIK (Kecuali Bangunan Gedung)"
 	>
@@ -570,6 +575,7 @@
 	<br />
 
 	<Row
+		{userId}
 		number=""
 		title="e. Rincian Spesifikasi Barang Untuk Pekerjaan Buku / Perpustakaan, Barang Bercorak Kesenian / Kebudayaan dan Hewan / Ternak serta Tumbuhan"
 	>
@@ -632,7 +638,7 @@
 	</table>
 	<br />
 
-	<Row number="" title="f. Rincian Spesifikasi Barang Untuk Pekerjaan KONSULTAN">
+	<Row {userId} number="" title="f. Rincian Spesifikasi Barang Untuk Pekerjaan KONSULTAN">
 		<button
 			on:click={() => {
 				form.kib_f = [
@@ -711,23 +717,23 @@
 	<h1>Penambahan Invoice</h1>
 	<br />
 
-	<Row number="none" title="ID Nota">
+	<Row {userId} number="none" title="ID Nota">
 		<input type="text" bind:value={form.nota_tagihan.id_nota} />
 	</Row>
 
-	<Row number="none" title="Tanggal">
+	<Row {userId} number="none" title="Tanggal">
 		<input type="date" bind:value={form.nota_tagihan.tanggal_nota} />
 	</Row>
 
-	<Row number="none" title="Nama Toko">
+	<Row {userId} number="none" title="Nama Toko">
 		<input type="text" bind:value={form.nota_tagihan.nama_toko} />
 	</Row>
 
-	<Row number="none" title="Rincian Data">
+	<Row {userId} number="none" title="Rincian Data">
 		<input type="text" bind:value={form.nota_tagihan.rincian_data} />
 	</Row>
 
-	<Row number="none" title="Detail Pembelian">
+	<Row {userId} number="none" title="Detail Pembelian">
 		<button
 			on:click={() => {
 				form.nota_tagihan.detail_pembelian = [

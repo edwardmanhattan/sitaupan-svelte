@@ -168,8 +168,6 @@ export async function load({ params }) {
 			(res) => res.json()
 		);
 
-	console.log(params.formulirId);
-	console.log((await form()).data);
 	return {
 		// data: data,
 		data: (await form()).data,
