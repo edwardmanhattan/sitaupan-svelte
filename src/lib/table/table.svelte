@@ -75,6 +75,8 @@
 								<td>{formatFullDate(tr[key])}</td>
 							{:else if keyModifier[key].type === 'currency' || key.includes('nilai')}
 								<td>{rupiah(tr[key])}</td>
+							{:else if key.includes('persen')}
+								<td>{tr[key]}%</td>
 							{:else}
 								<td>{tr[key]}</td>
 							{/if}

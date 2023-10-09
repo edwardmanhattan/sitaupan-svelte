@@ -3,7 +3,7 @@
 	import Menu from './menu.svelte';
 </script>
 
-<div class="flex flex-col h-screen gap-4 py-5 text-white w-fit bg-black-1">
+<div class="flex flex-col h-screen gap-4 py-5 text-white w-fit bg-blue-2">
 	<div class="grid mx-auto place-items-center w-fit">
 		<img src={logo} alt="Logo App Invest" class="w-28" />
 	</div>
@@ -25,7 +25,7 @@
 			/>
 			<Menu
 				anchor="Pembuatan Formulir"
-				href="/opr/dpa/penyelesaian"
+				href="/opr/dpa/formulir"
 				icon="streamline:interface-file-clipboard-check-checkmark-edit-task-edition-checklist-check-success-clipboard-form"
 			/>
 			<Menu

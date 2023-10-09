@@ -20,7 +20,7 @@
 <div
 	on:mouseenter={hover}
 	on:mouseleave={hover}
-	class="relative border-b border-b-white/30 bg-black-1 hover:bg-blue-2/80 hover:border-white"
+	class="relative border-b border-b-white/30 bg-blue-2 hover:bg-blue-1 hover:border-white"
 >
 	<div on:click|stopPropagation={goToHref} class="menu">
 		{#if icon !== ''}
@@ -51,7 +51,7 @@
 	@tailwind components;
 	@layer components {
 		.menu {
-			@apply p-3 flex items-center gap-6 hover:text-white cursor-pointer;
+			@apply p-3 flex items-center gap-6 hover:text-blue-2 cursor-pointer;
 		}
 	}
 </style>

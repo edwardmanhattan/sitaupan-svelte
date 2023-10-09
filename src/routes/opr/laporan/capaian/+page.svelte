@@ -9,7 +9,9 @@
 	let year = getYearNow();
 	$: source = `/operator/getLaporanCapainRealisasi?tanggal=${year}`;
 	let modifier = {
-		id: { show: false }
+		id: { show: false },
+		id_capaian: { show: false },
+		tahun: { show: false }
 	};
 	let buttons = [];
 </script>

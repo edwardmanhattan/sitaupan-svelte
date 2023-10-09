@@ -6,7 +6,7 @@
 	let source = fiero(`/operator/kotakDashboard`);
 </script>
 
-<div class="grid grid-cols-4 gap-3">
+<div class="grid grid-cols-3 gap-3">
 	{#await source}
 		{#each { length: 8 } as _, id}
 			<div class="h-32 bg-gray-500 rounded animate-pulse" />
