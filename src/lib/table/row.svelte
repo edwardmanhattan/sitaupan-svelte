@@ -10,7 +10,9 @@
 	{#if number !== 'none'}
 		<div class="w-4 shrink-0">{number}</div>
 	{/if}
+
 	<div class="w-4/12 shrink-0">{title}</div>
+
 	<div class="w-2">:</div>
 
 	<div class:disabled={!able.includes(userId)} class="flex items-center gap-2 grow">

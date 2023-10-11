@@ -1,11 +1,10 @@
 <script>
 	// @ts-nocheck
 
-	import { rupiah, terbilang } from '$lib/js/currency';
 	import { formatFullDate } from '$lib/js/datetime';
 	import jsPDF from 'jspdf';
 	import Row from '$lib/table/row.svelte';
-	import Kop from '$lib/kop.svelte';
+	import Kop2 from '$lib/kop2.svelte';
 	import Icon from '@iconify/svelte';
 	export let data;
 
@@ -16,25 +15,6 @@
 		unit: 'pt'
 	});
 	let pdf;
-
-	let kop;
-	function rotateKop() {
-		const rotationAngle = 270; // 90 degrees in this example
-
-		// Calculate the new dimensions after rotation
-		const rect = kop.getBoundingClientRect();
-		const newWidth = rect.height; // Swap width and height to adjust for rotation
-		const newHeight = rect.width;
-
-		// Apply the rotation and dimensions
-		kop.style.transform = `rotate(${rotationAngle}deg)`;
-		// kop.style.height = `${newHeight}px`;
-		// kop.style.width = `${newWidth}px`;
-		kop.style.height = `50px`;
-	}
-	// setTimeout(() => {
-	// 	rotateKop();
-	// }, 1000);
 </script>
 
 <div class="flex flex-col h-screen overflow-auto">
@@ -58,61 +38,68 @@
 		</button>
 	</div>
 	<div class="flex justify-center p-6 overflow-auto grow">
-		<div class="flex items-center bg-white border border-black h-max" bind:this={pdf}>
-			<div class="border [writing-mode:vertical-rl]" bind:this={kop}>
-				<Kop />
-			</div>
+		<div class="flex bg-white border border-black h-max" bind:this={pdf}>
+			<Kop2 />
 
-			<div class="border grow">
-				<Row number="1" title="Kode Rekening">
+			<div class="px-4 py-6 grow">
+				<div class="text-[12pt] font-semibold underline">UNTUK DINAS</div>
+				<div class="text-[14pt] font-semibold underline text-center">SURAT BUKTI</div>
+				<br />
+
+				<Row number="none" title="Kode Rekening">
 					<div>{form.kode_rekening_sub_kegiatan}</div>
 				</Row>
 
-				<Row number="2" title="Nomor Dibukukan">
-					<div>???</div>
-				</Row>
+				<Row number="none" title="Nomor Dibukukan" />
 
-				<Row number="3" title="Program">
+				<Row number="none" title="Program">
 					<div>{form.program}</div>
 				</Row>
 
-				<Row number="4" title="Kegiatan">
+				<Row number="none" title="Kegiatan">
 					<div>{form.kegiatan}</div>
 				</Row>
 
-				<Row number="5" title="Sub Kegiatan">
+				<Row number="none" title="Sub Kegiatan">
 					<div>{form.sub_kegiatan}</div>
 				</Row>
 
-				<Row number="" title="Catatan Tambahan">
-					<div>{form.catatan}</div>
-				</Row>
-
-				<Row number="6" title="Sudah Terima Dari">
+				<Row number="none" title="Sudah Terima Dari">
 					<div>{form.sudah_terima}</div>
 				</Row>
 
-				<Row number="7" title="Uang Sebesar">
-					<div>{form.nilai}</div>
+				<Row number="none" title="Uang Sebesar">
+					<div class="w-full p-2 -skew-x-[20deg] text-center border border-black">
+						{form.nilai}
+					</div>
 				</Row>
 
-				<Row number="8" title="Untuk Pembayaran">
+				<Row number="none" title="Untuk Pembayaran">
 					<div>{form.sub_kegiatan}</div>
 				</Row>
 
-				<Row number="" title="Catatan Tambahan">
-					<div>{form.catatan}</div>
+				<Row number="none" title="">
+					<div>
+						{form.catatan}
+					</div>
 				</Row>
 
 				<!--  -->
 
 				<div class="flex items-center justify-between text-sm">
-					<div>
-						Terbilang {terbilang(0)} Rupiah
+					<div class="self-end grow">
+						<div class="w-full h-1 border-y border-y-black" />
+						<div class="flex items-center justify-around my-2">
+							<div>Terbilang</div>
+							<div class="w-32 p-1 -skew-x-[20deg] text-center border border-black">
+								{form.nilai}
+							</div>
+						</div>
+						<div class="w-full h-1 border-y border-y-black" />
 					</div>
 
-					<div class="text-center">
-						<div>Tanjung Redep, {formatFullDate()}</div>
+					<div class="text-center grow">
+						<div>Tanjung Redeb, {formatFullDate()}</div>
 
 						<div class="spacer" />
 						<div class="spacer" />
@@ -128,8 +115,8 @@
 
 				<!--  -->
 
-				<div class="flex justify-between gap-4 text-sm text-center">
-					<div>
+				<div class="flex justify-between text-sm text-center">
+					<div class="p-2 border border-black border-e-0">
 						<div>Mengetahui / Menyetujui</div>
 						<div>Kuasa Penggunaan Anggaran</div>
 						<div class="spacer" />
@@ -139,7 +126,7 @@
 						<div>NIP</div>
 					</div>
 
-					<div>
+					<div class="p-2 border border-black border-e-0">
 						<div>Pejabat Pelaksana Teknis Kegiatan</div>
 
 						<div class="spacer" />
@@ -151,7 +138,7 @@
 						<div>NIP</div>
 					</div>
 
-					<div>
+					<div class="p-2 border border-black">
 						<div>Bendahara Pengeluaran Pembantu</div>
 						<div>Dibayar Tanggal 31 Mei 2023</div>
 						<div class="spacer" />
@@ -163,11 +150,6 @@
 				</div>
 
 				<!--  -->
-
-				<br />
-				<Row number="" title="Keterangan">
-					<div>{form.keterangan}</div>
-				</Row>
 			</div>
 		</div>
 	</div>
