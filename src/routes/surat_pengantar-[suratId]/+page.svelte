@@ -2,10 +2,9 @@
 	// @ts-nocheck
 
 	import { formatFullDate } from '$lib/js/datetime';
-	import { rupiah, terbilang } from '$lib/js/currency';
 	import jsPDF from 'jspdf';
 	import Row from '$lib/table/row.svelte';
-	import Kop from '$lib/kop.svelte';
+	import Kop3 from '$lib/kop3.svelte';
 	import Icon from '@iconify/svelte';
 	export let data;
 
@@ -39,14 +38,21 @@
 		</button>
 	</div>
 	<div class="flex justify-center p-6 overflow-auto grow">
-		<div class="w-[21cm] h-max px-[2cm] pb-[2.54cm] border border-black text-sm" bind:this={pdf}>
-			<Kop />
+		<div
+			class="w-[21cm] h-max px-[2cm] pb-[2.54cm] border bg-white border-black text-sm"
+			bind:this={pdf}
+		>
+			<Kop3 />
 
-			<div>Kepada :</div>
-			<div>Yth. Kepala BPKAD</div>
-			<div>Kabupaten Berau</div>
-			<div>Cq. Bidang Perbendaharaan</div>
-			<div>Di Tanjung Redeb</div>
+			<div class="flex justify-end">
+				<div class="w-4/12">
+					<div>Kepada :</div>
+					<div>Yth. Kepala BPKAD</div>
+					<div>Kabupaten Berau</div>
+					<div>Cq. Bidang Perbendaharaan</div>
+					<div>Di Tanjung Redeb</div>
+				</div>
+			</div>
 
 			<br />
 
@@ -66,17 +72,17 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>1</td>
+							<td class="no">1</td>
 							<td>
 								<div class="text-left">
 									<div>Penyampaian Berkas</div>
-									<ol class="ps-2">
-										<li>1. Tahap: {form.tahap}</li>
-										<li>2. Pekerjaan: {form.uraian_pekerjaan}</li>
-										<li>3. Penyedia Jasa: {form.penyedia_jasa}</li>
-										<li>4. No. SPM : {form.nomor_spm}</li>
+									<ol class="ps-8">
+										<li class="list-decimal">Tahap: {form.tahap}</li>
+										<li class="list-decimal">Pekerjaan: {form.uraian_pekerjaan}</li>
+										<li class="list-decimal">Penyedia Jasa: {form.penyedia_jasa}</li>
+										<li class="list-decimal">No. SPM : {form.nomor_spm}</li>
 									</ol>
-									<ul>
+									<ul class="ps-4">
 										<li>Surat Pernyataan Tanggung Jawab Mutlak SPM-LS</li>
 										<li>Surat Perintah Membayar (SPM)</li>
 										<li>
@@ -122,6 +128,10 @@
 </div>
 
 <style lang="postcss">
+	ul > li {
+		list-style-type: '\2013 ';
+	}
+
 	@tailwind components;
 	@layer components {
 		.font-times {
@@ -144,7 +154,12 @@
 		table,
 		th,
 		td {
-			@apply text-center p-1;
+			@apply text-left align-top p-1;
+		}
+
+		th,
+		.no {
+			@apply text-center;
 		}
 
 		br {
