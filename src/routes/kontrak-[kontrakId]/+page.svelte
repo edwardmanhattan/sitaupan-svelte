@@ -20,7 +20,7 @@
 
 <div class="flex flex-col h-screen overflow-auto">
 	<div class="flex items-center justify-between p-2 text-white shrink-0 bg-slate-400">
-		<h1>Kontrak Fisik</h1>
+		<h1>Resume</h1>
 		<button
 			on:click={() => {
 				doc.html(pdf, {

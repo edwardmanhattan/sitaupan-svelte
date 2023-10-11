@@ -1,4 +1,6 @@
 <script>
+	// @ts-nocheck
+
 	import berau from '$lib/assets/berau.webp';
 </script>
 

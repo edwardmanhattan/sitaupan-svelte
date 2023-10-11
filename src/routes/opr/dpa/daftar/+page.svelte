@@ -245,7 +245,7 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modalKontrak}>
-	<label>Penjabat</label>
+	<label>Penjabat Pembuat Komitmen</label>
 	<Select bind:key={kontrak.id_penjabat} data={operator} config={{ key: 'id', title: 'nama' }} />
 
 	<br />
@@ -268,19 +268,19 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modalBukti}>
-	<label>Penjabat I</label>
+	<label>Penjabat Kuasa Penggunaan Anggaran</label>
 	<Select bind:key={bukti.id_penjabat1} data={operator} config={{ key: 'id', title: 'nama' }} />
 
-	<label>Penjabat II</label>
-	<Select bind:key={bukti.id_penjabat2} data={operator} config={{ key: 'id', title: 'nama' }} />
+	{#if bukti.tipe_surat === '4'}
+		<label>Penjabat Pembuat Komitmen</label>
+		<Select bind:key={bukti.id_penjabat2} data={operator} config={{ key: 'id', title: 'nama' }} />
+	{/if}
 
-	<label>Penjabat III</label>
+	<label>Penjabat Pelaksana Teknis Kegiatan</label>
 	<Select bind:key={bukti.id_penjabat3} data={operator} config={{ key: 'id', title: 'nama' }} />
 
-	{#if bukti.tipe_surat === '4'}
-		<label>Penjabat IV</label>
-		<Select bind:key={bukti.id_penjabat4} data={operator} config={{ key: 'id', title: 'nama' }} />
-	{/if}
+	<label>Bendahara Pengeluaran Pembantu</label>
+	<Select bind:key={bukti.id_penjabat4} data={operator} config={{ key: 'id', title: 'nama' }} />
 
 	<label>Jumlah Penjabat</label>
 	<select bind:value={bukti.tipe_surat}>

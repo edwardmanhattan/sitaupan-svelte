@@ -183,8 +183,8 @@
 	<thead>
 		<tr>
 			<th>No</th>
-			<th>Nama</th>
-			<th>NIP</th>
+			<th>Kode Rekening</th>
+			<th>Uraian Rincian Sub Kegiatan</th>
 			<th>Aksi</th>
 		</tr>
 	</thead>
@@ -194,13 +194,14 @@
 				<td>{i + 1}</td>
 				<td>
 					<select bind:value={x.kode_rekening}>
-						{#each kegiatan as keg}
+						<!-- {#each kegiatan as keg}
 							<option value={keg.kode_rekening}>{keg.nama}</option>
-						{/each}
+						{/each} -->
+						<option value="7.4.1.1.1">7.4.1.1.1</option>
 					</select>
 				</td>
 				<td>
-					<input type="text" disabled class="disabled" bind:value={x.kode_rekening} />
+					<input type="text" disabled class="disabled" value="Pembangunan Gorong-Gorong" />
 				</td>
 				<td>
 					<button
