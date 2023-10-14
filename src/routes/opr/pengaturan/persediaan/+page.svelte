@@ -74,7 +74,7 @@
 		on:click={async () => {
 			const res = await fiero(`/operator/insertBidangProyek`, 'POST', selected);
 			if (res.status === 200) {
-				snack.info('Berhasil menambah bidang proyek baru.');
+				snack.info('Berhasil menambah bidang kegiatan baru.');
 				source = fiero(`/operator/getAllBidangProyek`);
 				modal.close();
 			}

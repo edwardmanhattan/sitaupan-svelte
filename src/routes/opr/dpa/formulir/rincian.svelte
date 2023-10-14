@@ -22,7 +22,8 @@
 		nilai_persetujuan: { type: 'currency' },
 		nilai_total_mitra: { type: 'currency' },
 		tombol: { show: false },
-		id_penyedia_jasa: { show: false }
+		id_penyedia_jasa: { show: false },
+		nama_proyek: { alias: 'Nama Kegiatan' }
 	};
 
 	let searchText = '';

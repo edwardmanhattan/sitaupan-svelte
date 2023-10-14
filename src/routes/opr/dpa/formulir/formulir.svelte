@@ -9,6 +9,7 @@
 	import { Pagination } from '$lib/js/pagination';
 	import { fiero } from '$lib/js/fiero';
 	import { snack } from '$lib/js/vanilla';
+	import { goto } from '$app/navigation';
 
 	export let data = {};
 	export let modifier = {};
@@ -110,16 +111,18 @@
 						{/each}
 
 						<td>
-							{#if mode !== 'menunggu'}
-								<button
-									on:click={() => {
-										console.log(tr);
-									}}
-									class="w-fit"
-								>
-									Lihat Form
-								</button>
-							{:else}
+							<button
+								on:click={() => {
+									goto(`/formulir-${tr.id_form}`);
+									// document.location.href = `/formulir-${tr.id_form}`;
+								}}
+								class="w-fit"
+							>
+								Lihat Form
+							</button>
+						</td>
+						{#if mode === 'menunggu'}
+							<td>
 								<div class="flex items-center justify-center gap-2">
 									<button
 										on:click={async () => {
@@ -150,8 +153,8 @@
 										<Icon icon="basil:check-outline" />
 									</button>
 								</div>
-							{/if}
-						</td>
+							</td>
+						{/if}
 					</tr>
 				{:else}
 					<tr class="text-center border border-gray-1">

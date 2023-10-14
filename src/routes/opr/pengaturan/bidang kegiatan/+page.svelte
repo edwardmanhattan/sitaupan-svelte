@@ -60,7 +60,7 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modal}>
-	<h1>Bidang Proyek</h1>
+	<h1>Bidang Kegiatan</h1>
 
 	<label>Nama Bidang</label>
 	<input type="text" bind:value={selected.nama_bidang} />
@@ -73,7 +73,7 @@
 		on:click={async () => {
 			const res = await fiero(`/operator/insertBidangProyek`, 'POST', selected);
 			if (res.status === 200) {
-				snack.info('Berhasil menambah bidang proyek baru.');
+				snack.info('Berhasil menambah bidang kegiatan baru.');
 				source = fiero(`/operator/getAllBidangProyek`);
 				modal.close();
 			}

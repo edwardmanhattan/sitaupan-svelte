@@ -60,7 +60,7 @@
 
 				{#if checkJabatan([11])}
 					<Menu
-						anchor="Pembuatan Serah Terima Berkas"
+						anchor="Serah Terima Berkas"
 						href="/opr/dpa/stb"
 						icon="streamline:interface-file-clipboard-check-checkmark-edit-task-edition-checklist-check-success-clipboard-form"
 					/>

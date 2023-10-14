@@ -22,11 +22,11 @@
 			color: 'rose-700',
 			action: (id) => {
 				snack.confirm(
-					'Anda akan menghapus jenis proyek ini secara permanen. Lanjutkan?',
+					'Anda akan menghapus jenis kegiatan ini secara permanen. Lanjutkan?',
 					async () => {
 						const res = await fiero(`/operator/deleteJenisProyek`, 'POST', { id: id });
 						if (res.status === 200) {
-							snack.info('Berhasil menghapus jenis proyek.');
+							snack.info('Berhasil menghapus jenis kegiatan.');
 							source = fiero(`/operator/getAllJenisProyek`);
 						}
 					}
@@ -63,7 +63,7 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modal}>
-	<h1 class="w-96">Jenis Proyek</h1>
+	<h1 class="w-96">Jenis Kegiatan</h1>
 
 	<label>Jenis</label>
 	<input type="text" bind:value={selected.jenis_proyek} />
@@ -74,7 +74,7 @@
 		on:click={async () => {
 			const res = await fiero(`/operator/insertJenisProyek`, 'POST', selected);
 			if (res.status === 200) {
-				snack.info('Berhasil menambah jenis proyek baru.');
+				snack.info('Berhasil menambah jenis kegiatan baru.');
 				source = fiero(`/operator/getAllJenisProyek`);
 				modal.close();
 			}
