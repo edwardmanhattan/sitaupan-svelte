@@ -40,3 +40,21 @@ export const exportToExcel = async (data, config) => {
 	const buf = await workbook.xlsx.writeBuffer();
 	FileSaver.saveAs(new Blob([buf]), `${config.fileName}.xlsx`);
 };
+
+export const exportToPDF = async (link, name) => {
+	try {
+		const response = await fetch(`/api/pdf?link=${link}`, {
+			method: 'POST',
+			headers: { Accept: 'application/json' }
+		});
+
+		const json = await response.json();
+
+		const download = document.createElement('a');
+		download.href = `data:application/pdf;base64,${json.pdf}`;
+		download.download = name + '.pdf';
+		download.click();
+	} catch (err) {
+		console.log(err);
+	}
+};

@@ -58,6 +58,10 @@
 	button.subpage.active {
 		@apply bg-blue-1/80;
 	}
+
+	.signature {
+		@apply flex flex-col justify-between h-40 text-center;
+	}
 }
 
 /* width */

@@ -11,11 +11,6 @@
 
 	const id = data.kontrakId;
 	const form = data.data;
-
-	const doc = new jsPDF({
-		unit: 'pt'
-	});
-	let pdf;
 </script>
 
 <div class="flex flex-col h-screen overflow-auto">
@@ -39,7 +34,10 @@
 		</button>
 	</div>
 	<div class="flex justify-center p-6 overflow-auto grow">
-		<div class="w-[21cm] h-max px-[2cm] pb-[2.54cm] bg-white border border-black" bind:this={pdf}>
+		<div
+			class="w-[21cm] h-max px-[2cm] pb-[2.54cm] pt-[1cm] font-times bg-white border border-black"
+			id="printTarget"
+		>
 			<Kop />
 
 			<h1 class="text-center">RESUME SPK / KONTRAK FISIK</h1>
@@ -207,7 +205,7 @@
 		}
 
 		* {
-			@apply font-times leading-5;
+			@apply leading-5;
 		}
 
 		p {

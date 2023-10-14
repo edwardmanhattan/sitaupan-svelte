@@ -119,7 +119,7 @@
 									Buat Resume
 								</button>
 							{:else}
-								<a href="/kontrak-{tr.id_kontrak_fisik}">
+								<a href="/resume-{tr.id_kontrak_fisik}">
 									<button> Detail Resume </button>
 								</a>
 							{/if}
