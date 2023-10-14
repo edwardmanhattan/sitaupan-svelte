@@ -1,4 +1,6 @@
 <script>
+	// @ts-nocheck
+
 	import { fiero } from '$lib/js/fiero';
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
@@ -10,20 +12,30 @@
 	let modifier = {
 		id: { show: false }
 	};
+
+	let buttons = [
+		{
+			head: 'Aksi',
+			body: 'Lihat',
+			action: (id) => {
+				document.location.href = `./tim/detail-${id}`;
+			}
+		}
+	];
 </script>
 
-<a href="/opr/dpa/tim/add">
+<!-- <a href="/opr/dpa/tim/add">
 	<button class="ml-auto w-fit">
 		<Icon icon="bi:plus" />
 		Tambah Tim
 	</button>
-</a>
+</a> -->
 <br />
 
 {#await source}
 	<Skeleton />
 {:then data}
-	<Table {data} {modifier} />
+	<Table {data} {modifier} {buttons} />
 {:catch err}
 	<div>{err}</div>
 {/await}
