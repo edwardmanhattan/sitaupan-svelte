@@ -21,7 +21,8 @@
 		id_serah_terima: { show: false },
 		id_bidang: { show: false },
 		id_staf: { show: false },
-		formulir: { show: false }
+		formulir: { show: false },
+		timestamp: { type: 'datetime' }
 	};
 
 	let buttons = [
