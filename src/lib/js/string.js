@@ -5,10 +5,11 @@ export const formatTitle = (str) => {
 	return capitalizedWords.join(' ');
 };
 
+const notAffected = ['No', 'Tim', 'Sub', 'Rek'];
 export const formatProperUppercase = (str) => {
 	const words = str.split(' ');
 	const capitalizedWords = words.map((word) => {
-		if (word.length <= 3 && word !== 'No') return word.toUpperCase();
+		if (word.length <= 3 && !notAffected.includes(word)) return word.toUpperCase();
 		else return word;
 	});
 	return capitalizedWords.join(' ');
