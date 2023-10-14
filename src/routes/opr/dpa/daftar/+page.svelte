@@ -116,7 +116,7 @@
 									class="bg-emerald-700"
 								>
 									<Icon width="16px" icon="bx:pen" />
-									Buat Kontrak
+									Buat Resume
 								</button>
 							{:else}
 								<a href="/kontrak-{tr.id_kontrak_fisik}">

@@ -162,7 +162,7 @@
 			</svelte:fragment>
 		</Row>
 
-		<Row number="4" title="Anggaran Program">
+		<Row number="4" title="Pagu Anggaran">
 			<Currency bind:value={selected.program.anggaran} />
 		</Row>
 

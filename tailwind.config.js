@@ -5,10 +5,10 @@ export default {
 		extend: {
 			colors: {
 				// 'blue-1': '#A5DBDD',
-				'blue-1': '#EC6103',
+				'blue-1': '#F0DCCA',
 				// 'blue-2': '#407C87',
-				'blue-2': '#018044',
-				'blue-3': '#01532c',
+				'blue-2': '#42A3A7',
+				'blue-3': '#104946',
 				'white-1': '#F5F5F5',
 				'gray-1': '#B1CCCC',
 				'gray-2': '#323B3B',

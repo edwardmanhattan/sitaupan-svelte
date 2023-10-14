@@ -51,7 +51,7 @@
 	@tailwind components;
 	@layer components {
 		.menu {
-			@apply p-3 flex items-center gap-6 cursor-pointer;
+			@apply p-3 flex items-center gap-6 cursor-pointer hover:text-blue-2;
 		}
 	}
 </style>

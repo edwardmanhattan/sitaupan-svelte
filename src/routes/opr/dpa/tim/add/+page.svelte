@@ -11,7 +11,7 @@
 	let { form, bidang, operator, kegiatan } = data;
 </script>
 
-<Row number="1" title="Nama Tim Kegiatan">
+<Row number="1" title="Uraian Sub Kegiatan">
 	<input type="text" bind:value={form.nama_kegiatan} />
 </Row>
 

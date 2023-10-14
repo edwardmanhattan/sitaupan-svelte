@@ -2,43 +2,51 @@
 	// @ts-nocheck
 
 	import { formatFullDate } from '$lib/js/datetime';
-	import jsPDF from 'jspdf';
 	import Row from '$lib/table/row.svelte';
 	import Kop2 from '$lib/kop2.svelte';
 	import Icon from '@iconify/svelte';
+	import { config } from '$lib/js/fiero.js';
 	export let data;
 
 	const id = data.kontrakId;
 	const form = data.data;
 
-	const doc = new jsPDF({
-		unit: 'pt'
-	});
-	let pdf;
+	async function print() {
+		const link = config.online + '/surat_bukti-ab7ac714-4ed4-4697-97dc-f4fd9692f464';
+		try {
+			const response = await fetch(`/api/pdf?link=${link}`, {
+				method: 'POST',
+				headers: { Accept: 'application/json' }
+			});
+
+			const json = await response.json();
+
+			const download = document.createElement('a');
+			download.href = `data:application/pdf;base64,${json.pdf}`;
+			download.download = 'Puppeteer PDF.pdf';
+			download.click();
+		} catch (err) {
+			console.log(err);
+		}
+	}
 </script>
+
+<svelte:head>
+	<script
+		src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"
+	></script>
+</svelte:head>
 
 <div class="flex flex-col h-screen overflow-auto">
 	<div class="flex items-center justify-between p-2 text-white shrink-0 bg-slate-400">
-		<h1>Surat Bukti</h1>
-		<button
-			on:click={() => {
-				doc.html(pdf, {
-					callback: function (doc) {
-						doc.save(`Surat Bukti ${formatFullDate()}`);
-					},
-					x: 0,
-					y: 0,
-					html2canvas: { scale: 0.75 }
-				});
-			}}
-			class="w-36"
-		>
+		<h1>Surat Bukti (BETA)</h1>
+		<button on:click={print} class="w-36">
 			<Icon icon="basil:printer-outline" />
 			Print
 		</button>
 	</div>
-	<div class="flex justify-center p-6 overflow-auto grow">
-		<div class="flex bg-white border border-black h-max" bind:this={pdf}>
+	<div class="flex justify-center p-6 overflow-auto border border-black grow">
+		<div class="flex bg-white h-max" id="printTarget">
 			<Kop2 />
 
 			<div class="px-4 py-6 grow">
