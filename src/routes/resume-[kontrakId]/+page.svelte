@@ -40,7 +40,7 @@
 			>
 				<Kop />
 
-				<h1 class="text-center">RESUME SPK / KONTRAK FISIK</h1>
+				<h1 class="my-4 text-center">RESUME SPK / KONTRAK FISIK</h1>
 				<div>
 					<Row number="1" title="Nomor DPA-SKPD / DPPA-SKPD / DPA.L-SKPD">
 						<div>{form.nomor_dpa}</div>
