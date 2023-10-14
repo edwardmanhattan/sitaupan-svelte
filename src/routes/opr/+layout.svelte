@@ -1,9 +1,12 @@
 <script>
+	// @ts-nocheck
+
 	import Sidebar from '$lib/nav/sidebar.svelte';
+	export let data;
 </script>
 
 <div class="flex h-screen overflow-auto">
-	<Sidebar />
+	<Sidebar privilege={data} />
 	<div class="px-8 py-6 overflow-auto grow">
 		<slot />
 	</div>

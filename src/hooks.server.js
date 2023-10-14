@@ -6,9 +6,11 @@ export const handle = async ({ event, resolve }) => {
 	const userId = auth?.split('.')[1];
 	const userPrivilege = auth?.split('.')[2];
 	const userTipe = auth?.split('.')[3];
+	const userJabatan = auth?.split('.')[4];
+	const userBidang = auth?.split('.')[5];
 
 	if (auth) {
-		event.locals = { apiKey, userId, userPrivilege, userTipe };
+		event.locals = { apiKey, userId, userPrivilege, userTipe, userJabatan, userBidang };
 	} else {
 	}
 

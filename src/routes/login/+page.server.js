@@ -34,17 +34,29 @@ export const actions = {
 			loginResponse.message = data;
 			loginResponse.error = true;
 		} else {
-			cookies.set('AuthUser', `${data.key}.${data.user.id}.${data.privilege}.${data.tipe}`, {
-				httpOnly: true,
-				maxAge: 60 * 60 * 24,
-				sameSite: 'strict'
-			});
+			cookies.set(
+				'AuthUser',
+				`${data.key}.${data.user.id}.${data.privilege}.${data.tipe}.${data.user.jabatan}.${data.user.bidang}`,
+				{
+					httpOnly: true,
+					maxAge: 60 * 60 * 24,
+					sameSite: 'strict'
+				}
+			);
 
 			cookies.set('UserTipe', data.tipe, {
 				maxAge: 60 * 60 * 24
 			});
 
 			cookies.set('UserPrivilege', data.privilege, {
+				maxAge: 60 * 60 * 24
+			});
+
+			cookies.set('UserJabatan', data.user.jabatan, {
+				maxAge: 60 * 60 * 24
+			});
+
+			cookies.set('UserBidang', data.user.bidang, {
 				maxAge: 60 * 60 * 24
 			});
 
