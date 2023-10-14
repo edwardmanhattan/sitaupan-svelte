@@ -3,19 +3,24 @@
 
 	import Select from '$lib/form/select.svelte';
 	import { fiero } from '$lib/js/fiero';
+	import { snack } from '$lib/js/vanilla.js';
 	import Modal from '$lib/modal/modal.svelte';
 	import Row from '$lib/table/row.svelte';
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
 	import Icon from '@iconify/svelte';
-	import { stringify } from 'postcss';
-
-	let source = fiero(`/mitra/getListNotaAset?id_penyedia_jasa=1`);
 
 	export let data;
-	const { barebone, detail } = data;
+	const { barebone, detail, userId } = data;
+	let source = fiero(`/mitra/getListNotaAset?id_penyedia_jasa=${userId}`);
 	let form = JSON.parse(JSON.stringify(barebone));
 	let modal;
+
+	const modifier = {
+		id_nota: { show: false },
+		id_aset: { show: false },
+		id_penyedia_jasa: { show: false }
+	};
 </script>
 
 <div class="flex items-center justify-between">
@@ -35,18 +40,18 @@
 {#await source}
 	<Skeleton />
 {:then data}
-	<Table {data} />
+	<Table {data} {modifier} />
 {:catch err}
 	<div>{err}</div>
 {/await}
 
 <Modal width="75vw" bind:this={modal}>
-	<Row number="1" title="ID Nota">
-		<input type="text" bind:value={form.id_nota} />
+	<Row number="1" title="Nomor Nota">
+		<input type="text" bind:value={form.nomor_nota} />
 	</Row>
 
 	<Row number="2" title="Tanggal">
-		<input type="date" bind:value={form.tanggal} />
+		<input type="date" bind:value={form.tanggal_nota} />
 	</Row>
 
 	<Row number="3" title="Nama Toko">
@@ -55,16 +60,15 @@
 
 	<Row number="4" title="Rincian Data">
 		{#await fiero(`/operator/getListPersediaanAset`) then data}
-			<Select bind:key={form.rincian} {data} config={{ key: 'id', title: 'nama_barang' }} />
+			<Select bind:key={form.id_aset} {data} config={{ key: 'id', title: 'nama_barang' }} />
 		{/await}
-		<!-- <Select bind:key={kontrak.id_penjabat} data={operator} config={{ key: 'id', title: 'nama' }} /> -->
 	</Row>
 
 	<div class="flex items-center justify-between mb-2">
 		<div>Detail Pembelian</div>
 		<button
 			on:click={() => {
-				form.detail = [...form.detail, JSON.parse(JSON.stringify(detail))];
+				form.detail_nota = [...form.detail_nota, JSON.parse(JSON.stringify(detail))];
 			}}
 			class="text-sm w-fit"
 		>
@@ -85,7 +89,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each form.detail ?? [] as d, i (i)}
+			{#each form.detail_nota ?? [] as d, i (i)}
 				<tr>
 					<td>{i + 1}</td>
 					<td><input type="text" bind:value={d.uraian} /></td>
@@ -120,7 +124,7 @@
 					<td>
 						<button
 							on:click={() => {
-								form.detail = form.detail.filter((x, idx) => idx !== i);
+								form.detail_nota = form.detail_nota.filter((x, idx) => idx !== i);
 							}}
 							class="p-1 bg-rose-700"
 						>
@@ -130,12 +134,32 @@
 				</tr>
 			{:else}
 				<tr>
-					<td colspan="6" class="italic text-center">belum ada detail pembelian</td>
+					<td colspan="6" class="italic text-center"> belum ada detail pembelian </td>
 				</tr>
 			{/each}
 		</tbody>
 	</table>
 
 	<br />
-	<button> Simpan </button>
+	<button
+		on:click={async () => {
+			form.id_penyedia_jasa = userId;
+			form.total = form.detail_nota.reduce((acc, cur) => {
+				return (acc += cur.total);
+			}, 0);
+			form.detail_nota = JSON.stringify(form.detail_nota);
+			const res = await fiero(`/mitra/insertNotaAset`, 'POST', form);
+
+			if (res.status === 200) {
+				snack.info('Berhasil menambah Invoice');
+			} else {
+				snack.info('Terjadi kesalahan');
+			}
+
+			source = fiero(`/mitra/getListNotaAset?id_penyedia_jasa=${userId}`);
+			modal.close();
+		}}
+	>
+		Simpan
+	</button>
 </Modal>

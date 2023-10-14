@@ -38,9 +38,11 @@ export const actions = {
 				'AuthUser',
 				`${data.key}.${data.user.id}.${data.privilege}.${data.tipe}.${data.user.jabatan}.${data.user.bidang}`,
 				{
-					httpOnly: true,
 					maxAge: 60 * 60 * 24,
-					sameSite: 'strict'
+					sameSite: 'strict',
+					path: '/',
+					secure: false,
+					httpOnly: false
 				}
 			);
 

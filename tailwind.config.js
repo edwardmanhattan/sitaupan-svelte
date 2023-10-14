@@ -6,9 +6,9 @@ export default {
 			colors: {
 				// 'blue-1': '#A5DBDD',
 				'blue-1': '#F0DCCA',
-				// 'blue-2': '#407C87',
-				'blue-2': '#42A3A7',
-				'blue-3': '#104946',
+				'blue-2': '#407C87',
+				// 'blue-2': '#D7F0E9',
+				'blue-3': '#B0D5C7',
 				'white-1': '#F5F5F5',
 				'gray-1': '#B1CCCC',
 				'gray-2': '#323B3B',

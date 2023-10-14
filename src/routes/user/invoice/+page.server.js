@@ -2,11 +2,12 @@
 /** @type {import('./$types').PageLoad} */
 export async function load() {
 	const barebone = {
-		id_nota: '0',
-		tanggal: '',
+		nomor_nota: '-',
+		tanggal_nota: '',
 		nama_toko: '',
-		rincian: 0,
-		detail: []
+		id_aset: 0,
+		total: 0,
+		detail_nota: []
 	};
 
 	const detail = {

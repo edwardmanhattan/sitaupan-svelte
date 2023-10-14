@@ -4,9 +4,9 @@
 	import logo from '$lib/assets/logo-white.webp';
 	import Menu from './menu.svelte';
 
-	export let privilege = {};
+	export let privilege = { userJabatan: 17 };
 
-	console.log(privilege);
+	privilege.userJabatan ??= 17;
 
 	function checkJabatan(arr = []) {
 		arr = [...arr, 17];
