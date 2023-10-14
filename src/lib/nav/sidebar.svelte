@@ -37,7 +37,7 @@
 				{#if checkJabatan([2])}
 					<Menu
 						anchor="Mapping DPA"
-						href="/opr/dpa/penambahan"
+						href="/opr/dpa/mapping"
 						icon="streamline:interface-file-clipboard-add-edit-task-edition-add-clipboard-form"
 					/>
 				{/if}
@@ -196,6 +196,8 @@
 						<Menu anchor="Nomor DPA" href="/opr/pengaturan/nomor dpa" />
 						<Menu anchor="Jabatan" href="/opr/pengaturan/jabatan" />
 						<Menu anchor="Persediaan" href="/opr/pengaturan/persediaan" />
+						<Menu anchor="Master Tim" href="/opr/pengaturan/master tim" />
+						<Menu anchor="Sumber Dana" href="/opr/pengaturan/sumber dana" />
 					</Menu>
 					<Menu anchor="Data User" href="/">
 						<Menu anchor="User Operator" href="/opr/pengaturan/user operator" />

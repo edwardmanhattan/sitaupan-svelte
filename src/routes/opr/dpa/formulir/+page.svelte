@@ -6,7 +6,7 @@
 	import { fiero } from '$lib/js/fiero';
 
 	export let data;
-	const { rincianData, listMitra } = data;
+	const { rincianData, listMitra, userId, userJabatan, userBidang } = data;
 
 	let subPage = 'rincian';
 
@@ -24,11 +24,11 @@
 	>
 	<button
 		on:click={async () => {
-			const apiUrl = `/operator/getListFormPenyediaJasa`;
+			const apiUrl = `/operator/getListFormPenyediaJasa?id_operator=${userId}&id_jabatan=${userJabatan}&id_bidang=${userBidang}`;
 			formulirData = {
-				formulir_baru: (await fiero(apiUrl + `?mode=formulir_baru`)) ?? [],
-				menunggu: (await fiero(apiUrl + `?mode=menunggu`)) ?? [],
-				selesai: (await fiero(apiUrl + `?mode=selesai`)) ?? []
+				formulir_baru: (await fiero(apiUrl + `&mode=formulir_baru`)) ?? [],
+				menunggu: (await fiero(apiUrl + `&mode=menunggu`)) ?? [],
+				selesai: (await fiero(apiUrl + `&mode=selesai`)) ?? []
 			};
 
 			formulirOrigin = 'Semua';
