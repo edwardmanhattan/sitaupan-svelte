@@ -85,7 +85,7 @@
 						<div />
 					{/each}
 
-					<th>Detail Kontrak</th>
+					<th>Detail Resume</th>
 					<th>Surat Bukti</th>
 					<th>Surat Pengantar</th>
 					<th>Nomor SPM</th>
@@ -120,7 +120,7 @@
 								</button>
 							{:else}
 								<a href="/kontrak-{tr.id_kontrak_fisik}">
-									<button> Detail Kontrak </button>
+									<button> Detail Resume </button>
 								</a>
 							{/if}
 						</td>
@@ -147,7 +147,7 @@
 						<td class="w-32">
 							{#if tr.nomor_spm.toString() === '0' || tr.nomor_spm === '-'}
 								Nomor SPM belum dibuat
-							{:else if tr.id_surat_pengantar === '0'}
+							{:else if tr.id_surat_pengantar === '0' && !tr.edit_spm}
 								<button
 									on:click={() => {
 										modalPengantar.open();
@@ -158,10 +158,12 @@
 									<Icon icon="bi:envelope-paper-fill" />
 									Buat Surat
 								</button>
-							{:else}
+							{:else if !tr.edit_spm}
 								<a href="/surat_pengantar-{tr.id_surat_pengantar}">
 									<button> Detail Surat </button>
 								</a>
+							{:else}
+								<div>...</div>
 							{/if}
 						</td>
 
@@ -245,10 +247,11 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modalKontrak}>
-	<label>Penjabat Pembuat Komitmen</label>
-	<Select bind:key={kontrak.id_penjabat} data={operator} config={{ key: 'id', title: 'nama' }} />
+	<!-- <label>Penjabat Pembuat Komitmen</label>
+	<Select bind:key={kontrak.id_penjabat} data={operator} config={{ key: 'id', title: 'nama' }} /> -->
 
-	<br />
+	<div>Apakah anda ingin membuat Resume?</div>
+
 	<br />
 	<button
 		on:click={async () => {
@@ -257,18 +260,18 @@
 				const tr = _data.find((x) => x.id_form === kontrak.id_formulir);
 				tr.id_kontrak_fisik = res.data;
 				_data = _data;
-				snack.info('Berhasil membuat kontrak fisik');
+				snack.info('Berhasil membuat resume');
 				modalKontrak.close();
 			}
 		}}
 	>
-		Simpan
+		Buat Resume
 	</button>
 </Modal>
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modalBukti}>
-	<label>Penjabat Kuasa Penggunaan Anggaran</label>
+	<!-- <label>Penjabat Kuasa Penggunaan Anggaran</label>
 	<Select bind:key={bukti.id_penjabat1} data={operator} config={{ key: 'id', title: 'nama' }} />
 
 	{#if bukti.tipe_surat === '4'}
@@ -286,9 +289,10 @@
 	<select bind:value={bukti.tipe_surat}>
 		<option value="3">3</option>
 		<option value="4">4</option>
-	</select>
+	</select> -->
 
-	<br />
+	<div>Apakah anda ingin membuat Surat Bukti?</div>
+
 	<br />
 	<button
 		on:click={async () => {
@@ -308,10 +312,11 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modalPengantar}>
-	<label>Penjabat</label>
-	<Select bind:key={pengantar.id_penjabat} data={operator} config={{ key: 'id', title: 'nama' }} />
+	<!-- <label>Penjabat</label>
+	<Select bind:key={pengantar.id_penjabat} data={operator} config={{ key: 'id', title: 'nama' }} /> -->
 
-	<br />
+	<div>Apakah anda ingin membuat Surat Pengantar?</div>
+
 	<br />
 	<button
 		on:click={async () => {
