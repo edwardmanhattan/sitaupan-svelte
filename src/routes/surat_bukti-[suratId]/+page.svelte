@@ -23,8 +23,7 @@
 		<button
 			on:click={async () => {
 				printWaiting = true;
-				// const link = config.online + '/surat_bukti-ab7ac714-4ed4-4697-97dc-f4fd9692f464';
-				const link = 'http://localhost:5173' + '/surat_bukti-ab7ac714-4ed4-4697-97dc-f4fd9692f464';
+				const link = window.location.href;
 				await exportToPDF(link, 'Surat Bukti');
 				printWaiting = false;
 			}}

@@ -37,7 +37,7 @@
 		<button
 			on:click={async () => {
 				selected = {
-					nama: ''
+					sumber_dana: ''
 				};
 				modal.open();
 			}}
@@ -61,13 +61,13 @@
 	<h1>Sumber Dana</h1>
 
 	<div>Nama Sumber Dana</div>
-	<input type="text" bind:value={selected.nama} />
+	<input type="text" bind:value={selected.sumber_dana} />
 
 	<br />
 	<br />
 	<button
 		on:click={async () => {
-			const res = await fiero(`/operator/insertSumberDana`, 'POST', selected);
+			const res = await fiero(`/operator/insertJenisSumberDana`, 'POST', selected);
 			if (res.status === 200) {
 				snack.info('Berhasil menambah sumber dana baru');
 				source = fiero(`/operator/getListSumberDana`);

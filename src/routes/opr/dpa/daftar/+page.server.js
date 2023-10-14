@@ -3,9 +3,13 @@
 import { config } from '$lib/js/fiero';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ fetch }) {
+export async function load({ fetch, parent }) {
+	const { userJabatan, userId } = await parent();
+
 	const data = async () =>
-		await fetch(config.api + `/operator/getListSpm`).then((res) => res.json());
+		await fetch(
+			config.api + `/operator/getListSpm?id_jabatan=${userJabatan}&id_operator=${userId}`
+		).then((res) => res.json());
 
 	const operator = async () =>
 		await fetch(config.api + `/operator/getAllUserOperator`).then((res) => res.json());
