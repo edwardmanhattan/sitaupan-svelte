@@ -32,6 +32,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"exceljs": "^4.3.0",
+		"file-saver": "^2.0.5",
 		"jspdf": "^2.5.1",
 		"puppeteer": "^21.3.8"
 	}

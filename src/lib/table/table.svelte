@@ -8,6 +8,9 @@
 
 	import Icon from '@iconify/svelte';
 	import { Pagination } from '$lib/js/pagination';
+	import { snack } from '$lib/js/vanilla';
+	import { exportToExcel } from '$lib/js/download';
+	import { formatTitle } from '$lib/js/string';
 
 	export let data;
 	export let modifier = {};
@@ -40,7 +43,47 @@
 
 <div>
 	<div class="flex items-center justify-between gap-2">
-		<div />
+		<div class="flex items-center gap-2">
+			<!-- <select class="w-32 text-sm">
+				<option value="semua">semua</option>
+			</select> -->
+			<!-- 
+			<button
+				on:click={() => {
+					keyModal.open();
+				}}
+				class="w-24 text-sm text-black bg-transparent border-black"
+			>
+				<Icon icon="bi:gear" />
+				Setting
+			</button> -->
+
+			<button
+				on:click={async () => {
+					let columns = shownKeyModifier(keyModifier)
+						.map((obj) => ({
+							header: keyModifier[obj].alias,
+							key: obj
+						}))
+						.filter((obj) => keyModifier[obj.key].export);
+					let rows = data;
+
+					let excelData = {
+						columns: columns,
+						rows: rows
+					};
+
+					await exportToExcel(excelData, {
+						fileName: `Data Transaksi`
+					});
+					snack.info('Data telah diunduh dalam bentuk dokumen Microsoft Excel.');
+				}}
+				class="text-sm bg-green-600 w-fit"
+			>
+				<Icon icon="file-icons:microsoft-excel" />
+				Export to Excel
+			</button>
+		</div>
 		<div class="flex items-center gap-2">
 			<select class="w-24 text-sm" bind:value={interval}>
 				<option value="10">10</option>
