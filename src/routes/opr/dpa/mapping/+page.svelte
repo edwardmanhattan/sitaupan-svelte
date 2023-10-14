@@ -12,9 +12,10 @@
 	import Select from '$lib/form/select.svelte';
 	import Currency from '$lib/form/currency.svelte';
 	import { snack } from '$lib/js/vanilla.js';
+	import { stringify } from 'postcss';
 
 	export let data;
-	const { barebone, dpa, bidang, jenis } = data;
+	const { barebone, dpa, bidang, jenis, userBidang } = data;
 
 	let modal;
 
@@ -22,7 +23,7 @@
 	let subPage = 'program';
 	let subPages = ['program', 'kegiatan', 'sub_kegiatan', 'rincian_sub_kegiatan'];
 
-	$: source = fiero(`/operator/${sourceAPI}jenis=${subPage}`);
+	$: source = fiero(`/operator/${sourceAPI}jenis=${subPage}&id_bidang=${userBidang}`);
 
 	let modifier = {
 		no_dpa: { alias: 'Nomor & Tanggal DPA-SKPD/DPPA-SKPD/DPA.L-SKPD', show: true },
@@ -179,7 +180,9 @@
 					snack.info('Berhasil menambah program baru');
 					modal.close();
 					changeSubPage('program');
-					source = fiero(`/operator/getListDataDPAByJenis?jenis=${subPage}`);
+					source = fiero(
+						`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=${subPage}`
+					);
 				}
 			}}
 		>
@@ -187,13 +190,15 @@
 		</button>
 	{:else if subPage === 'kegiatan'}
 		<Row number="1" title="Kode Rekening Program">
-			{#await fiero(`/operator/getListDataDPAByJenis?jenis=program`) then data}
+			{#await fiero(`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=program`) then data}
 				<Select
 					bind:key={selected.kegiatan.kode_rekening_program}
 					{data}
 					config={{ key: 'kode_rek_program', title: 'kode_rek_program' }}
 					onChange={async () => {
-						const list = await fiero(`/operator/getListDataDPAByJenis?jenis=kegiatan`);
+						const list = await fiero(
+							`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=kegiatan`
+						);
 						const num =
 							list.filter((x) => x.kode_rek_program === selected.kegiatan.kode_rekening_program)
 								.length + 1;
@@ -230,7 +235,9 @@
 					snack.info('Berhasil menambah kegiatan baru');
 					modal.close();
 					changeSubPage('kegiatan');
-					source = fiero(`/operator/getListDataDPAByJenis?jenis=${subPage}`);
+					source = fiero(
+						`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=${subPage}`
+					);
 				}
 			}}
 		>
@@ -238,13 +245,15 @@
 		</button>
 	{:else if subPage === 'sub_kegiatan'}
 		<Row number="1" title="Kode Rekening Kegiatan">
-			{#await fiero(`/operator/getListDataDPAByJenis?jenis=kegiatan`) then data}
+			{#await fiero(`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=kegiatan`) then data}
 				<Select
 					bind:key={selected.sub_kegiatan.kode_rekening_kegiatan}
 					{data}
 					config={{ key: 'kode_rek_kegiatan', title: 'kode_rek_kegiatan' }}
 					onChange={async () => {
-						const list = await fiero(`/operator/getListDataDPAByJenis?jenis=sub_kegiatan`);
+						const list = await fiero(
+							`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=sub_kegiatan`
+						);
 						const num =
 							list.filter(
 								(x) => x.kode_rek_kegiatan === selected.sub_kegiatan.kode_rekening_kegiatan
@@ -284,7 +293,9 @@
 					snack.info('Berhasil menambah sub kegiatan baru');
 					modal.close();
 					changeSubPage('sub_kegiatan');
-					source = fiero(`/operator/getListDataDPAByJenis?jenis=${subPage}`);
+					source = fiero(
+						`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=${subPage}`
+					);
 				}
 			}}
 		>
@@ -292,13 +303,15 @@
 		</button>
 	{:else}
 		<Row number="1" title="Kode Rekening Sub Kegiatan">
-			{#await fiero(`/operator/getListDataDPAByJenis?jenis=sub_kegiatan`) then data}
+			{#await fiero(`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=sub_kegiatan`) then data}
 				<Select
 					bind:key={selected.rincian_sub_kegiatan.kode_rekening_sub_kegiatan}
 					{data}
 					config={{ key: 'kode_rek_sub_kegiatan', title: 'kode_rek_sub_kegiatan' }}
 					onChange={async () => {
-						const list = await fiero(`/operator/getListDataDPAByJenis?jenis=rincian_sub_kegiatan`);
+						const list = await fiero(
+							`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=rincian_sub_kegiatan`
+						);
 						const num =
 							list.filter(
 								(x) =>
@@ -344,9 +357,98 @@
 			<textarea bind:value={selected.rincian_sub_kegiatan.keterangan} />
 		</Row>
 
+		<Row number="6" title="PPK">
+			{#await fiero(`/operator/getAllUserOperator`) then data}
+				<Select
+					bind:key={selected.rincian_sub_kegiatan.ppk}
+					{data}
+					config={{ key: 'id', title: 'nama', title2: 'nip' }}
+				/>
+			{/await}
+		</Row>
+
+		<Row number="7" title="PPTK">
+			{#await fiero(`/operator/getAllUserOperator`) then data}
+				<Select
+					bind:key={selected.rincian_sub_kegiatan.pptk}
+					{data}
+					config={{ key: 'id', title: 'nama', title2: 'nip' }}
+				/>
+			{/await}
+		</Row>
+
+		<Row number="8" title="Staf Pengelola">
+			{#await fiero(`/operator/getAllUserOperator`) then data}
+				<Select
+					bind:key={selected.rincian_sub_kegiatan.staf_pengelola}
+					{data}
+					config={{ key: 'id', title: 'nama', title2: 'nip' }}
+				/>
+			{/await}
+		</Row>
+
+		<Row number="9" title="Sumber Dana">
+			<button
+				on:click={() => {
+					selected.rincian_sub_kegiatan.sumber_dana = [
+						...selected.rincian_sub_kegiatan.sumber_dana,
+						{ sumber_dana: '', nilai: 0 }
+					];
+				}}
+				class="text-sm w-fit"
+			>
+				<Icon icon="bi:plus" />
+				Tambah
+			</button>
+		</Row>
+
+		<table>
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>Sumber Dana</th>
+					<th>Nilai</th>
+					<th>Aksi</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each selected.rincian_sub_kegiatan.sumber_dana ?? [] as d, i (i)}
+					<tr>
+						<td>{i + 1}</td>
+						<td>
+							{#await fiero(`/operator/getListSumberDana`) then data}
+								<Select bind:key={d.sumber_dana} {data} config={{ key: 'id', title: 'nama' }} />
+							{/await}
+						</td>
+						<td>
+							<Currency bind:value={d.nilai} />
+						</td>
+						<td>
+							<button
+								on:click={() => {
+									selected.rincian_sub_kegiatan.sumber_dana =
+										selected.rincian_sub_kegiatan.sumber_dana.filter((x, idx) => idx !== i);
+								}}
+								class="p-1 bg-rose-700"
+							>
+								<Icon icon="bi:trash" />
+							</button>
+						</td>
+					</tr>
+				{:else}
+					<tr>
+						<td colspan="6" class="italic text-center">belum ada sumber dana</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+
 		<br />
 		<button
 			on:click={async () => {
+				selected.rincian_sub_kegiatan.sumber_dana = JSON.stringify(
+					selected.rincian_sub_kegiatan.sumber_dana
+				);
 				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
 					jenis: subPage,
 					...selected.rincian_sub_kegiatan
@@ -355,7 +457,9 @@
 					snack.info('Berhasil menambah rincian sub kegiatan baru');
 					modal.close();
 					changeSubPage('rincian_sub_kegiatan');
-					source = fiero(`/operator/getListDataDPAByJenis?jenis=${subPage}`);
+					source = fiero(
+						`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=${subPage}`
+					);
 				}
 			}}
 		>

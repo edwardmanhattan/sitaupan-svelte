@@ -13,7 +13,7 @@
 
 <select class="w-full" bind:value={key} on:change={onChange}>
 	{#each data ?? [] as x}
-		<option value={x[config.key]}>{x[config.title]}</option>
+		<option value={x[config.key]}>{x[config.title]} {x[config.title2] ?? ''}</option>
 	{:else}
 		<option value="-">-</option>
 	{/each}

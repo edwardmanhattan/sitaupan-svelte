@@ -31,7 +31,7 @@
 		{#if checkJabatan([2, 11, 12, 16])}
 			<Menu
 				anchor="DPA"
-				href="/opr/dpa/penambahan"
+				href="/opr/dpa/mapping"
 				icon="streamline:interface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
 			>
 				{#if checkJabatan([2])}
