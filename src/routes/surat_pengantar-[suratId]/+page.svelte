@@ -2,14 +2,15 @@
 	// @ts-nocheck
 
 	import { formatFullDate } from '$lib/js/datetime';
-
+	import { exportToPDF } from '$lib/js/download.js';
 	import Kop3 from '$lib/kop3.svelte';
 	import Icon from '@iconify/svelte';
-	import { exportToPDF } from '$lib/js/download.js';
 	export let data;
 
 	const id = data.kontrakId;
 	const form = data.data;
+
+	console.log(data);
 
 	let printWaiting = false;
 </script>
@@ -113,8 +114,8 @@
 						</div>
 
 						<div>
-							<div>MISRIANI, SE</div>
-							<div>NIP xxx</div>
+							<div class="uppercase">{form.nama_penjabat}</div>
+							<div>{form.id_penjabat}</div>
 						</div>
 					</div>
 				</div>

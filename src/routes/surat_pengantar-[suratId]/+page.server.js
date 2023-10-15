@@ -16,13 +16,15 @@ export async function load({ params }) {
 	};
 
 	const form = async () =>
-		await fetch(config.api + `/mitra/getSuratPengantar?id_surat=${params.suratId}`).then((res) =>
-			res.json()
-		);
+		await fetch(
+			config.api + `/operator/getSuratPengantarById?id_surat_pengantar=${params.suratId}`
+		).then((res) => res.json());
+
+	console.log((await form()).data);
 
 	return {
-		data: data,
-		// data: (await form()).data,
+		// data: data,
+		data: (await form()).data,
 		formulirId: params.suratId
 	};
 }

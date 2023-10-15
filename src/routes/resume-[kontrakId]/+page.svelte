@@ -161,30 +161,6 @@
 						<div>{formatFullDate(form.tgl_ba_pemeriksaan)}</div>
 					</Row>
 
-					<Row number="19" title="Nomor BA Serah Terima I Pekerjaan">
-						<div>{form.no_ba_terima1}</div>
-					</Row>
-
-					<Row number="" title="Tanggal BA Serah Terima I Pekerjaan">
-						<div>{formatFullDate(form.tgl_ba_terima1)}</div>
-					</Row>
-
-					<Row number="20" title="Nomor BA Serah Terima II Pekerjaan">
-						<div>{form.no_ba_terima2}</div>
-					</Row>
-
-					<Row number="" title="Tanggal BA Serah Terima II Pekerjaan">
-						<div>{formatFullDate(form.tgl_ba_terima2)}</div>
-					</Row>
-
-					<Row number="21" title="Nomor BA Serah Terima Konsultasi">
-						<div>{form.no_ba_konsul}</div>
-					</Row>
-
-					<Row number="" title="Tanggal BA Serah Terima Konsultasi">
-						<div>{formatFullDate(form.tgl_ba_konsul)}</div>
-					</Row>
-
 					<Row number="22" title="Nomor Berita Acara Pembayaran">
 						<div>{form.no_ba_pembayaran}</div>
 					</Row>
