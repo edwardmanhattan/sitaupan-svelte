@@ -10,8 +10,6 @@
 	const id = data.kontrakId;
 	const form = data.data;
 
-	console.log(data);
-
 	let printWaiting = false;
 </script>
 

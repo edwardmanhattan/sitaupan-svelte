@@ -1,12 +1,12 @@
 <script>
 	// @ts-nocheck
 
-	import { formatFullDate } from '$lib/js/datetime';
 	import Row from '$lib/table/row.svelte';
 	import Kop2 from '$lib/kop2.svelte';
 	import Icon from '@iconify/svelte';
 	import { config } from '$lib/js/fiero.js';
 	import { exportToPDF } from '$lib/js/download.js';
+	import { formatFullDate } from '$lib/js/datetime';
 	import { angkaTerbilang } from '$lib/js/angkaTerbilang';
 	import { rupiah } from '$lib/js/currency';
 	export let data;
@@ -101,11 +101,12 @@
 							<div>Tanjung Redeb, {formatFullDate()}</div>
 
 							<div>
-								<div>AHMAD RIFAI</div>
-								<div>Direktur</div>
+								<div class="uppercase">{form.nama_penjabat_1}</div>
+								<div>{form.nip_penjabat_1}</div>
 							</div>
 						</div>
 					</div>
+
 					<div class="spacer" />
 					<div class="spacer" />
 					<div class="spacer" />
@@ -120,8 +121,8 @@
 							</div>
 
 							<div>
-								<div>Junaidi, S.T, M.T</div>
-								<div>NIP</div>
+								<div class="uppercase">{form.nama_penjabat_2}</div>
+								<div>{form.nip_penjabat_2}</div>
 							</div>
 						</div>
 
@@ -129,20 +130,20 @@
 							<div>Pejabat Pelaksana Teknis Kegiatan</div>
 
 							<div>
-								<div>Bambang Edy Maryono, SE, M.A.P</div>
-								<div>NIP</div>
+								<div class="uppercase">{form.nama_penjabat_3}</div>
+								<div>{form.nip_penjabat_3}</div>
 							</div>
 						</div>
 
 						<div class="p-2 border border-black signature">
 							<div>
 								<div>Bendahara Pengeluaran Pembantu</div>
-								<div>Dibayar Tanggal 31 Mei 2023</div>
+								<div>Dibayar Tanggal {formatFullDate(form.tanggal_ttd)}</div>
 							</div>
 
 							<div>
-								<div>Tumini Rahayu</div>
-								<div>NIP</div>
+								<div class="uppercase">{form.nama_penjabat_4}</div>
+								<div>{form.nip_penjabat_4}</div>
 							</div>
 						</div>
 					</div>
