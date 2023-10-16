@@ -41,7 +41,7 @@
 	</div>
 
 	{#if $$slots.default && open}
-		<div class="absolute top-0 flex flex-col w-fit left-full">
+		<div class="absolute top-0 flex flex-col border w-fit left-full border-teal-950/50">
 			<slot />
 		</div>
 	{/if}

@@ -17,7 +17,7 @@
 	}
 </script>
 
-<div class="flex flex-col h-screen gap-4 py-5 text-teal-800 w-fit bg-blue-2">
+<div class="flex flex-col h-screen gap-4 py-5 font-semibold text-teal-950 w-fit bg-blue-2">
 	<div class="grid mx-auto place-items-center w-fit">
 		<img src={logo} alt="Logo App Invest" class="w-28" />
 	</div>

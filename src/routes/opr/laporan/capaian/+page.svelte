@@ -3,6 +3,7 @@
 
 	import { getYearNow, getYearsSince } from '$lib/js/datetime';
 	import { fiero } from '$lib/js/fiero';
+
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
 

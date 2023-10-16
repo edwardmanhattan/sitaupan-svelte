@@ -32,7 +32,7 @@
 		}}
 	>
 		<div
-			class="w-fit max-w-[{width}] py-6 px-8 bg-blue-2 text-white-1 rounded mx-auto max-h-[85vh] overflow-auto"
+			class="w-fit max-w-[{width}] py-6 px-8 bg-blue-2 text-teal-950 rounded mx-auto max-h-[85vh] overflow-auto"
 		>
 			<slot />
 		</div>

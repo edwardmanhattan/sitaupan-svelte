@@ -13,7 +13,7 @@
 		{/each}
 	{:then data}
 		{#each data as d}
-			<div class="rounded bg-slate-300">
+			<div class="rounded bg-[#F2F2F2]">
 				<div
 					class="grid h-20 p-2 text-sm font-semibold text-center text-teal-800 rounded-t bg-blue-2 place-items-center"
 				>
