@@ -9,11 +9,8 @@ export const handle = async ({ event, resolve }) => {
 	const userJabatan = auth?.split('.')[4] ?? 17;
 	const userBidang = auth?.split('.')[5] ?? 1;
 
-	console.log('hooks server : ', auth);
-	event.locals = { apiKey, userId, userPrivilege, userTipe, userJabatan, userBidang };
-
 	if (auth) {
-		console.log('hooks server if auth : ', auth);
+		event.locals = { apiKey, userId, userPrivilege, userTipe, userJabatan, userBidang };
 	} else {
 	}
 
