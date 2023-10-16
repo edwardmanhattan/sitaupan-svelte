@@ -48,7 +48,7 @@
 	}
 
 	button {
-		@apply flex items-center justify-center w-full px-2 py-1 text-sm text-white border rounded gap-x-2 bg-blue-2 hover:bg-slate-300 hover:text-blue-3;
+		@apply flex items-center justify-center w-full px-2 py-1 text-sm text-teal-800 border rounded gap-x-2 bg-blue-2 hover:bg-slate-300 hover:text-blue-3;
 	}
 
 	button.subpage {

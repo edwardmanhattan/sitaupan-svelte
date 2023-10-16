@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import logo from '$lib/assets/logo-white.webp';
+	import logo from '$lib/assets/logo.webp';
 	import Menu from './menu.svelte';
 
 	export let privilege = { userJabatan: 17 };
@@ -17,7 +17,7 @@
 	}
 </script>
 
-<div class="flex flex-col h-screen gap-4 py-5 text-white w-fit bg-blue-2">
+<div class="flex flex-col h-screen gap-4 py-5 text-teal-800 w-fit bg-blue-2">
 	<div class="grid mx-auto place-items-center w-fit">
 		<img src={logo} alt="Logo App Invest" class="w-28" />
 	</div>
@@ -124,19 +124,19 @@
 						icon="streamline:interface-edit-zoom-in-enhance-glass-in-magnify-magnifying-zoom"
 					>
 						{#if checkJabatan([2, 18])}
-							<Menu anchor="P3DN (Perencanaan)" href="/opr/files/inspektorat/p3dn perencanaan" />
-							<Menu anchor="P3DN (Realisasi)" href="/opr/files/inspektorat/p3dn realisasi" />
+							<Menu anchor="P3DN (Perencanaan)" href="/opr/files/inspektorat/p3dn_perencanaan" />
+							<Menu anchor="P3DN (Realisasi)" href="/opr/files/inspektorat/p3dn_realisasi" />
 						{/if}
 
 						{#if checkJabatan([18])}
 							<Menu anchor="Data Kontrak" href="/opr/files/inspektorat/data kontrak" />
 							<Menu anchor="Bukti Bayar (SP2D)" href="/opr/files/inspektorat/sp2d" />
 							<Menu anchor="SK" href="/opr/files/inspektorat/sk" />
-							<Menu anchor="Serapan Anggaran" href="/opr/files/inspektorat/serapan anggaran" />
+							<Menu anchor="Serapan Anggaran" href="/opr/files/inspektorat/serapan_anggaran" />
 						{/if}
 
 						{#if checkJabatan([5, 18])}
-							<Menu anchor="Realisasi Keuangan" href="/opr/files/inspektorat/realisasi keuangan" />
+							<Menu anchor="Realisasi Keuangan" href="/opr/files/inspektorat/realisasi_keuangan" />
 						{/if}
 					</Menu>
 				{/if}

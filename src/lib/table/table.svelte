@@ -78,7 +78,7 @@
 					});
 					snack.info('Data telah diunduh dalam bentuk dokumen Microsoft Excel.');
 				}}
-				class="text-sm bg-green-600 w-fit"
+				class="text-sm text-white bg-green-600 w-fit"
 			>
 				<Icon icon="file-icons:microsoft-excel" />
 				Export to Excel
