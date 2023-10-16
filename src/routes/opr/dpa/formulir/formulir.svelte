@@ -10,10 +10,13 @@
 	import { fiero } from '$lib/js/fiero';
 	import { snack } from '$lib/js/vanilla';
 	import { goto } from '$app/navigation';
+	import Modal from '$lib/modal/modal.svelte';
 
 	export let data = {};
 	export let modifier = {};
 	export let origin = 'Semua';
+	export let selected = {};
+	export let listMitra = [];
 
 	let mode = 'formulir_baru';
 	let searchText = '';
@@ -41,6 +44,9 @@
 	}
 
 	///////////////////////////////////////////////////////////
+
+	let modal;
+	let mitra;
 </script>
 
 <div>
@@ -67,7 +73,19 @@
 			class="subpage">Selesai</button
 		>
 
-		<div class="ml-auto font-semibold">{origin}</div>
+		<div class="flex items-center gap-4 ml-auto w-fit">
+			<div class="ml-auto font-semibold">{origin}</div>
+			{#if origin !== 'Semua'}
+				<button
+					on:click={() => {
+						modal.open();
+					}}
+					class="w-fit"
+				>
+					<Icon icon="bi:plus" /> Tambah Formulir
+				</button>
+			{/if}
+		</div>
 	</div>
 
 	<div class="flex items-center justify-between gap-2">
@@ -185,3 +203,38 @@
 		</div>
 	</div>
 </div>
+<!-- svelte-ignore a11y-label-has-associated-control -->
+<Modal bind:this={modal}>
+	<h1>Tambah Formulir Penyedia Jasa</h1>
+
+	<label>Mitra</label>
+	<select bind:value={mitra}>
+		{#each listMitra as mtr (mtr.id)}
+			<option value={mtr.id}>{mtr.nama_perusahaan}</option>
+		{/each}
+	</select>
+
+	<br />
+	<br />
+	<button
+		on:click={async () => {
+			const res = await fiero(`/operator/createFormPenyediaJasa`, 'POST', {
+				id_mapping_dpa: parseInt(selected.id),
+				id_penyedia_jasa: parseInt(mitra),
+				id_jenis_penyedia_jasa: parseInt(selected.id_jenis_pekerjaan)
+			});
+
+			if (res.status === 200) {
+				snack.info('Berhasil membuat formulir penyedia jasa.');
+				const apiUrl = `/operator/getListFormPenyediaJasaIdMappingDpa`;
+
+				data.formulir_baru =
+					(await fiero(apiUrl + `?id_mapping_dpa=${selected.id}&mode=formulir_baru`)) ?? [];
+				mode = 'formulir_baru';
+				modal.close();
+			}
+		}}
+	>
+		Pilih
+	</button>
+</Modal>

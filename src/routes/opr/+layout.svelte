@@ -3,8 +3,6 @@
 
 	import Sidebar from '$lib/nav/sidebar.svelte';
 	export let data;
-
-	console.log('layout svelte opt : ', data);
 </script>
 
 <div class="flex h-screen overflow-auto">

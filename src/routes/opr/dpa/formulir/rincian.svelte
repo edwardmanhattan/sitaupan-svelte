@@ -58,10 +58,11 @@
 
 	const dispatch = createEventDispatcher();
 
-	function seeList(_data, _origin) {
+	function seeList(_data, _origin, _selected) {
 		dispatch('list', {
 			data: _data,
-			origin: _origin
+			origin: _origin,
+			selected: _selected
 		});
 	}
 </script>
@@ -119,7 +120,7 @@
 												(await fiero(apiUrl + `?id_mapping_dpa=${tr.id}&mode=menunggu`)) ?? [],
 											selesai: (await fiero(apiUrl + `?id_mapping_dpa=${tr.id}&mode=selesai`)) ?? []
 										};
-										seeList(formulirData, tr.nama_proyek);
+										seeList(formulirData, tr.nama_proyek, tr);
 									}}
 								>
 									Lihat List
@@ -170,7 +171,7 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modal}>
-	<div class="p-2 font-mono text-sm rounded text-amber-200">
+	<div class="p-2 font-mono text-sm rounded text-rose-700">
 		belum ada mitra penyedia jasa pada sub kegiatan ini.
 	</div>
 

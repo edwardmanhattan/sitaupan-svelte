@@ -12,6 +12,7 @@
 
 	let formulirData = {};
 	let formulirOrigin = 'Semua';
+	let formulirSelected = {};
 </script>
 
 <div class="flex items-center justify-end gap-4">
@@ -45,14 +46,15 @@
 {#if subPage === 'rincian'}
 	<Rincian
 		on:list={(_data) => {
-			const { data, origin } = _data.detail;
+			const { data, origin, selected } = _data.detail;
 			formulirData = data;
 			formulirOrigin = origin;
+			formulirSelected = selected;
 			subPage = 'formulir';
 		}}
 		{rincianData}
 		{listMitra}
 	/>
 {:else}
-	<Formulir data={formulirData} origin={formulirOrigin} />
+	<Formulir data={formulirData} origin={formulirOrigin} selected={formulirSelected} {listMitra} />
 {/if}
