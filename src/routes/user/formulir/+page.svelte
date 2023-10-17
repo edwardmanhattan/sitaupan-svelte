@@ -40,6 +40,16 @@
 					}
 				}
 			];
+		} else {
+			buttons = [
+				{
+					head: 'Aksi',
+					body: 'Lihat Formulir',
+					action: (idx, obj) => {
+						document.location.href = `/formulir-${obj.id_form}`;
+					}
+				}
+			];
 		}
 	}
 </script>

@@ -89,7 +89,6 @@
 					<div class="signature">
 						<div>
 							<div>Yang Menerima</div>
-							<div>Staf Pengelola</div>
 						</div>
 
 						<div>....</div>

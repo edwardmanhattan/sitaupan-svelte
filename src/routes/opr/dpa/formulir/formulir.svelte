@@ -26,6 +26,10 @@
 	$: display = page.chop();
 	$: currentPage = page.getCurrentPage();
 
+	modifier = {
+		id_form: { show: false }
+	};
+
 	let keyModifier = getKeyModifier(data[mode] ?? [{}], {
 		pageNum: { alias: 'No', show: true, export: true },
 		...modifier
@@ -144,29 +148,42 @@
 								<div class="flex items-center justify-center gap-2">
 									<button
 										on:click={async () => {
-											const res = await fiero(
-												`/operator/accFormulirPenyediaJasa?id_form=${tr.id_form}&status=approve`
-											);
+											const res = await fiero(`/operator/accFormulirPenyediaJasa`, 'POST', {
+												id_form: tr.id_form,
+												status: 'revisi'
+											});
 											if (res.status === 200) {
-												snack.info('Formulir Penyedia Jasa disetujui');
-												mode = 'selesai';
+												snack.info('Formulir Penyedia Jasa ditolak');
+												const apiUrl = `/operator/getListFormPenyediaJasaIdMappingDpa`;
+
+												data.formulir_baru =
+													(await fiero(
+														apiUrl + `?id_mapping_dpa=${selected.id}&mode=formulir_baru`
+													)) ?? [];
+												mode = 'formulir_baru';
 											}
 										}}
-										class="bg-rose-600 w-fit"
+										class="text-white bg-rose-600 w-fit"
 									>
 										<Icon icon="basil:cancel-outline" />
 									</button>
 									<button
 										on:click={async () => {
-											const res = await fiero(
-												`/operator/accFormulirPenyediaJasa?id_form=${tr.id_form}&status=revisi`
-											);
+											const res = await fiero(`/operator/accFormulirPenyediaJasa`, 'POST', {
+												id_form: tr.id_form,
+												status: 'selesai'
+											});
 											if (res.status === 200) {
-												snack.info('Formulir Penyedia Jasa ditolak');
-												mode = 'formulir_baru';
+												snack.info('Formulir Penyedia Jasa disetujui');
+												const apiUrl = `/operator/getListFormPenyediaJasaIdMappingDpa`;
+
+												data.selesai =
+													(await fiero(apiUrl + `?id_mapping_dpa=${selected.id}&mode=selesai`)) ??
+													[];
+												mode = 'selesai';
 											}
 										}}
-										class="bg-emerald-600 w-fit"
+										class="text-white bg-emerald-600 w-fit"
 									>
 										<Icon icon="basil:check-outline" />
 									</button>

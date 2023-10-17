@@ -869,19 +869,25 @@
 	<br />
 	<br />
 
-	<button
-		on:click={async () => {
-			const res = await fiero(`/mitra/pengisianFormPenyediaJasa`, 'POST', {
-				form_penyedia_jasa: JSON.stringify(form)
-			});
+	<!-- {form.status} -->
+	{#if form.status === 'baru' || form.status === 'revisi'}
+		<button
+			on:click={async () => {
+				const res = await fiero(`/mitra/pengisianFormPenyediaJasa`, 'POST', {
+					form_penyedia_jasa: JSON.stringify(form)
+				});
 
-			if (res.message === 'berhasil') {
-				snack.info('Berhasil menyimpan');
-			}
-		}}
-	>
-		Simpan
-	</button>
+				if (res.message === 'berhasil') {
+					form.status = 'menunggu';
+					snack.info('Berhasil menyimpan');
+				}
+			}}
+		>
+			Simpan
+		</button>
+	{:else if form.status === 'menunggu'}
+		<div class="italic">menunggu proses verifikasi...</div>
+	{/if}
 </div>
 
 <Modal bind:this={modal}>

@@ -10,7 +10,8 @@
 
 	let source = fiero(`/operator/getAllTimKegiatan`);
 	let modifier = {
-		id: { show: false }
+		id: { show: false },
+		nama_tim: { alias: 'Uraian Sub Kegiatan' }
 	};
 
 	let buttons = [

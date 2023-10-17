@@ -10,7 +10,8 @@
 	</div>
 	<div class="text-center">
 		<div class="text-[12pt] font-semibold">PEMERINTAH KABUPATEN BERAU</div>
-		<div class="text-[14pt] font-semibold">DINAS PEKERJAAN UMUM DAN PENATAAN RUANG</div>
+		<div class="text-[14pt] font-semibold">DINAS PEKERJAAN UMUM</div>
+		<div class="text-[14pt] font-semibold">DAN PENATAAN RUANG</div>
 		<p class="">Jalan Jend. Gatot Subroto No. 123 Telp.(0554)21065-24446 Fax.22797</p>
 		<p class="uppercase">Tanjung Redeb</p>
 	</div>
