@@ -5,19 +5,22 @@
 	import Row from '$lib/table/row.svelte';
 	import Kop2 from '$lib/kop2.svelte';
 	import Icon from '@iconify/svelte';
-	import { config } from '$lib/js/fiero.js';
+	import { config, fiero } from '$lib/js/fiero.js';
 	import { exportToPDF } from '$lib/js/download.js';
 	import { angkaTerbilang } from '$lib/js/angkaTerbilang';
 	import { rupiah } from '$lib/js/currency';
+	import Select from '$lib/form/select.svelte';
 	export let data;
 
 	const form = data.data;
 
 	let printWaiting = false;
+
+	let operatorMenyerahkan = '';
 </script>
 
 <div class="flex flex-col h-screen overflow-auto">
-	<div class="flex items-center justify-between p-2 text-white shrink-0 bg-blue-2">
+	<div class="flex items-center justify-between p-2 text-teal-800 shrink-0 bg-blue-2">
 		<h1>Serah Terima Berkas</h1>
 		<button
 			on:click={async () => {
@@ -100,10 +103,21 @@
 							<div>Sub Bagian Keuangan & Aset</div>
 						</div>
 
-						<div>....</div>
+						<div>{operatorMenyerahkan}</div>
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="p-12">
+			<div>Yang Menyerahkan :</div>
+			{#await fiero(`/operator/getAllUserOperator`) then data}
+				<Select
+					bind:key={operatorMenyerahkan}
+					{data}
+					config={{ key: 'nama', title: 'nama', title2: 'nip' }}
+				/>
+			{/await}
 		</div>
 	</div>
 </div>
@@ -140,6 +154,10 @@
 
 		.spacer {
 			@apply h-4;
+		}
+
+		.signature {
+			@apply h-28;
 		}
 	}
 </style>

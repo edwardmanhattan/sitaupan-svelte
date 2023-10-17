@@ -7,11 +7,11 @@
 	import Kop from '$lib/kop.svelte';
 	import Icon from '@iconify/svelte';
 	import { exportToPDF } from '$lib/js/download.js';
+	import { angkaTerbilang } from '$lib/js/angkaTerbilang.js';
 	export let data;
 
 	const id = data.kontrakId;
 	const form = data.data;
-
 	let printWaiting = false;
 </script>
 
@@ -99,7 +99,7 @@
 					</Row>
 
 					<Row number="" title="Terbilang">
-						<div>{terbilang(form.jumlah_diminta)} Rupiah</div>
+						<div>{angkaTerbilang(form.jumlah_diminta)} Rupiah</div>
 					</Row>
 
 					<Row number="" title="c. Nama Bank dan No. Rekening">
@@ -107,7 +107,9 @@
 					</Row>
 
 					<Row number="10" title="Jangka Waktu Pelaksanaan">
-						<div>{form.jangka_waktu_pelaksanaan} ({terbilang(form.jangka_waktu_pelaksanaan)})</div>
+						<div>
+							{form.jangka_waktu_pelaksanaan} ({angkaTerbilang(form.jangka_waktu_pelaksanaan)})
+						</div>
 					</Row>
 
 					<Row number="11" title="Tanggal Penyelesaian Pekerjaan / Kontrak">
@@ -116,7 +118,7 @@
 
 					<Row number="12" title="Jangka Waktu Pemeliharaan">
 						<div>
-							{form.jangka_waktu_pemeliharaan} ({terbilang(form.jangka_waktu_pemeliharaan)})
+							{form.jangka_waktu_pemeliharaan} ({angkaTerbilang(form.jangka_waktu_pemeliharaan)})
 						</div>
 					</Row>
 
@@ -130,7 +132,9 @@
 
 					<Row number="15" title="Jangka Waktu Pelaksanaan Addendum">
 						<div>
-							{form.jangka_pelaksanaan_addendum} ({terbilang(form.jangka_pelaksanaan_addendum)})
+							{form.jangka_pelaksanaan_addendum} ({angkaTerbilang(
+								form.jangka_pelaksanaan_addendum
+							)})
 						</div>
 					</Row>
 
@@ -140,7 +144,9 @@
 
 					<Row number="17" title="Jangka Waktu Pemeliharaan Addendum">
 						<div>
-							{form.jangka_pemeliharaan_addendum} ({terbilang(form.jangka_pemeliharaan_addendum)})
+							{form.jangka_pemeliharaan_addendum} ({angkaTerbilang(
+								form.jangka_pemeliharaan_addendum
+							)})
 						</div>
 					</Row>
 

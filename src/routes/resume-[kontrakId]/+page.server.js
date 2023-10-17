@@ -67,8 +67,8 @@ export async function load({ params }) {
 		);
 
 	return {
-		data: data,
-		// data: (await form()).data,
+		// data: data,
+		data: (await form()).data,
 		formulirId: params.formulirId
 	};
 }

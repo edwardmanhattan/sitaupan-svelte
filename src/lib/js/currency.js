@@ -1,5 +1,6 @@
 // @ts-nocheck
 export const rupiah = (num) => {
+	num ??= 0;
 	return new Intl.NumberFormat('id-ID', {
 		style: 'currency',
 		currency: 'IDR'
