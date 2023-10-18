@@ -168,6 +168,18 @@
 						href="/opr/laporan/bpkad"
 						icon="streamline:interface-file-bookmark-text-common-bookmark"
 					/>
+
+					<Menu
+						anchor="Uji Laboratorium"
+						href="/opr/laporan/uji_lab"
+						icon="streamline:interface-file-bookmark-text-common-bookmark"
+					/>
+
+					<Menu
+						anchor="Sewa Alat Berat"
+						href="/opr/laporan/alat_berat"
+						icon="streamline:interface-file-bookmark-text-common-bookmark"
+					/>
 				{/if}
 			</Menu>
 		{/if}
