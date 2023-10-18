@@ -33,7 +33,7 @@ export async function load({ fetch }) {
 		uraian: null,
 		anggaran: null,
 		keterangan: null,
-		sumber_dana: []
+		sumber_dana: [{ sumber_dana: '', nilai: 0 }]
 	};
 
 	const dpa = async () =>

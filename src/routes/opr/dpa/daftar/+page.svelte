@@ -113,7 +113,7 @@
 										modalKontrak.open();
 										kontrak.id_formulir = tr.id_form;
 									}}
-									class="bg-emerald-700"
+									class="text-white bg-emerald-700"
 								>
 									<Icon width="16px" icon="bx:pen" />
 									Buat Resume
@@ -132,7 +132,7 @@
 										modalBukti.open();
 										bukti.id_formulir = tr.id_form;
 									}}
-									class="bg-emerald-700"
+									class="text-white bg-emerald-700"
 								>
 									<Icon icon="bi:envelope-paper-fill" />
 									Buat Surat
@@ -153,7 +153,7 @@
 										modalPengantar.open();
 										pengantar.id_formulir = tr.id_form;
 									}}
-									class="bg-emerald-700"
+									class="text-white bg-emerald-700"
 								>
 									<Icon icon="bi:envelope-paper-fill" />
 									Buat Surat

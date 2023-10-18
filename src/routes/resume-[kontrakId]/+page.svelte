@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { rupiah, terbilang } from '$lib/js/currency';
+	import { rupiah } from '$lib/js/currency';
 	import { formatFullDate } from '$lib/js/datetime';
 	import Row from '$lib/table/row.svelte';
 	import Kop from '$lib/kop.svelte';

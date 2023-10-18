@@ -98,7 +98,7 @@
 					/>
 
 					<Menu
-						anchor="Data Aset"
+						anchor="Aset BPKAD"
 						href="/opr/files/aset/aset tetap"
 						icon="streamline:interface-align-layers-1-design-layer-layers-pile-stack"
 					>

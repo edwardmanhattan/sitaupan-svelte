@@ -357,7 +357,7 @@
 			<textarea bind:value={selected.rincian_sub_kegiatan.keterangan} />
 		</Row>
 
-		<Row number="6" title="PPK">
+		<!-- <Row number="6" title="PPK">
 			{#await fiero(`/operator/getAllUserOperator`) then data}
 				<Select
 					bind:key={selected.rincian_sub_kegiatan.ppk}
@@ -385,9 +385,9 @@
 					config={{ key: 'id', title: 'nama', title2: 'nip' }}
 				/>
 			{/await}
-		</Row>
+		</Row> -->
 
-		<Row number="9" title="Sumber Dana">
+		<Row number="6" title="Sumber Dana">
 			<button
 				on:click={() => {
 					selected.rincian_sub_kegiatan.sumber_dana = [
@@ -412,16 +412,28 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each selected.rincian_sub_kegiatan.sumber_dana ?? [] as d, i (i)}
+				{#each selected.rincian_sub_kegiatan.sumber_dana ?? [] as { sumber_dana, nilai }, i (i)}
 					<tr>
 						<td>{i + 1}</td>
 						<td>
 							{#await fiero(`/operator/getListSumberDana`) then data}
-								<Select bind:key={d.sumber_dana} {data} config={{ key: 'id', title: 'nama' }} />
+								<Select
+									key={sumber_dana}
+									{data}
+									config={{ key: 'id', title: 'nama' }}
+									on:linkup={(data) => {
+										sumber_dana = data.detail.key;
+									}}
+								/>
 							{/await}
 						</td>
 						<td>
-							<Currency bind:value={d.nilai} />
+							<Currency
+								value={nilai}
+								on:linkup={(data) => {
+									nilai = data.detail.value;
+								}}
+							/>
 						</td>
 						<td>
 							<button
@@ -449,6 +461,7 @@
 				selected.rincian_sub_kegiatan.sumber_dana = JSON.stringify(
 					selected.rincian_sub_kegiatan.sumber_dana
 				);
+
 				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
 					jenis: subPage,
 					...selected.rincian_sub_kegiatan

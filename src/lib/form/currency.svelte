@@ -1,6 +1,7 @@
 <script>
 	// @ts-nocheck
 	import { numeric, rupiah } from '$lib/js/currency';
+	import { createEventDispatcher } from 'svelte';
 
 	export let value;
 	value ??= 0;
@@ -10,6 +11,12 @@
 
 	let element;
 	export let onChange = () => {};
+
+	const dispatch = createEventDispatcher();
+
+	function linkup(value) {
+		dispatch('linkup', { value });
+	}
 </script>
 
 <div class="w-full">
@@ -24,6 +31,7 @@
 			display = rupiah(display);
 		}}
 		on:change={() => {
+			linkup(value);
 			onChange();
 			element.blur();
 		}}

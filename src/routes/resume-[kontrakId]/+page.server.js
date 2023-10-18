@@ -62,7 +62,7 @@ export async function load({ params }) {
 	};
 
 	const form = async () =>
-		await fetch(config.api + `/mitra/getFormPenyediaJasaById?id_form=${params.kontrakId}`).then(
+		await fetch(config.api + `/operator/getKontrakFisikById?id_form=${params.kontrakId}`).then(
 			(res) => res.json()
 		);
 

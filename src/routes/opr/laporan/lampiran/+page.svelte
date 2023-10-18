@@ -16,7 +16,7 @@
 
 <div>
 	<div class="flex items-center justify-between">
-		<h1>Lampiran</h1>
+		<h1>Lampiran 1C</h1>
 		<select bind:value={year} class="w-32">
 			<option value="">Semua</option>
 			{#each getYearsSince(2023) as y}

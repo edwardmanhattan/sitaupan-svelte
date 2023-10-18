@@ -87,5 +87,5 @@
 
 	<br />
 	<br />
-	<button>Simpan</button>
+	<button> Simpan </button>
 </Modal>

@@ -38,7 +38,7 @@ export async function load({ params }) {
 	};
 
 	const form = async () =>
-		await fetch(config.api + `/mitra/getSuratBuktiById?id=${params.suratId}`).then((res) =>
+		await fetch(config.api + `/operator/getSuratBuktiById?id=${params.suratId}`).then((res) =>
 			res.json()
 		);
 

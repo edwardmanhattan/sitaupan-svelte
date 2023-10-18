@@ -1,9 +1,11 @@
 <script>
 	// @ts-nocheck
+	import Select from '$lib/form/select.svelte';
 
 	import { fiero } from '$lib/js/fiero';
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { formatTitle } from '$lib/js/string';
+	import { snack } from '$lib/js/vanilla';
 	import Modal from '$lib/modal/modal.svelte';
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
@@ -16,7 +18,9 @@
 		id: { show: false },
 		foto: { show: false },
 		status: { show: false },
-		privilege: { show: false }
+		privilege: { show: false },
+		id_jabatan: { show: false },
+		id_bidang: { show: false }
 	};
 
 	let modalModifier = {
@@ -43,12 +47,15 @@
 		<button
 			on:click={async () => {
 				selected = {
+					id: 0,
 					nama: '',
 					username: '',
 					password: '',
-					nama_perusahaan: '',
 					no_telepon: '',
-					email: ''
+					nip: '',
+					id_jabatan: 0,
+					id_bidang: 0,
+					gender: 'Pria'
 				};
 				modal.open();
 			}}
@@ -71,20 +78,57 @@
 <Modal bind:this={modal}>
 	<h1>User Operator</h1>
 
-	{#each shownKeyModifier(getKeyModifier([selected], { ...modifier, ...modalModifier })) as key}
-		<label>{formatTitle(key)}</label>
-		{#if modalModifier[key]?.disabled}
-			<input type="text" bind:value={selected[key]} class="disabled" disabled />
-		{:else if modifier[key]?.type === 'datetime'}
-			<input type="date" bind:value={selected[key]} />
-		{:else if key === 'password'}
-			<input type="password" bind:value={selected[key]} />
-		{:else}
-			<input type="text" bind:value={selected[key]} />
-		{/if}
-	{/each}
+	<label>Nama</label>
+	<input type="text" bind:value={selected.nama} />
+	<br />
+
+	<label>Username</label>
+	<input type="text" bind:value={selected.username} />
+	<br />
+
+	<label>Password</label>
+	<input type="password" bind:value={selected.password} />
+	<br />
+
+	<label>No Telepon</label>
+	<input type="text" bind:value={selected.no_telepon} />
+	<br />
+
+	<label>NIP</label>
+	<input type="text" bind:value={selected.nip} />
+	<br />
+
+	<label>Jenis Kelamin</label>
+	<select bind:value={selected.gender}>
+		<option value="Pria">Pria</option>
+		<option value="Wanita">Wanita</option>
+	</select>
+
+	<label>Jabatan</label>
+	{#await fiero(`/operator/getAllJabatan`) then data}
+		<Select bind:key={selected.id_jabatan} {data} config={{ key: 'id', title: 'nama_jabatan' }} />
+	{/await}
+
+	<label>Bidang</label>
+	{#await fiero(`/operator/getAllBidangProyek`) then data}
+		<Select bind:key={selected.id_bidang} {data} config={{ key: 'id', title: 'nama_bidang' }} />
+	{/await}
 
 	<br />
 	<br />
-	<button>Simpan</button>
+	<button
+		on:click={async () => {
+			let url = 'insert';
+			if (selected.id !== 0) url = 'update';
+			const res = await fiero(`/operator/${url}UserOperator`, 'POST', selected);
+			if (res.status === 200) {
+				if (selected.id === 0) snack.info('Berhasil menambah User Operator baru');
+				else snack.info('Berhasil mengubah informasi User Operator');
+			} else snack.info('Terjadi Kesalahan');
+			source = fiero(`/operator/getAllUserOperator`);
+			modal.close();
+		}}
+	>
+		Simpan
+	</button>
 </Modal>
