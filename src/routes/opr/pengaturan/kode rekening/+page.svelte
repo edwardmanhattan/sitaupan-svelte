@@ -38,7 +38,7 @@
 		{
 			head: '',
 			icon: 'basil:trash-solid',
-			color: 'rose-700',
+			color: 'red-600',
 			action: (id) => {
 				snack.confirm(
 					'Anda akan menghapus Kode Rekening ini secara permanen. Lanjutkan?',

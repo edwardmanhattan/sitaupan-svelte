@@ -19,7 +19,7 @@
 		{
 			head: 'Aksi',
 			icon: 'mdi:pencil',
-			color: 'rose-700',
+			color: 'red-600',
 			action: (id) => {
 				snack.confirm(
 					'Anda akan menghapus asal kegiatan ini secara permanen. Lanjutkan?',

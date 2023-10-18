@@ -189,7 +189,7 @@
 											tr.edit_spm = false;
 											shakeUp = true;
 										}}
-										class="p-1 w-fit bg-rose-700"
+										class="p-1 w-fit bg-red-600"
 									>
 										<Icon width="18px" icon="basil:cancel-outline" />
 									</button>

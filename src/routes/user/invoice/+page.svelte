@@ -126,7 +126,7 @@
 							on:click={() => {
 								form.detail_nota = form.detail_nota.filter((x, idx) => idx !== i);
 							}}
-							class="p-1 bg-rose-700"
+							class="p-1 bg-red-600"
 						>
 							<Icon icon="bi:trash" />
 						</button>

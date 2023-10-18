@@ -357,7 +357,7 @@
 			<textarea bind:value={selected.rincian_sub_kegiatan.keterangan} />
 		</Row>
 
-		<!-- <Row number="6" title="PPK">
+		<Row number="6" title="PPK">
 			{#await fiero(`/operator/getAllUserOperator`) then data}
 				<Select
 					bind:key={selected.rincian_sub_kegiatan.ppk}
@@ -367,7 +367,7 @@
 			{/await}
 		</Row>
 
-		<Row number="7" title="PPTK">
+		<!-- <Row number="7" title="PPTK">
 			{#await fiero(`/operator/getAllUserOperator`) then data}
 				<Select
 					bind:key={selected.rincian_sub_kegiatan.pptk}
@@ -375,9 +375,9 @@
 					config={{ key: 'id', title: 'nama', title2: 'nip' }}
 				/>
 			{/await}
-		</Row>
+		</Row> -->
 
-		<Row number="8" title="Staf Pengelola">
+		<Row number="7" title="Staf Pengelola">
 			{#await fiero(`/operator/getAllUserOperator`) then data}
 				<Select
 					bind:key={selected.rincian_sub_kegiatan.staf_pengelola}
@@ -385,9 +385,9 @@
 					config={{ key: 'id', title: 'nama', title2: 'nip' }}
 				/>
 			{/await}
-		</Row> -->
+		</Row>
 
-		<Row number="6" title="Sumber Dana">
+		<Row number="8" title="Sumber Dana">
 			<button
 				on:click={() => {
 					selected.rincian_sub_kegiatan.sumber_dana = [
@@ -441,7 +441,7 @@
 									selected.rincian_sub_kegiatan.sumber_dana =
 										selected.rincian_sub_kegiatan.sumber_dana.filter((x, idx) => idx !== i);
 								}}
-								class="p-1 bg-rose-700"
+								class="p-1 bg-red-600"
 							>
 								<Icon icon="bi:trash" />
 							</button>

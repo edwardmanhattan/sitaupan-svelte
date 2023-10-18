@@ -36,7 +36,7 @@
 		{
 			head: '',
 			icon: 'basil:trash-solid',
-			color: 'rose-700',
+			color: 'red-600',
 			action: (id) => {
 				snack.confirm('Anda akan menghapus Nomor DPA ini secara permanen. Lanjutkan?', async () => {
 					const res = await fiero(`/operator/deleteNomorDPA`, 'POST', { id: id });

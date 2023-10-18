@@ -9,6 +9,8 @@
 	import { redirect } from '@sveltejs/kit';
 	export let data;
 	let { form, bidang, operator, kegiatan, tim } = data;
+
+	let pptkPresent = tim.pptk?.id !== 0;
 </script>
 
 <Row number="1" title="Uraian Sub Kegiatan">
@@ -42,41 +44,18 @@
 </Row>
 
 <Row number="5" title="Pejabat Pelaksana Teknis Kegiatan (PPTK)">
-	<!-- <button
-		on:click={() => {
-			form.pptk = [
-				...form.pptk,
-				{
-					nama: '',
-					nip: ''
-				}
-			];
-		}}
-		class="ml-auto w-fit"
-	>
-		<Icon icon="bi:plus" />
-		Tambah
-	</button> -->
+	{#if pptkPresent}
+		{tim.pptk.nama} <span class="w-32 text-center">/</span> {tim.pptk.nip}
+	{:else}
+		<div class="flex items-center gap-2">
+			{#await fiero(`/operator/getAllUserOperator`) then data}
+				<Select bind:key={tim.pptk} {data} config={{ key: 'id', title: 'nama', title2: 'nip' }} />
+			{/await}
+			<button> Perbarui PPTK </button>
+		</div>
+	{/if}
 </Row>
 
-<table>
-	<thead>
-		<tr>
-			<th>No</th>
-			<th>Nama</th>
-			<th>NIP</th>
-		</tr>
-	</thead>
-	<tbody>
-		{#each tim.pptk ?? [] as pptk, i}
-			<tr>
-				<td class="text-center">{i + 1}</td>
-				<td>{pptk.nama}</td>
-				<td>{pptk.nip}</td>
-			</tr>
-		{/each}
-	</tbody>
-</table>
 <br />
 
 <Row number="6" title="Bendahara Pengeluaran Pembantu">
