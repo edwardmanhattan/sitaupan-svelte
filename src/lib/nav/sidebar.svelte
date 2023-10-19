@@ -160,6 +160,12 @@
 						href="/opr/laporan/lampiran"
 						icon="streamline:interface-file-bookmark-text-common-bookmark"
 					/>
+
+					<Menu
+						anchor="Lampiran 1C Belanja Barang & Jasa"
+						href="/opr/laporan/lampiran_belanja"
+						icon="streamline:interface-file-bookmark-text-common-bookmark"
+					/>
 				{/if}
 
 				{#if checkJabatan([19])}

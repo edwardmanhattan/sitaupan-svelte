@@ -147,13 +147,9 @@
 						</td>
 
 						<td class="w-32">
-							<button
-								on:click={() => {
-									console.log(tr.nota_tagihan);
-								}}
-							>
-								Detail Nota
-							</button>
+							<a href="/invoice-{tr.nota_tagihan}">
+								<button> Detail Nota </button>
+							</a>
 						</td>
 
 						<td class="w-32">
