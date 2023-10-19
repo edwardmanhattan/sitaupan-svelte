@@ -156,7 +156,7 @@
 						icon="streamline:interface-file-bookmark-text-common-bookmark"
 					/>
 					<Menu
-						anchor="Lampiran"
+						anchor="Lampiran 1C Sewa Modal"
 						href="/opr/laporan/lampiran"
 						icon="streamline:interface-file-bookmark-text-common-bookmark"
 					/>

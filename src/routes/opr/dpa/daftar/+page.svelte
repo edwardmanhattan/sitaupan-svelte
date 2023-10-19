@@ -189,7 +189,7 @@
 											tr.edit_spm = false;
 											shakeUp = true;
 										}}
-										class="p-1 w-fit bg-red-600"
+										class="p-1 bg-red-600 w-fit"
 									>
 										<Icon width="18px" icon="basil:cancel-outline" />
 									</button>
@@ -284,12 +284,13 @@
 
 	<label>Bendahara Pengeluaran Pembantu</label>
 	<Select bind:key={bukti.id_penjabat4} data={operator} config={{ key: 'id', title: 'nama' }} />
+	-->
 
 	<label>Jumlah Penjabat</label>
 	<select bind:value={bukti.tipe_surat}>
 		<option value="3">3</option>
 		<option value="4">4</option>
-	</select> -->
+	</select>
 
 	<div>Apakah anda ingin membuat Surat Bukti?</div>
 

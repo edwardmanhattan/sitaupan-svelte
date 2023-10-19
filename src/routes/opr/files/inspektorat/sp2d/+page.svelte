@@ -2,24 +2,18 @@
 	// @ts-nocheck
 
 	import Currency from '$lib/form/currency.svelte';
+	import File from '$lib/form/file.svelte';
 	import Select from '$lib/form/select.svelte';
 	import { getYearNow, getYearsSince } from '$lib/js/datetime';
 	import { fiero } from '$lib/js/fiero';
 	import { snack } from '$lib/js/vanilla';
 	import Modal from '$lib/modal/modal.svelte';
 	import Skeleton from '$lib/table/skeleton.svelte';
-	import Table from '$lib/table/table.svelte';
+	import TableSp2d from '$lib/table/table-sp2d.svelte';
 	import Icon from '@iconify/svelte';
 
 	let year = getYearNow();
 	$: source = `/operator/getLaporanSp2d?tanggal=${year}`;
-	let modifier = {
-		id: { show: false },
-		id_sp2d: { show: false },
-		id_bidang: { show: false },
-		id_master_formulir: { show: false }
-	};
-	let buttons = [];
 
 	let modal;
 	let form;
@@ -59,39 +53,22 @@
 	{#await fiero(source)}
 		<Skeleton />
 	{:then data}
-		<Table {data} {modifier} {buttons} />
+		<TableSp2d {data} />
 	{:catch err}
 		<div>{err}</div>
 	{/await}
 </div>
 
+<!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modal}>
-	<div>Formulir</div>
-	{#await fiero(`/operator/getListFormPenyediaJasa?mode=selesai&id_jabatan=17`) then data}
-		<Select
-			bind:key={form.id_formulir}
-			{data}
-			config={{ key: 'id_form', title: 'kode_rekening_rincian' }}
-		/>
-	{/await}
-	<br />
-
-	<div>Bidang</div>
+	<label>Bidang</label>
 	{#await fiero(`/operator/getAllBidangProyek`) then data}
 		<Select bind:key={form.id_bidang} {data} config={{ key: 'id', title: 'nama_bidang' }} />
 	{/await}
 	<br />
 
-	<div>LS Fisik</div>
-	<input type="text" bind:value={form.ls_fisik} />
-	<br />
-
-	<div>Konsultan</div>
-	<input type="text" bind:value={form.konsultan} />
-	<br />
-
-	<div>Honor</div>
-	<Currency bind:value={form.honor} />
+	<label>LS Fisik</label>
+	<File name="ls_fisik" />
 	<br />
 
 	<br />
