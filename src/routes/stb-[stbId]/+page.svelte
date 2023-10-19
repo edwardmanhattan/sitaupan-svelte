@@ -10,6 +10,7 @@
 	import { angkaTerbilang } from '$lib/js/angkaTerbilang';
 	import { rupiah } from '$lib/js/currency';
 	import Select from '$lib/form/select.svelte';
+	import Back from '$lib/shortcut/back.svelte';
 	export let data;
 
 	const form = data.data;
@@ -21,7 +22,10 @@
 
 <div class="flex flex-col h-screen overflow-auto">
 	<div class="flex items-center justify-between p-2 text-teal-800 shrink-0 bg-blue-2">
-		<h1>Serah Terima Berkas</h1>
+		<div class="flex items-center gap-4">
+			<Back />
+			<h1>Serah Terima Berkas</h1>
+		</div>
 		<button
 			on:click={async () => {
 				printWaiting = true;

@@ -4,11 +4,11 @@
 	import Row from '$lib/table/row.svelte';
 	import Kop2 from '$lib/kop2.svelte';
 	import Icon from '@iconify/svelte';
-	import { config } from '$lib/js/fiero.js';
 	import { exportToPDF } from '$lib/js/download.js';
 	import { formatFullDate } from '$lib/js/datetime';
 	import { angkaTerbilang } from '$lib/js/angkaTerbilang';
 	import { rupiah } from '$lib/js/currency';
+	import Back from '$lib/shortcut/back.svelte';
 	export let data;
 
 	const id = data.kontrakId;
@@ -18,8 +18,11 @@
 </script>
 
 <div class="flex flex-col h-screen overflow-auto">
-	<div class="flex items-center justify-between p-2 text-white shrink-0 bg-blue-2">
-		<h1>Surat Bukti</h1>
+	<div class="flex items-center justify-between p-2 text-teal-800 shrink-0 bg-blue-2">
+		<div class="flex items-center gap-4">
+			<Back />
+			<h1>Surat Bukti</h1>
+		</div>
 		<button
 			on:click={async () => {
 				printWaiting = true;

@@ -4,6 +4,7 @@
 	import { formatFullDate } from '$lib/js/datetime';
 	import { exportToPDF } from '$lib/js/download.js';
 	import Kop3 from '$lib/kop3.svelte';
+	import Back from '$lib/shortcut/back.svelte';
 	import Icon from '@iconify/svelte';
 	export let data;
 
@@ -14,8 +15,11 @@
 </script>
 
 <div class="flex flex-col h-screen overflow-auto">
-	<div class="flex items-center justify-between p-2 text-white shrink-0 bg-blue-2">
-		<h1>Surat Pengantar</h1>
+	<div class="flex items-center justify-between p-2 text-teal-800 shrink-0 bg-blue-2">
+		<div class="flex items-center gap-4">
+			<Back />
+			<h1>Surat Pengantar</h1>
+		</div>
 		<button
 			on:click={async () => {
 				printWaiting = true;

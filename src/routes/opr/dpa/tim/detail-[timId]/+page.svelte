@@ -7,11 +7,16 @@
 	import { fiero } from '$lib/js/fiero.js';
 	import { snack } from '$lib/js/vanilla.js';
 	import { redirect } from '@sveltejs/kit';
+	import Back from '$lib/shortcut/back.svelte';
 	export let data;
 	let { form, bidang, operator, kegiatan, tim } = data;
 
 	let pptkPresent = tim.pptk?.id !== 0;
 </script>
+
+<div class="flex my-3">
+	<Back />
+</div>
 
 <Row number="1" title="Uraian Sub Kegiatan">
 	<!-- <input type="text" bind:value={form.nama_kegiatan} /> -->

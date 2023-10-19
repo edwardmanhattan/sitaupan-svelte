@@ -8,6 +8,7 @@
 	import Icon from '@iconify/svelte';
 	import { exportToPDF } from '$lib/js/download.js';
 	import { angkaTerbilang } from '$lib/js/angkaTerbilang.js';
+	import Back from '$lib/shortcut/back.svelte';
 	export let data;
 
 	const id = data.kontrakId;
@@ -16,8 +17,11 @@
 </script>
 
 <div class="flex flex-col h-screen overflow-auto">
-	<div class="flex items-center justify-between p-2 text-white shrink-0 bg-blue-2">
-		<h1>Resume / Kontrak Fisik</h1>
+	<div class="flex items-center justify-between p-2 text-teal-800 shrink-0 bg-blue-2">
+		<div class="flex items-center gap-4">
+			<Back />
+			<h1>Resume / Kontrak Fisik</h1>
+		</div>
 		<button
 			on:click={async () => {
 				printWaiting = true;
@@ -176,6 +180,21 @@
 					</Row>
 
 					<Row number="23" title="Lampiran Perincian Total Pengeluaran" />
+
+					<br />
+
+					<div class="ml-auto text-center w-36">
+						<div class="signature">
+							<div>
+								<div>Tanjung Redeb, {formatFullDate()}</div>
+								<div>Pejabat Pembuat Komitmen,</div>
+							</div>
+							<div>
+								<div class="font-semibold underline">{form.nama_penjabat}</div>
+								<div>{form.nip_penjabat}</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
