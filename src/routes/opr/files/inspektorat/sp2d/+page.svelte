@@ -8,6 +8,7 @@
 	import { fiero } from '$lib/js/fiero';
 	import { snack } from '$lib/js/vanilla';
 	import Modal from '$lib/modal/modal.svelte';
+	import Send from '$lib/shortcut/send.svelte';
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import TableSp2d from '$lib/table/table-sp2d.svelte';
 	import Icon from '@iconify/svelte';
@@ -17,6 +18,8 @@
 
 	let modal;
 	let form;
+
+	let fileLS, fileKonsultan, fileHonor;
 </script>
 
 <div>
@@ -61,29 +64,62 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modal}>
+	<label>Formulir</label>
+	{#await fiero(`/operator/getListFormPenyediaJasa?mode=selesai&id_jabatan=17`) then data}
+		<Select
+			bind:key={form.id_formulir}
+			{data}
+			config={{ key: 'id_form', title: 'kode_rekening_rincian' }}
+		/>
+	{/await}
+	<br />
+
 	<label>Bidang</label>
 	{#await fiero(`/operator/getAllBidangProyek`) then data}
 		<Select bind:key={form.id_bidang} {data} config={{ key: 'id', title: 'nama_bidang' }} />
 	{/await}
 	<br />
 
-	<label>LS Fisik</label>
-	<File name="ls_fisik" />
+	<label>Nomor SP2D</label>
+	<input type="text" bind:value={form.nomor_sp2d} />
 	<br />
+
+	<label>Pekerjaan</label>
+	<input type="text" bind:value={form.pekerjaan} />
+	<br />
+
+	<label>Nilai</label>
+	<Currency bind:value={form.nilai} />
+
+	<label>LS Fisik</label>
+	<File name="ls_fisik" bind:this={fileLS} />
+
+	<label>Konsultan</label>
+	<File name="konsultan" bind:this={fileKonsultan} />
+
+	<label>Honor</label>
+	<File name="honor" bind:this={fileHonor} />
 
 	<br />
 	<br />
-	<button
+	<Send
 		on:click={async () => {
 			const res = await fiero(`/operator/insertSp2d`, 'POST', form);
 			if (res.status === 200) {
-				snack.info('Berhasil menambah data baru');
-			} else snack.info('Terjadi kesalahan.');
+				const id = res.data;
+				try {
+					await fileLS.upload(id, 'sp2d', 'ls_fisik');
+					await fileKonsultan.upload(id, 'sp2d', 'konsultan');
+					await fileHonor.upload(id, 'sp2d', 'honor');
+					snack.info('Berhasil menambah data baru');
+				} catch (err) {
+					snack.info('Terjadi kesalahan (file upload).');
+					console.log(err);
+				}
+			} else snack.info('Terjadi kesalahan (data assign).');
 
 			year = '';
 			modal.close();
 		}}
-	>
-		Simpan
-	</button>
+	/>
 </Modal>

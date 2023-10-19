@@ -6,7 +6,7 @@
 	export let data = [{}];
 	export let config = '';
 
-	key ||= data[0][config.key];
+	key ||= data[0][config?.key] ?? '';
 
 	export let onChange = () => {};
 	onChange();

@@ -11,6 +11,7 @@
 	import { snack } from '$lib/js/vanilla';
 	import { exportToExcel } from '$lib/js/download';
 	import { formatTitle } from '$lib/js/string';
+	import { config } from '$lib/js/fiero';
 
 	export let data;
 
@@ -67,7 +68,9 @@
 				<tr>
 					<th rowspan="2">No</th>
 					<th rowspan="2">Bidang</th>
+					<th rowspan="2">Nomor SP2D</th>
 					<th rowspan="2">Pekerjaan</th>
+					<th rowspan="2">Nilai</th>
 					<th colspan="3">SP2D (SoftFile)</th>
 				</tr>
 				<tr>
@@ -81,10 +84,36 @@
 					<tr>
 						<td class="text-center">{tr.pageNum}</td>
 						<td>{tr.nama_bidang}</td>
-						<td />
-						<td />
-						<td />
-						<td />
+						<td>{tr.nomor_sp2d}</td>
+						<td>{tr.pekerjaan}</td>
+						<td>{rupiah(tr.nilai)}</td>
+						<td>
+							{#if tr.ls_fisik === '-'}
+								<div class="italic text-slate-400">data tidak ada</div>
+							{:else}
+								<a href={config.api + `/getFile?path=${tr.ls_fisik}`} target="_blank">
+									<button>Lihat</button>
+								</a>
+							{/if}
+						</td>
+						<td>
+							{#if tr.konsultan === '-'}
+								<div class="italic text-slate-400">data tidak ada</div>
+							{:else}
+								<a href={config.api + `/getFile?path=${tr.konsultan}`} target="_blank">
+									<button>Lihat</button>
+								</a>
+							{/if}
+						</td>
+						<td>
+							{#if tr.honor === '-'}
+								<div class="italic text-slate-400">data tidak ada</div>
+							{:else}
+								<a href={config.api + `/getFile?path=${tr.honor}`} target="_blank">
+									<button>Lihat</button>
+								</a>
+							{/if}
+						</td>
 					</tr>
 				{:else}
 					<tr class="text-center border border-gray-1">

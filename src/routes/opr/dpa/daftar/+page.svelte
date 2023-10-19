@@ -31,6 +31,7 @@
 
 	let keyModifier = getKeyModifier(_data, {
 		pageNum: { alias: 'No', show: true, export: true },
+		nota_tagihan: { show: false },
 		...modifier
 	});
 
@@ -87,6 +88,7 @@
 
 					<th>Detail Resume</th>
 					<th>Surat Bukti</th>
+					<th>Nota Tagihan</th>
 					<th>Surat Pengantar</th>
 					<th>Nomor SPM</th>
 				</tr>
@@ -142,6 +144,16 @@
 									<button> Detail Surat </button>
 								</a>
 							{/if}
+						</td>
+
+						<td class="w-32">
+							<button
+								on:click={() => {
+									console.log(tr.nota_tagihan);
+								}}
+							>
+								Detail Nota
+							</button>
 						</td>
 
 						<td class="w-32">
