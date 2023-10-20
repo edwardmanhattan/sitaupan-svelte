@@ -5,11 +5,12 @@
 	import { fiero } from '$lib/js/fiero.js';
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { Pagination } from '$lib/js/pagination.js';
-	import { searchEachText } from '$lib/js/search.js';
+	import { searchBidang, searchEachText } from '$lib/js/search.js';
 	import { snack } from '$lib/js/vanilla.js';
 	import Modal from '$lib/modal/modal.svelte';
 	import Icon from '@iconify/svelte';
 	import Select from '$lib/form/select.svelte';
+	import Bidang from '$lib/shortcut/bidang.svelte';
 
 	export let data;
 
@@ -23,17 +24,22 @@
 	let shakeUp = true;
 	let page;
 
-	$: if (shakeUp) {
-		page = new Pagination(searchEachText(_data, searchText), parseInt(interval));
-	}
-	$: display = page.chop();
-	$: currentPage = page.getCurrentPage();
-
 	let keyModifier = getKeyModifier(_data, {
 		pageNum: { alias: 'No', show: true, export: true },
 		nota_tagihan: { show: false },
 		...modifier
 	});
+	let bidangExist = Object.keys(keyModifier).find((k) => k.includes('bidang'));
+	let bidang = '';
+
+	$: if (shakeUp) {
+		page = new Pagination(
+			searchBidang(searchEachText(_data, searchText), bidang, bidangExist),
+			parseInt(interval)
+		);
+	}
+	$: display = page.chop();
+	$: currentPage = page.getCurrentPage();
 
 	///////////////////////////////////////////////////////////
 
@@ -64,7 +70,9 @@
 
 <div>
 	<div class="flex items-center justify-between gap-2">
-		<div />
+		<div>
+			<Bidang bind:bidang />
+		</div>
 		<div class="flex items-center gap-2">
 			<select class="w-24 text-sm" bind:value={interval}>
 				<option value="10">10</option>

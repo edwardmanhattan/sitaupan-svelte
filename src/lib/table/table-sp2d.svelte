@@ -3,7 +3,7 @@
 
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { formatFullDate } from '$lib/js/datetime';
-	import { searchEachText } from '$lib/js/search';
+	import { searchBidang, searchEachText } from '$lib/js/search';
 	import { rupiah } from '$lib/js/currency';
 
 	import Icon from '@iconify/svelte';
@@ -12,13 +12,19 @@
 	import { exportToExcel } from '$lib/js/download';
 	import { formatTitle } from '$lib/js/string';
 	import { config } from '$lib/js/fiero';
+	import Bidang from '$lib/shortcut/bidang.svelte';
 
 	export let data;
 
 	let searchText = '';
 	let interval = '10';
 
-	$: page = new Pagination(searchEachText(data, searchText), parseInt(interval));
+	let bidang = '';
+
+	$: page = new Pagination(
+		searchBidang(searchEachText(data, searchText), bidang, 'nama_bidang'),
+		parseInt(interval)
+	);
 	$: display = page.chop();
 	$: currentPage = page.getCurrentPage();
 
@@ -38,19 +44,7 @@
 <div>
 	<div class="flex items-center justify-between gap-2">
 		<div class="flex items-center gap-2">
-			<!-- <select class="w-32 text-sm">
-				<option value="semua">semua</option>
-			</select> -->
-			<!-- 
-			<button
-				on:click={() => {
-					keyModal.open();
-				}}
-				class="w-24 text-sm text-black bg-transparent border-black"
-			>
-				<Icon icon="bi:gear" />
-				Setting
-			</button> -->
+			<Bidang bind:bidang />
 		</div>
 		<div class="flex items-center gap-2">
 			<select class="w-24 text-sm" bind:value={interval}>

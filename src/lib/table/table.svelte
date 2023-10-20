@@ -3,7 +3,7 @@
 
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { formatFullDate } from '$lib/js/datetime';
-	import { searchEachText } from '$lib/js/search';
+	import { searchBidang, searchEachText } from '$lib/js/search';
 	import { rupiah } from '$lib/js/currency';
 
 	import Icon from '@iconify/svelte';
@@ -11,6 +11,9 @@
 	import { snack } from '$lib/js/vanilla';
 	import { exportToExcel } from '$lib/js/download';
 	import { formatTitle } from '$lib/js/string';
+	import Select from '$lib/form/select.svelte';
+	import { fiero } from '$lib/js/fiero';
+	import Bidang from '$lib/shortcut/bidang.svelte';
 
 	export let data;
 	export let modifier = {};
@@ -19,14 +22,20 @@
 	let searchText = '';
 	let interval = '10';
 
-	$: page = new Pagination(searchEachText(data, searchText), parseInt(interval));
-	$: display = page.chop();
-	$: currentPage = page.getCurrentPage();
-
 	let keyModifier = getKeyModifier(data, {
 		pageNum: { alias: 'No', show: true, export: true },
 		...modifier
 	});
+
+	let bidangExist = Object.keys(keyModifier).find((k) => k.includes('bidang'));
+	let bidang = '';
+
+	$: page = new Pagination(
+		searchBidang(searchEachText(data, searchText), bidang, bidangExist),
+		parseInt(interval)
+	);
+	$: display = page.chop();
+	$: currentPage = page.getCurrentPage();
 
 	///////////////////////////////////////////////////////////
 
@@ -44,20 +53,9 @@
 <div>
 	<div class="flex items-center justify-between gap-2">
 		<div class="flex items-center gap-2">
-			<!-- <select class="w-32 text-sm">
-				<option value="semua">semua</option>
-			</select> -->
-			<!-- 
-			<button
-				on:click={() => {
-					keyModal.open();
-				}}
-				class="w-24 text-sm text-black bg-transparent border-black"
-			>
-				<Icon icon="bi:gear" />
-				Setting
-			</button> -->
-
+			{#if bidangExist}
+				<Bidang bind:bidang />
+			{/if}
 			<button
 				on:click={async () => {
 					let columns = shownKeyModifier(keyModifier)

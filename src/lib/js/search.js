@@ -18,3 +18,8 @@ export const searchEachText = (data, text, key) => {
 		if (found) return obj;
 	});
 };
+
+export const searchBidang = (data, bidang = '', key) => {
+	if (!data || data.length === 0 || !key || bidang === '') return data;
+	return data.filter((x) => x[key] === bidang[0] || x[key] === bidang[1]);
+};

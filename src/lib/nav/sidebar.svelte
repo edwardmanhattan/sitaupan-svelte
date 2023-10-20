@@ -93,6 +93,7 @@
 		{#if checkJabatan([2, 5, 18])}
 			<Menu
 				anchor="Inspektorat"
+				href="/opr/files/inspektorat/p3dn perencanaan"
 				icon="streamline:interface-edit-zoom-in-enhance-glass-in-magnify-magnifying-zoom"
 				childPos="8"
 			>
