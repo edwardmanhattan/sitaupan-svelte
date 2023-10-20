@@ -76,76 +76,73 @@
 			</Menu>
 		{/if}
 
-		{#if checkJabatan([2, 5, 18, 21])}
+		{#if checkJabatan([21])}
 			<Menu
-				anchor="Data Files"
+				anchor="BPJS Ketenagakerjaan"
 				href="/opr/files/bpjs"
-				icon="streamline:interface-file-folder-work-office-company-folder-supplies-file"
+				icon="streamline:interface-add-square-square-remove-cross-buttons-add-plus-button"
+			/>
+		{/if}
+
+		<Menu
+			anchor="Bidang Akuntansi BPKAD"
+			href="/opr/laporan/bpkad"
+			icon="streamline:interface-file-bookmark-text-common-bookmark"
+		/>
+
+		{#if checkJabatan([2, 5, 18])}
+			<Menu
+				anchor="Inspektorat"
+				href="/opr/files/inspektorat/p3dn perencanaan"
+				icon="streamline:interface-edit-zoom-in-enhance-glass-in-magnify-magnifying-zoom"
+				childPos="8"
 			>
-				{#if checkJabatan([21])}
-					<Menu
-						anchor="BPJS Ketenagakerjaan"
-						href="/opr/files/bpjs"
-						icon="streamline:interface-add-square-square-remove-cross-buttons-add-plus-button"
-					/>
+				<Menu anchor="Lampiran 1C Sewa Modal" href="/opr/laporan/lampiran" />
+				<Menu anchor="Lampiran 1C Belanja Barang & Jasa" href="/opr/laporan/lampiran_belanja" />
+				<Menu anchor="Jaminan Uang Muka" href="/opr/files/aset/jaminan" />
+				<Menu anchor="Daftar Hutang" href="/opr/files/hutang" />
+
+				{#if checkJabatan([2, 18])}
+					<Menu anchor="P3DN (Perencanaan)" href="/opr/files/inspektorat/p3dn_perencanaan" />
+					<Menu anchor="P3DN (Realisasi)" href="/opr/files/inspektorat/p3dn_realisasi" />
 				{/if}
 
-				{#if checkJabatan()}
-					<Menu
-						anchor="Daftar Hutang"
-						href="/opr/files/hutang"
-						icon="streamline:money-cash-bag-dollar-bag-payment-cash-money-finance"
-					/>
-
-					<Menu
-						anchor="Aset BPKAD"
-						href="/opr/files/aset/aset tetap"
-						icon="streamline:interface-align-layers-1-design-layer-layers-pile-stack"
-					>
-						<Menu anchor="Aset Tetap" href="/opr/files/aset/tetap" />
-						<Menu anchor="Persediaan" href="/opr/files/aset/persediaan" />
-						<Menu anchor="Berita Acara Pembayaran" href="/opr/files/aset/bap" />
-						<Menu anchor="KIB" href="/opr/files/aset/kib-a">
-							<Menu anchor="KIB A" href="/opr/files/aset/kib-a" />
-							<Menu anchor="KIB B" href="/opr/files/aset/kib-b" />
-							<Menu anchor="KIB C" href="/opr/files/aset/kib-c" />
-							<Menu anchor="KIB D" href="/opr/files/aset/kib-d" />
-							<Menu anchor="KIB E" href="/opr/files/aset/kib-e" />
-							<Menu anchor="KIB F" href="/opr/files/aset/kib-f" />
-						</Menu>
-						<Menu anchor="Jaminan Uang Muka" href="/opr/files/aset/jaminan" />
-					</Menu>
+				{#if checkJabatan([5, 18])}
+					<Menu anchor="Data Kontrak" href="/opr/files/inspektorat/data kontrak" />
+					<Menu anchor="Bukti Bayar (SP2D)" href="/opr/files/inspektorat/sp2d" />
+					<Menu anchor="SK" href="/opr/files/inspektorat/sk" />
+					{#if checkJabatan([5, 18])}
+						<Menu anchor="Realisasi Keuangan" href="/opr/files/inspektorat/realisasi_keuangan" />
+					{/if}
+					<Menu anchor="Serapan Anggaran" href="/opr/files/inspektorat/serapan_anggaran" />
+					<Menu anchor="Capaian Realisasi" href="/opr/laporan/capaian" />
 				{/if}
+			</Menu>
+		{/if}
 
-				{#if checkJabatan([2, 5, 18])}
-					<Menu
-						anchor="Inspektorat"
-						href="/opr/files/inspektorat/p3dn perencanaan"
-						icon="streamline:interface-edit-zoom-in-enhance-glass-in-magnify-magnifying-zoom"
-					>
-						{#if checkJabatan([2, 18])}
-							<Menu anchor="P3DN (Perencanaan)" href="/opr/files/inspektorat/p3dn_perencanaan" />
-							<Menu anchor="P3DN (Realisasi)" href="/opr/files/inspektorat/p3dn_realisasi" />
-						{/if}
-
-						{#if checkJabatan([18])}
-							<Menu anchor="Data Kontrak" href="/opr/files/inspektorat/data kontrak" />
-							<Menu anchor="Bukti Bayar (SP2D)" href="/opr/files/inspektorat/sp2d" />
-							<Menu anchor="SK" href="/opr/files/inspektorat/sk" />
-							<Menu anchor="Serapan Anggaran" href="/opr/files/inspektorat/serapan_anggaran" />
-						{/if}
-
-						{#if checkJabatan([5, 18])}
-							<Menu anchor="Realisasi Keuangan" href="/opr/files/inspektorat/realisasi_keuangan" />
-						{/if}
-					</Menu>
-				{/if}
+		{#if checkJabatan()}
+			<Menu
+				anchor="Bidang Aset BPKAD"
+				href="/opr/files/aset/aset tetap"
+				icon="streamline:interface-align-layers-1-design-layer-layers-pile-stack"
+			>
+				<Menu anchor="Aset Tetap" href="/opr/files/aset/tetap" />
+				<Menu anchor="Persediaan" href="/opr/files/aset/persediaan" />
+				<Menu anchor="Berita Acara Pembayaran" href="/opr/files/aset/bap" />
+				<Menu anchor="KIB" href="/opr/files/aset/kib-a" childPos="6">
+					<Menu anchor="KIB A" href="/opr/files/aset/kib-a" />
+					<Menu anchor="KIB B" href="/opr/files/aset/kib-b" />
+					<Menu anchor="KIB C" href="/opr/files/aset/kib-c" />
+					<Menu anchor="KIB D" href="/opr/files/aset/kib-d" />
+					<Menu anchor="KIB E" href="/opr/files/aset/kib-e" />
+					<Menu anchor="KIB F" href="/opr/files/aset/kib-f" />
+				</Menu>
 			</Menu>
 		{/if}
 
 		{#if checkJabatan([19, 20])}
 			<Menu
-				anchor="Laporan"
+				anchor="Bidang Perbendaharaan BPKAD"
 				href="/opr/laporan/capaian"
 				icon="streamline:interface-edit-clip-binder-clip-clipper-company-office-supplies-work"
 			>
@@ -155,26 +152,9 @@
 						href="/opr/laporan/capaian"
 						icon="streamline:interface-file-bookmark-text-common-bookmark"
 					/>
-					<Menu
-						anchor="Lampiran 1C Sewa Modal"
-						href="/opr/laporan/lampiran"
-						icon="streamline:interface-file-bookmark-text-common-bookmark"
-					/>
-
-					<Menu
-						anchor="Lampiran 1C Belanja Barang & Jasa"
-						href="/opr/laporan/lampiran_belanja"
-						icon="streamline:interface-file-bookmark-text-common-bookmark"
-					/>
 				{/if}
 
 				{#if checkJabatan([19])}
-					<Menu
-						anchor="Akuntansi BPKAD"
-						href="/opr/laporan/bpkad"
-						icon="streamline:interface-file-bookmark-text-common-bookmark"
-					/>
-
 					<Menu
 						anchor="Uji Laboratorium"
 						href="/opr/laporan/uji_lab"
@@ -206,7 +186,7 @@
 					href="/"
 					icon="streamline:computer-database-raid-storage-code-disk-programming-database-array-hard-disc"
 				>
-					<Menu anchor="Data Master" href="/opr/pengaturan/bidang kegiatan">
+					<Menu anchor="Data Master" href="/opr/pengaturan/bidang kegiatan" childPos="8">
 						<Menu anchor="Bidang Kegiatan" href="/opr/pengaturan/bidang kegiatan" />
 						<Menu anchor="Jenis Kegiatan" href="/opr/pengaturan/jenis kegiatan" />
 						<Menu anchor="Asal Kegiatan" href="/opr/pengaturan/asal kegiatan" />

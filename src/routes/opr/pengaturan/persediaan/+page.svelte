@@ -20,7 +20,7 @@
 		// {
 		// 	head: 'Aksi',
 		// 	icon: 'basil:trash-solid',
-		// 	color: 'red-600',
+		// 	color: 'red-1 text-white-1',
 		// 	action: (id, obj) => {
 		// 		snack.confirm('Anda akan menghapus bidang ini secara permanen. Lanjutkan?', async () => {
 		// 			const res = await fiero(`/operator/deleteBidangProyek`, 'POST', { id: id });

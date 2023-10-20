@@ -5,6 +5,7 @@
 	export let icon = '';
 	export let anchor;
 	export let href;
+	export let childPos = 0;
 
 	let open = false;
 	function hover() {
@@ -41,7 +42,10 @@
 	</div>
 
 	{#if $$slots.default && open}
-		<div class="absolute top-0 flex flex-col border w-fit left-full border-teal-950/50">
+		<div
+			class="absolute flex flex-col border w-fit left-full border-teal-950/30"
+			style="top: calc( -22.5px * {parseInt(childPos)} )"
+		>
 			<slot />
 		</div>
 	{/if}

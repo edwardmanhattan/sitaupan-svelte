@@ -530,7 +530,7 @@
 								on:click={() => {
 									form.kib_a = form.kib_a.filter((_, idx) => idx !== i);
 								}}
-								class="bg-red-600"
+								class="bg-red-1 text-white-1"
 							>
 								<Icon icon="bi:trash" />
 							</button>
@@ -596,7 +596,7 @@
 							on:click={() => {
 								form.kib_b = form.kib_b.filter((_, idx) => idx !== i);
 							}}
-							class="bg-red-600"
+							class="bg-red-1 text-white-1"
 						>
 							<Icon icon="bi:trash" />
 						</button>
@@ -661,7 +661,7 @@
 							on:click={() => {
 								form.kib_c = form.kib_c.filter((_, idx) => idx !== i);
 							}}
-							class="bg-red-600"
+							class="bg-red-1 text-white-1"
 						>
 							<Icon icon="bi:trash" />
 						</button>
@@ -726,7 +726,7 @@
 							on:click={() => {
 								form.kib_d = form.kib_d.filter((_, idx) => idx !== i);
 							}}
-							class="bg-red-600"
+							class="bg-red-1 text-white-1"
 						>
 							<Icon icon="bi:trash" />
 						</button>
@@ -791,7 +791,7 @@
 							on:click={() => {
 								form.kib_e = form.kib_e.filter((_, idx) => idx !== i);
 							}}
-							class="bg-red-600"
+							class="bg-red-1 text-white-1"
 						>
 							<Icon icon="bi:trash" />
 						</button>
@@ -855,7 +855,7 @@
 							on:click={() => {
 								form.kib_f = form.kib_f.filter((_, idx) => idx !== i);
 							}}
-							class="bg-red-600"
+							class="bg-red-1 text-white-1"
 						>
 							<Icon icon="bi:trash" />
 						</button>
@@ -987,7 +987,7 @@
 									(_, idx) => idx !== i
 								);
 							}}
-							class="bg-red-600"
+							class="bg-red-1 text-white-1"
 						>
 							<Icon icon="bi:trash" />
 						</button>

@@ -171,7 +171,7 @@
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <Modal bind:this={modal}>
-	<div class="p-2 font-mono text-sm rounded text-red-600">
+	<div class="p-2 font-mono text-sm rounded text-red-1 text-white-1">
 		belum ada mitra penyedia jasa pada sub kegiatan ini.
 	</div>
 

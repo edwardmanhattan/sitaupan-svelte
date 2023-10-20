@@ -441,7 +441,7 @@
 									selected.rincian_sub_kegiatan.sumber_dana =
 										selected.rincian_sub_kegiatan.sumber_dana.filter((x, idx) => idx !== i);
 								}}
-								class="p-1 bg-red-600"
+								class="p-1 bg-red-1 text-white-1"
 							>
 								<Icon icon="bi:trash" />
 							</button>

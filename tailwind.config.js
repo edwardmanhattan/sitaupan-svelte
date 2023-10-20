@@ -12,7 +12,8 @@ export default {
 				'white-1': '#F5F5F5',
 				'gray-1': '#B1CCCC',
 				'gray-2': '#323B3B',
-				'black-1': '#191A1A'
+				'black-1': '#191A1A',
+				'red-1': '#FF0000'
 			},
 			aspectRatio: {
 				hero: '3 / 1',
