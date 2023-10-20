@@ -93,12 +93,11 @@
 		{#if checkJabatan([2, 5, 18])}
 			<Menu
 				anchor="Inspektorat"
-				href="/opr/files/inspektorat/p3dn perencanaan"
 				icon="streamline:interface-edit-zoom-in-enhance-glass-in-magnify-magnifying-zoom"
 				childPos="8"
 			>
-				<Menu anchor="Lampiran 1C Sewa Modal" href="/opr/laporan/lampiran" />
-				<Menu anchor="Lampiran 1C Belanja Barang & Jasa" href="/opr/laporan/lampiran_belanja" />
+				<Menu anchor="Lampiran 1C Belanja Modal" href="/opr/laporan/lampiran_modal" />
+				<Menu anchor="Lampiran 1C Belanja Barang & Jasa" href="/opr/laporan/lampiran_barang" />
 				<Menu anchor="Jaminan Uang Muka" href="/opr/files/aset/jaminan" />
 				<Menu anchor="Daftar Hutang" href="/opr/files/hutang" />
 

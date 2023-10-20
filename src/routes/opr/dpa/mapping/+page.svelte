@@ -13,20 +13,25 @@
 	import Currency from '$lib/form/currency.svelte';
 	import { snack } from '$lib/js/vanilla.js';
 	import { stringify } from 'postcss';
+	import { getYearsSince } from '$lib/js/datetime.js';
+	import Year from '$lib/shortcut/year.svelte';
 
 	export let data;
 	const { barebone, dpa, bidang, jenis, userBidang } = data;
-
 	let modal;
 
 	let sourceAPI = `getListDataDPAByJenis?`;
 	let subPage = 'program';
 	let subPages = ['program', 'kegiatan', 'sub_kegiatan', 'rincian_sub_kegiatan'];
 
-	$: source = fiero(`/operator/${sourceAPI}jenis=${subPage}&id_bidang=${userBidang}`);
+	let tahun = '';
+
+	$: source = fiero(
+		`/operator/${sourceAPI}jenis=${subPage}&id_bidang=${userBidang}&tanggal=${tahun}`
+	);
 
 	let modifier = {
-		no_dpa: { alias: 'Nomor & Tanggal DPA-SKPD/DPPA-SKPD/DPA.L-SKPD', show: true },
+		no_dpa: { alias: 'Nomor DPA', show: true },
 		kode_rek_program: { show: true },
 		kode_rek_kegiatan: { show: false },
 		kode_rek_sub_kegiatan: { show: false },
@@ -116,6 +121,9 @@
 			Tambah {formatTitle(subPage)}
 		</button>
 	</div>
+</div>
+<div class="flex items-center justify-end gap-2">
+	<Year bind:year={tahun} />
 </div>
 
 {#await source}
