@@ -27,9 +27,11 @@
 			head: 'Aksi',
 			icon: 'mdi:pencil',
 			action: (_, obj) => {
+				console.log(obj);
 				selected = obj;
 				modal.open();
-			}
+			},
+			idKey: 'id_master_tim'
 		}
 	];
 
@@ -97,6 +99,7 @@
 		<br />
 		<button
 			on:click={async () => {
+				console.log(selected);
 				const res = await fiero(`/operator/updateMasterTim`, 'POST', selected);
 				if (res.status === 200) {
 					snack.info('Berhasil merubah informasi master tim');

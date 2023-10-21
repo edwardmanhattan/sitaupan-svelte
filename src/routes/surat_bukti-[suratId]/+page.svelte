@@ -105,7 +105,7 @@
 
 							<div>
 								<div class="uppercase">{form.nama_mitra}</div>
-								<div>{form.jabatan}</div>
+								<div>{form.jabatan_mitra}</div>
 							</div>
 						</div>
 					</div>
@@ -125,7 +125,7 @@
 
 							<div>
 								<div class="uppercase">{form.nama_penjabat_2}</div>
-								<div>NIP. {form.nip_penjabat_2}</div>
+								<div>NIP. &nbsp; {form.nip_penjabat_2}</div>
 							</div>
 						</div>
 
@@ -134,19 +134,22 @@
 
 							<div>
 								<div class="uppercase">{form.nama_penjabat_3}</div>
-								<div>NIP. {form.nip_penjabat_3}</div>
+								<div>NIP. &nbsp; {form.nip_penjabat_3}</div>
 							</div>
 						</div>
 
 						<div class="p-2 border border-black signature">
 							<div>
 								<div>Bendahara Pengeluaran Pembantu</div>
-								<div>Dibayar Tanggal {formatFullDate(form.tanggal_ttd)}</div>
+								<div class="flex items-center justify-center gap-2">
+									<span>Dibayar Tanggal</span>
+									<span class="w-12 text-left">...</span>
+								</div>
 							</div>
 
 							<div>
 								<div class="uppercase">{form.nama_penjabat_4}</div>
-								<div>NIP. {form.nip_penjabat_4}</div>
+								<div>NIP. &nbsp; {form.nip_penjabat_4}</div>
 							</div>
 						</div>
 					</div>

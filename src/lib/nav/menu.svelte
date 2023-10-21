@@ -1,6 +1,6 @@
 <script>
 	// @ts-nocheck
-
+	import { goto } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 	export let icon = '';
 	export let anchor;
@@ -12,7 +12,8 @@
 		open = !open;
 	}
 	function goToHref() {
-		document.location.href = href;
+		if (!href || href === '') return;
+		goto(href);
 	}
 </script>
 

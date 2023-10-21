@@ -117,7 +117,7 @@
 
 						<div>
 							<div class="uppercase">{form.nama_penjabat}</div>
-							<div>NIP. {form.id_penjabat}</div>
+							<div>NIP. &nbsp; {form.id_penjabat}</div>
 						</div>
 					</div>
 				</div>

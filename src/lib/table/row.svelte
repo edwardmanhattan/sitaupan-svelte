@@ -4,14 +4,23 @@
 
 	export let userId = '';
 	export let able = '';
+	export let li = false;
 </script>
 
-<div class="flex items-center gap-4 mb-2 text-sm">
+<div class="flex items-start gap-4 mb-2 text-sm">
 	{#if number !== 'none'}
-		<div class="w-4 shrink-0">{number}</div>
+		<div class="w-4 shrink-0">{number}{number ? '.' : ''}</div>
 	{/if}
 
-	<div class="w-4/12 shrink-0">{title}</div>
+	{#if li}
+		<div class="w-4/12 shrink-0">
+			<li style="padding-left: -1em">
+				{title}
+			</li>
+		</div>
+	{:else}
+		<div class="w-4/12 shrink-0">{title}</div>
+	{/if}
 
 	<div class="w-2">:</div>
 

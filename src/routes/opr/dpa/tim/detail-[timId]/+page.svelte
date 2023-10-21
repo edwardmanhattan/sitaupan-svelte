@@ -33,7 +33,7 @@
 	<div>
 		<!-- <Select bind:key={form.operator_sipd} data={operator} config={{ key: 'nip', title: 'nama' }} /> -->
 		{tim.pa.nama}
-		NIP. {tim.pa.nip}
+		NIP. &nbsp; {tim.pa.nip}
 		<!-- <input type="text" bind:value={form.operator_sipd} disabled class="disabled" /> -->
 	</div>
 </Row>
@@ -43,7 +43,7 @@
 		<!-- <Select bind:key={form.kpa} data={operator} config={{ key: 'nip', title: 'nama' }} /> -->
 		{tim.kpa.nama}
 		<!-- <input type="text" bind:value={form.kpa} disabled class="disabled" /> -->
-		NIP. {tim.kpa.nip}
+		NIP. &nbsp; {tim.kpa.nip}
 	</div>
 </Row>
 
@@ -83,7 +83,7 @@
 <Row number="6" title="Bendahara Pengeluaran Pembantu">
 	<div>
 		{tim.bendahara_pengeluaran_pembantu.nama}
-		NIP. {tim.bendahara_pengeluaran_pembantu.nip}
+		NIP. &nbsp; {tim.bendahara_pengeluaran_pembantu.nip}
 		<!-- <input type="text" bind:value={form.bendahara_pengeluaran_pembantu} disabled class="disabled" /> -->
 	</div>
 </Row>
@@ -113,7 +113,7 @@
 	<div>
 		<!-- <Select bind:key={form.operator_sipd} data={operator} config={{ key: 'nip', title: 'nama' }} /> -->
 		{tim.operator_sipd.nama}
-		NIP. {tim.operator_sipd.nip}
+		NIP. &nbsp; {tim.operator_sipd.nip}
 		<!-- <input type="text" bind:value={form.operator_sipd} disabled class="disabled" /> -->
 	</div>
 </Row>

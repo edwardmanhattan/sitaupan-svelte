@@ -24,14 +24,12 @@
 	<nav class="flex flex-col text-sm grow">
 		<Menu
 			anchor="Beranda"
-			href="/opr"
 			icon="streamline:interface-home-2-door-entrance-home-house-map-roof-round"
 		/>
 
 		{#if checkJabatan([2, 11, 12, 16])}
 			<Menu
 				anchor="DPA"
-				href="/opr/dpa/mapping"
 				icon="streamline:interface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
 			>
 				{#if checkJabatan([2])}
@@ -93,7 +91,6 @@
 		{#if checkJabatan([2, 5, 18])}
 			<Menu
 				anchor="Inspektorat"
-				href="/opr/files/inspektorat/p3dn perencanaan"
 				icon="streamline:interface-edit-zoom-in-enhance-glass-in-magnify-magnifying-zoom"
 				childPos="8"
 			>
@@ -123,7 +120,6 @@
 		{#if checkJabatan()}
 			<Menu
 				anchor="Bidang Aset BPKAD"
-				href="/opr/files/aset/aset tetap"
 				icon="streamline:interface-align-layers-1-design-layer-layers-pile-stack"
 			>
 				<Menu anchor="Aset Tetap" href="/opr/files/aset/tetap" />
@@ -143,7 +139,6 @@
 		{#if checkJabatan([19, 20])}
 			<Menu
 				anchor="Bidang Perbendaharaan BPKAD"
-				href="/opr/laporan/capaian"
 				icon="streamline:interface-edit-clip-binder-clip-clipper-company-office-supplies-work"
 			>
 				{#if checkJabatan([20])}
@@ -173,7 +168,6 @@
 		{#if checkJabatan()}
 			<Menu
 				anchor="Pengaturan"
-				href="/"
 				icon="streamline:interface-setting-slider-horizontal-adjustment-adjust-controls-fader-horizontal-settings-slider"
 			>
 				<!-- <Menu
@@ -183,7 +177,6 @@
 				/> -->
 				<Menu
 					anchor="Pengaturan Data"
-					href="/"
 					icon="streamline:computer-database-raid-storage-code-disk-programming-database-array-hard-disc"
 				>
 					<Menu anchor="Data Master" href="/opr/pengaturan/bidang kegiatan" childPos="8">
@@ -197,7 +190,7 @@
 						<Menu anchor="Master Tim" href="/opr/pengaturan/master tim" />
 						<Menu anchor="Sumber Dana" href="/opr/pengaturan/sumber dana" />
 					</Menu>
-					<Menu anchor="Data User" href="/">
+					<Menu anchor="Data User" href="/opr/pengaturan/user operator">
 						<Menu anchor="User Operator" href="/opr/pengaturan/user operator" />
 						<Menu anchor="User Mitra" href="/opr/pengaturan/user mitra" />
 					</Menu>

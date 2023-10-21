@@ -94,21 +94,23 @@
 						<div>{form.cara_pembayaran}</div>
 					</Row>
 
-					<Row number="" title="a. Fisik / Prosentase Pekerjaan">
-						<div>{form.fisik_persentase_pekerjaan}</div>
-					</Row>
+					<ol style="list-style: lower-alpha outside none; margin-left: 0; padding-left: 1em;">
+						<Row number="" li="lower-alpha" title="Fisik / Prosentase Pekerjaan">
+							<div>{form.fisik_persentase_pekerjaan}</div>
+						</Row>
 
-					<Row number="" title="b. Jumlah yang Diminta">
-						<div>{rupiah(form.jumlah_diminta)}</div>
-					</Row>
+						<Row number="" li="lower-alpha" title="Jumlah yang Diminta">
+							<div>{rupiah(form.jumlah_diminta)}</div>
+						</Row>
 
-					<Row number="" title="Terbilang">
-						<div>{angkaTerbilang(form.jumlah_diminta)} Rupiah</div>
-					</Row>
+						<Row number="" title="Terbilang">
+							<div>{angkaTerbilang(form.jumlah_diminta)} Rupiah</div>
+						</Row>
 
-					<Row number="" title="c. Nama Bank dan No. Rekening">
-						<div>{form.nama_bank} / {form.nomor_rekening}</div>
-					</Row>
+						<Row number="" li="lower-alpha" title="Nama Bank dan No. Rekening">
+							<div>{form.nama_bank} / {form.nomor_rekening}</div>
+						</Row>
+					</ol>
 
 					<Row number="10" title="Jangka Waktu Pelaksanaan">
 						<div>
@@ -183,7 +185,7 @@
 
 					<br />
 
-					<div class="ml-auto text-center w-36">
+					<div class="ml-auto text-center w-fit">
 						<div class="signature">
 							<div>
 								<div>Tanjung Redeb, {formatFullDate()}</div>
@@ -191,7 +193,7 @@
 							</div>
 							<div>
 								<div class="font-semibold underline">{form.nama_penjabat}</div>
-								<div>NIP.<span>{form.nip_penjabat}</span></div>
+								<div>NIP. &nbsp;<span>{form.nip_penjabat}</span></div>
 							</div>
 						</div>
 					</div>

@@ -42,15 +42,19 @@ export const getYearNow = () => {
 // 12 Agustus 2023
 export function formatFullDate(date = getTodayDate()) {
 	if (date === '') return '';
+	try {
+		if (date?.includes('T')) date = date?.replace('T', ' ')?.replace('Z', '');
 
-	if (date?.includes('T')) date = date?.replace('T', ' ')?.replace('Z', '');
-
-	return new Intl.DateTimeFormat('id-ID', {
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric',
-		timeZone: 'UTC'
-	}).format(new Date(date));
+		return new Intl.DateTimeFormat('id-ID', {
+			day: 'numeric',
+			month: 'long',
+			year: 'numeric',
+			timeZone: 'UTC'
+		}).format(new Date(date));
+	} catch (err) {
+		console.log(date);
+		return '';
+	}
 }
 
 // [2021,2022,2023]
