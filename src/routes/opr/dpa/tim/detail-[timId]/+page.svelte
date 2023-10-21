@@ -11,7 +11,8 @@
 	export let data;
 	let { form, bidang, operator, kegiatan, tim } = data;
 
-	let pptkPresent = tim.pptk?.id !== 0;
+	$: pptkPresent = tim.pptk?.id !== 0;
+	let pptkIdSelect = 0;
 </script>
 
 <div class="flex my-3">
@@ -29,23 +30,21 @@
 </Row>
 
 <Row number="3" title="PA">
-	<svelte:fragment>
+	<div>
 		<!-- <Select bind:key={form.operator_sipd} data={operator} config={{ key: 'nip', title: 'nama' }} /> -->
 		{tim.pa.nama}
-		<span>/</span>
-		{tim.pa.nip}
+		NIP. {tim.pa.nip}
 		<!-- <input type="text" bind:value={form.operator_sipd} disabled class="disabled" /> -->
-	</svelte:fragment>
+	</div>
 </Row>
 
 <Row number="4" title="Kuasa Pengguna Anggaran (KPA)">
-	<svelte:fragment>
+	<div>
 		<!-- <Select bind:key={form.kpa} data={operator} config={{ key: 'nip', title: 'nama' }} /> -->
 		{tim.kpa.nama}
-		<span class="">/</span>
 		<!-- <input type="text" bind:value={form.kpa} disabled class="disabled" /> -->
-		{tim.kpa.nip}
-	</svelte:fragment>
+		NIP. {tim.kpa.nip}
+	</div>
 </Row>
 
 <Row number="5" title="Pejabat Pelaksana Teknis Kegiatan (PPTK)">
@@ -54,9 +53,27 @@
 	{:else}
 		<div class="flex items-center gap-2">
 			{#await fiero(`/operator/getAllUserOperator`) then data}
-				<Select bind:key={tim.pptk} {data} config={{ key: 'id', title: 'nama', title2: 'nip' }} />
+				<Select
+					bind:key={pptkIdSelect}
+					{data}
+					config={{ key: 'id', title: 'nama', title2: 'nip' }}
+				/>
 			{/await}
-			<button> Perbarui PPTK </button>
+			<button
+				on:click={async () => {
+					const res = await fiero(`/operator/updatePPTKTimKegiatan?`, 'POST', {
+						id_pptk: pptkIdSelect,
+						id_kegiatan: tim.kegiatan
+					});
+
+					if (res.status === 200) {
+						snack.info('Berhasil membaharui PPTK');
+						tim.pptk.id = parseInt(pptkIdSelect);
+					} else snack.info('Terjadi Kesalahan');
+				}}
+			>
+				Perbarui PPTK
+			</button>
 		</div>
 	{/if}
 </Row>
@@ -64,17 +81,11 @@
 <br />
 
 <Row number="6" title="Bendahara Pengeluaran Pembantu">
-	<svelte:fragment>
-		<!-- <Select
-			bind:key={form.bendahara_pengeluaran_pembantu}
-			data={operator}
-			config={{ key: 'nip', title: 'nama' }}
-		/> -->
+	<div>
 		{tim.bendahara_pengeluaran_pembantu.nama}
-		<span>/</span>
-		{tim.bendahara_pengeluaran_pembantu.nip}
+		NIP. {tim.bendahara_pengeluaran_pembantu.nip}
 		<!-- <input type="text" bind:value={form.bendahara_pengeluaran_pembantu} disabled class="disabled" /> -->
-	</svelte:fragment>
+	</div>
 </Row>
 
 <Row number="7" title="Staf Pengelola" />
@@ -99,13 +110,12 @@
 <br />
 
 <Row number="8" title="Operator SIPD">
-	<svelte:fragment>
+	<div>
 		<!-- <Select bind:key={form.operator_sipd} data={operator} config={{ key: 'nip', title: 'nama' }} /> -->
 		{tim.operator_sipd.nama}
-		<span>/</span>
-		{tim.operator_sipd.nip}
+		NIP. {tim.operator_sipd.nip}
 		<!-- <input type="text" bind:value={form.operator_sipd} disabled class="disabled" /> -->
-	</svelte:fragment>
+	</div>
 </Row>
 
 <Row number="9" title="Pejabat Pembuat Komitmen (PPK)" />

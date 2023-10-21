@@ -104,8 +104,8 @@
 							<div>Tanjung Redeb, {formatFullDate()}</div>
 
 							<div>
-								<div class="uppercase">{form.nama_penjabat_1}</div>
-								<div>{form.nip_penjabat_1}</div>
+								<div class="uppercase">{form.nama_mitra}</div>
+								<div>{form.jabatan}</div>
 							</div>
 						</div>
 					</div>
@@ -125,7 +125,7 @@
 
 							<div>
 								<div class="uppercase">{form.nama_penjabat_2}</div>
-								<div>{form.nip_penjabat_2}</div>
+								<div>NIP. {form.nip_penjabat_2}</div>
 							</div>
 						</div>
 
@@ -134,7 +134,7 @@
 
 							<div>
 								<div class="uppercase">{form.nama_penjabat_3}</div>
-								<div>{form.nip_penjabat_3}</div>
+								<div>NIP. {form.nip_penjabat_3}</div>
 							</div>
 						</div>
 
@@ -146,7 +146,7 @@
 
 							<div>
 								<div class="uppercase">{form.nama_penjabat_4}</div>
-								<div>{form.nip_penjabat_4}</div>
+								<div>NIP. {form.nip_penjabat_4}</div>
 							</div>
 						</div>
 					</div>

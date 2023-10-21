@@ -191,7 +191,7 @@
 							</div>
 							<div>
 								<div class="font-semibold underline">{form.nama_penjabat}</div>
-								<div>{form.nip_penjabat}</div>
+								<div>NIP.<span>{form.nip_penjabat}</span></div>
 							</div>
 						</div>
 					</div>

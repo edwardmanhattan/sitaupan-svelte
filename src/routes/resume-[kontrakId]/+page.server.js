@@ -62,8 +62,8 @@ export async function load({ params }) {
 	};
 
 	const form = async () =>
-		await fetch(config.api + `/operator/getKontrakFisikById?id_form=${params.kontrakId}`).then(
-			(res) => res.json()
+		await fetch(config.api + `/operator/getKontrakFisikById?id=${params.kontrakId}`).then((res) =>
+			res.json()
 		);
 
 	return {
