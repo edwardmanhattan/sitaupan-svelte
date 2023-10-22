@@ -43,7 +43,7 @@ export async function fiero(url, method = 'GET', data = null, headers = defaultH
 
 	if (method === 'POST') {
 		const formData = new URLSearchParams();
-		for (const [key, value] of Object.entries(data)) formData.append(key, value.toString());
+		for (const [key, value] of Object.entries(data)) formData.append(key, value?.toString() ?? '');
 		requestInit.body = formData;
 	}
 

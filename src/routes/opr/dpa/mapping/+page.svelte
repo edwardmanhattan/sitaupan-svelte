@@ -5,15 +5,14 @@
 	import Modal from '$lib/modal/modal.svelte';
 	import Icon from '@iconify/svelte';
 	import Skeleton from '$lib/table/skeleton.svelte';
-	import { fiero } from '$lib/js/fiero';
-	import { formatTitle } from '$lib/js/string';
-	import { setModifierHidden, setModifierShown } from '$lib/js/modifier';
 	import Row from '$lib/table/row.svelte';
 	import Select from '$lib/form/select.svelte';
 	import Currency from '$lib/form/currency.svelte';
+	import { fiero } from '$lib/js/fiero';
+	import { formatTitle } from '$lib/js/string';
 	import { snack } from '$lib/js/vanilla.js';
-	import { stringify } from 'postcss';
 	import { getYearsSince } from '$lib/js/datetime.js';
+	import { setModifierHidden, setModifierShown } from '$lib/js/modifier';
 	import Year from '$lib/shortcut/year.svelte';
 
 	export let data;
@@ -86,11 +85,24 @@
 				);
 			},
 			idKey: `id_kode_rekening`
+		},
+		{
+			head: 'Aksi',
+			icon: 'bi:trash',
+			color: 'red-1',
+			textColor: 'white',
+			action: async (id) => {
+				const res = await fiero(`/operator/deleteMappingDPA`, 'POST', { id });
+				if (res?.status === 200) snack.info(`Berhasil menghapus data`);
+				else snack.info('Gagal menghapus data.');
+				tahun = '';
+			},
+			idKey: 'id_kode_rekening'
 		}
 	];
 
 	$: {
-		if (subPage === 'rincian_sub_kegiatan') buttons = [];
+		if (subPage === 'rincian_sub_kegiatan') buttons = [buttons[1]];
 	}
 
 	let selected = { program: {}, kegiatan: {}, sub_kegiatan: {}, rincian_sub_kegiatan: {} };
@@ -144,9 +156,13 @@
 				bind:key={selected.program.nomor_dpa}
 				data={dpa}
 				config={{ key: 'nomor_dpa', title: 'nomor_dpa' }}
-				onChange={() => {
+				on:linkup={(data) => {
 					selected.program.tanggal_dpa =
 						dpa.find((d) => d.nomor_dpa === selected.program.nomor_dpa)?.tanggal_dpa ?? '';
+
+					const _dpa = data.detail.data;
+					const _key = data.detail.key;
+					selected.program.id_parent = _dpa.find((x) => x.nomor_dpa === _key).id;
 				}}
 			/>
 		</Row>
@@ -178,14 +194,25 @@
 		<br />
 		<button
 			on:click={async () => {
-				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+				console.log({
 					jenis: subPage,
 					no_dpa: selected.program.nomor_dpa,
 					uraian: selected.program.uraian_program,
 					...selected.program
 				});
-				if (res.status === 200) {
-					snack.info('Berhasil menambah program baru');
+				try {
+					const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+						jenis: subPage,
+						no_dpa: selected.program.nomor_dpa,
+						uraian: selected.program.uraian_program,
+						...selected.program
+					});
+					if (res.status === 200) snack.info('Berhasil menambah program baru');
+					else snack.info('Kesalahan isian data');
+				} catch (err) {
+					console.log(err);
+					snack.info('Terjadi kesalahan');
+				} finally {
 					modal.close();
 					changeSubPage('program');
 					source = fiero(
@@ -235,12 +262,18 @@
 		<br />
 		<button
 			on:click={async () => {
-				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
-					jenis: subPage,
-					...selected.kegiatan
-				});
-				if (res.status === 200) {
-					snack.info('Berhasil menambah kegiatan baru');
+				try {
+					const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+						jenis: subPage,
+						...selected.kegiatan
+					});
+					if (res.status === 200) {
+						snack.info('Berhasil menambah kegiatan baru');
+					} else snack.info('Kesalahan isian data');
+				} catch (err) {
+					console.log(err);
+					snack.info('Terjadi Kesalahan');
+				} finally {
 					modal.close();
 					changeSubPage('kegiatan');
 					source = fiero(
@@ -293,12 +326,18 @@
 		<br />
 		<button
 			on:click={async () => {
-				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
-					jenis: subPage,
-					...selected.sub_kegiatan
-				});
-				if (res.status === 200) {
-					snack.info('Berhasil menambah sub kegiatan baru');
+				try {
+					const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+						jenis: subPage,
+						...selected.sub_kegiatan
+					});
+					if (res.status === 200) {
+						snack.info('Berhasil menambah sub kegiatan baru');
+					} else snack.info('Kesalahan isian data');
+				} catch (err) {
+					console.log(err);
+					snack.info('Terjadi kesalahan');
+				} finally {
 					modal.close();
 					changeSubPage('sub_kegiatan');
 					source = fiero(
@@ -311,12 +350,12 @@
 		</button>
 	{:else}
 		<Row number="1" title="Kode Rekening Sub Kegiatan">
-			{#await fiero(`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=sub_kegiatan`) then data}
+			{#await fiero(`/operator/getListDataDPAByJenisForInsert?id_bidang=${userBidang}&jenis=sub_kegiatan`) then data}
 				<Select
 					bind:key={selected.rincian_sub_kegiatan.kode_rekening_sub_kegiatan}
 					{data}
 					config={{ key: 'kode_rek_sub_kegiatan', title: 'kode_rek_sub_kegiatan' }}
-					onChange={async () => {
+					on:linkup={async () => {
 						const list = await fiero(
 							`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=rincian_sub_kegiatan`
 						);
@@ -420,7 +459,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each selected.rincian_sub_kegiatan.sumber_dana ?? [] as { sumber_dana, nilai }, i (i)}
+				{#each selected.rincian_sub_kegiatan.sumber_dana ?? [{ sumber_dana: '', nilai: 0 }] as { sumber_dana, nilai }, i (i)}
 					<tr>
 						<td>{i + 1}</td>
 						<td>
@@ -470,12 +509,23 @@
 					selected.rincian_sub_kegiatan.sumber_dana
 				);
 
-				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+				console.log({
 					jenis: subPage,
 					...selected.rincian_sub_kegiatan
 				});
-				if (res.status === 200) {
-					snack.info('Berhasil menambah rincian sub kegiatan baru');
+
+				try {
+					const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+						jenis: subPage,
+						...selected.rincian_sub_kegiatan
+					});
+
+					if (res.status === 200) snack.info('Berhasil menambah rincian sub kegiatan baru');
+					else snack.info('Kesalahan isian data.');
+				} catch (err) {
+					snack.info('Terjadi kesalahan.');
+				} finally {
+					selected.rincian_sub_kegiatan.sumber_dana = { sumber_dana: 1, nilai: 0 };
 					modal.close();
 					changeSubPage('rincian_sub_kegiatan');
 					source = fiero(

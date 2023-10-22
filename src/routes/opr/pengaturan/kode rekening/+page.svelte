@@ -40,6 +40,11 @@
 			icon: 'basil:trash-solid',
 			color: 'red-1 text-white-1',
 			action: (id) => {
+				if (data.userJabatan !== '17') {
+					//joker
+					snack.info('Anda tidak memiliki wewenang untung melakukan perintah ini.');
+					return;
+				}
 				snack.confirm(
 					'Anda akan menghapus Kode Rekening ini secara permanen. Lanjutkan?',
 					async () => {

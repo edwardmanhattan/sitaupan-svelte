@@ -9,6 +9,7 @@
 	import Icon from '@iconify/svelte';
 	let modal;
 
+	export let data;
 	let source = fiero(`/operator/getAllAsalProyek`);
 
 	let modifier = {
@@ -21,6 +22,12 @@
 			icon: 'mdi:pencil',
 			color: 'red-1 text-white-1',
 			action: (id) => {
+				if (data.userJabatan !== '17') {
+					//joker
+					snack.info('Anda tidak memiliki wewenang untung melakukan perintah ini.');
+					return;
+				}
+
 				snack.confirm(
 					'Anda akan menghapus asal kegiatan ini secara permanen. Lanjutkan?',
 					async () => {

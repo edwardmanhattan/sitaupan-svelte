@@ -1,28 +1,31 @@
 <script>
 	// @ts-nocheck
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	export let key;
 	export let data = [{}];
 	export let config = '';
 
-	key ||= data[0][config?.key] ?? '';
-
 	export let onChange = () => {};
-	onChange();
 
 	const dispatch = createEventDispatcher();
 
-	function linkup(key) {
-		dispatch('linkup', { key });
+	function linkup(key, data = {}) {
+		dispatch('linkup', { key, data });
 	}
+
+	onMount(() => {
+		onChange();
+		key ||= data[0][config?.key] ?? '';
+		linkup(key, data);
+	});
 </script>
 
 <select
 	class="w-full"
 	bind:value={key}
 	on:change={() => {
-		linkup(key);
+		linkup(key, data);
 		onChange();
 	}}
 >

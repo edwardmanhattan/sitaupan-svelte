@@ -14,6 +14,7 @@
 	import Select from '$lib/form/select.svelte';
 	import { fiero } from '$lib/js/fiero';
 	import Bidang from '$lib/shortcut/bidang.svelte';
+	import Modal from '$lib/modal/modal.svelte';
 
 	export let data;
 	export let modifier = {};
@@ -48,6 +49,9 @@
 		display = page.next();
 		currentPage = page.getCurrentPage();
 	}
+
+	let modal;
+	let selected = {};
 </script>
 
 <div>
@@ -110,7 +114,19 @@
 				{#each display as tr}
 					<tr>
 						{#each shownKeyModifier(keyModifier) as key}
-							{#if key === 'pageNum'}
+							{#if typeof tr[key] === 'object'}
+								<td>
+									<button
+										on:click={() => {
+											selected = tr[key];
+											modal.open();
+										}}
+										class="w-16 mx-auto"
+									>
+										Lihat
+									</button>
+								</td>
+							{:else if key === 'pageNum'}
 								<td class="text-center">{tr[key]}</td>
 							{:else if keyModifier[key].type === 'datetime' || key.includes('tanggal')}
 								<td>{formatFullDate(tr[key])}</td>
@@ -125,8 +141,7 @@
 						{#each buttons as button}
 							<td>
 								<button
-									class="px-4 mx-auto w-fit bg-{button.color ?? 'blue-2'} text-{button.textColor ??
-										'black'}"
+									class="px-4 mx-auto w-fit bg-{button.color ?? 'blue-2'}"
 									on:click={() => {
 										button.action(
 											tr[button.idKey ?? 'id'],
@@ -182,3 +197,13 @@
 		</div>
 	</div>
 </div>
+
+<Modal bind:this={modal}>
+	{#each Object.entries(selected) as [key, value]}
+		<div class="flex items-center gap-4">
+			<span class="w-12">{key}</span>
+			<span>:</span>
+			<span>{value}</span>
+		</div>
+	{/each}
+</Modal>

@@ -9,6 +9,7 @@
 	import Icon from '@iconify/svelte';
 	let modal;
 
+	export let data;
 	let source = fiero(`/operator/getAllBidangProyek`);
 
 	let modifier = {
@@ -21,6 +22,11 @@
 			icon: 'basil:trash-solid',
 			color: 'red-1 text-white-1',
 			action: (id, obj) => {
+				if (data.userJabatan !== '17') {
+					//joker
+					snack.info('Anda tidak memiliki wewenang untung melakukan perintah ini.');
+					return;
+				}
 				snack.confirm('Anda akan menghapus bidang ini secara permanen. Lanjutkan?', async () => {
 					const res = await fiero(`/operator/deleteBidangProyek`, 'POST', { id: id });
 					if (res.status === 200) {
