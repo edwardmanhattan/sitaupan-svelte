@@ -23,7 +23,23 @@
 		pdn_jumlah: { type: 'currency' },
 		rup_jumlah: { type: 'currency' }
 	};
-	let buttons = [];
+	let buttons = [
+		{
+			head: 'Aksi',
+			icon: 'bi:trash',
+			color: 'red-1',
+			textColor: 'white',
+			action: (id) => {
+				snack.confirm('Anda yakin ingin menghapus data ini?', async function () {
+					const res = await fiero(`/operator/deleteP3dn`, 'POST', { id });
+					if (res?.status === 200) {
+						snack.info(`Berhasil menghapus data`);
+						year = '';
+					} else snack.info('Gagal menghapus data.');
+				});
+			}
+		}
+	];
 
 	let modal;
 	let form;

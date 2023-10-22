@@ -91,11 +91,17 @@
 			icon: 'bi:trash',
 			color: 'red-1',
 			textColor: 'white',
-			action: async (id) => {
-				const res = await fiero(`/operator/deleteMappingDPA`, 'POST', { id });
-				if (res?.status === 200) snack.info(`Berhasil menghapus data`);
-				else snack.info('Gagal menghapus data.');
-				tahun = '';
+			action: (id) => {
+				snack.confirm('Anda yakin ingin menghapus data ini?', async function () {
+					const res = await fiero(`/operator/deleteDataMapping`, 'POST', { id });
+					if (res?.status === 200) {
+						snack.info(`Berhasil menghapus data`);
+						changeSubPage(subPage);
+						source = fiero(
+							`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=${subPage}`
+						);
+					} else snack.info('Gagal menghapus data.');
+				});
 			},
 			idKey: 'id_kode_rekening'
 		}
