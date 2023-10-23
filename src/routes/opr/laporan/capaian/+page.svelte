@@ -11,14 +11,34 @@
 	import Select from '$lib/form/select.svelte';
 	import { snack } from '$lib/js/vanilla';
 
-	let year = getYearNow();
-	$: source = `/operator/getLaporanCapainRealisasi?tanggal=${year}`;
+	let year = '';
+	let random = '';
+	$: source = `/operator/getLaporanCapainRealisasi?tanggal=${year}&random=${random}`;
 	let modifier = {
 		id: { show: false },
 		id_capaian: { show: false },
 		tahun: { show: false }
 	};
-	let buttons = [];
+	let buttons = [
+		{
+			head: 'Aksi',
+			icon: 'bi:trash',
+			color: 'red-1',
+			textColor: 'white',
+			action: (id) => {
+				console.log(id);
+				snack.confirm('Anda yakin ingin menghapus data ini?', async function () {
+					const res = await fiero(`/operator/deleteCapaianRealisasi`, 'POST', { id });
+					console.log(res);
+					if (res?.status === 200) {
+						snack.info(`Berhasil menghapus data`);
+						random = Math.random();
+					} else snack.info('Gagal menghapus data.');
+				});
+			},
+			idKey: 'id_capaian'
+		}
+	];
 
 	let modal;
 	let persentaseList = {
@@ -115,7 +135,7 @@
 				snack.info('Berhasil menambah data baru');
 			} else snack.info('Terjadi kesalahan.');
 
-			year = '';
+			random = Math.random();
 			modal.close();
 		}}
 	>

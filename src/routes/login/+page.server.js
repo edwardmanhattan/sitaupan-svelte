@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { browser } from '$app/environment';
 import { config, fiero } from '$lib/js/fiero.js';
+import { snack } from '$lib/js/vanilla.js';
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ cookies }) {

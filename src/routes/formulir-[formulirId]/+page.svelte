@@ -485,24 +485,26 @@
 		number=""
 		title="a. Rincian Spesifikasi Barang Untuk Pekerjaan TANAH"
 	>
-		<button
-			on:click={() => {
-				form.kib_a = [
-					...form.kib_a,
-					{
-						kode_barang: '',
-						nama_barang: '',
-						luas: '',
-						harga: '',
-						keterangan: ''
-					}
-				];
-			}}
-			class="ml-auto w-fit"
-		>
-			<Icon icon="bi:plus" />
-			Tambah
-		</button>
+		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
+			<button
+				on:click={() => {
+					form.kib_a = [
+						...form.kib_a,
+						{
+							kode_barang: '',
+							nama_barang: '',
+							luas: '',
+							harga: '',
+							keterangan: ''
+						}
+					];
+				}}
+				class="ml-auto w-fit"
+			>
+				<Icon icon="bi:plus" />
+				Tambah
+			</button>
+		{/if}
 	</Row>
 
 	<table>
@@ -550,24 +552,26 @@
 		number=""
 		title="b. Rincian Spesifikasi Barang Untuk Pekerjaan / Pengadaan"
 	>
-		<button
-			on:click={() => {
-				form.kib_b = [
-					...form.kib_b,
-					{
-						nama_barang: '',
-						merek: '',
-						no_rangka_mesin: '',
-						ukuran: '',
-						keterangan: ''
-					}
-				];
-			}}
-			class="ml-auto w-fit"
-		>
-			<Icon icon="bi:plus" />
-			Tambah
-		</button>
+		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
+			<button
+				on:click={() => {
+					form.kib_b = [
+						...form.kib_b,
+						{
+							nama_barang: '',
+							merek: '',
+							no_rangka_mesin: '',
+							ukuran: '',
+							keterangan: ''
+						}
+					];
+				}}
+				class="ml-auto w-fit"
+			>
+				<Icon icon="bi:plus" />
+				Tambah
+			</button>
+		{/if}
 	</Row>
 
 	<table>
@@ -615,24 +619,26 @@
 		number=""
 		title="c. Rincian Spesifikasi Barang Untuk Pekerjaan BANGUNAN GEDUNG"
 	>
-		<button
-			on:click={() => {
-				form.kib_c = [
-					...form.kib_c,
-					{
-						nama_barang: '',
-						tingkat: '',
-						beton: '',
-						luas: '',
-						keterangan: ''
-					}
-				];
-			}}
-			class="ml-auto w-fit"
-		>
-			<Icon icon="bi:plus" />
-			Tambah
-		</button>
+		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
+			<button
+				on:click={() => {
+					form.kib_c = [
+						...form.kib_c,
+						{
+							nama_barang: '',
+							tingkat: '',
+							beton: '',
+							luas: '',
+							keterangan: ''
+						}
+					];
+				}}
+				class="ml-auto w-fit"
+			>
+				<Icon icon="bi:plus" />
+				Tambah
+			</button>
+		{/if}
 	</Row>
 
 	<table>
@@ -680,24 +686,26 @@
 		number=""
 		title="d. Rincian Spesifikasi Barang Untuk Pekerjaan FISIK (Kecuali Bangunan Gedung)"
 	>
-		<button
-			on:click={() => {
-				form.kib_d = [
-					...form.kib_d,
-					{
-						nama_barang: '',
-						konstruksi: '',
-						panjang: '',
-						lebar: '',
-						keterangan: ''
-					}
-				];
-			}}
-			class="ml-auto w-fit"
-		>
-			<Icon icon="bi:plus" />
-			Tambah
-		</button>
+		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
+			<button
+				on:click={() => {
+					form.kib_d = [
+						...form.kib_d,
+						{
+							nama_barang: '',
+							konstruksi: '',
+							panjang: '',
+							lebar: '',
+							keterangan: ''
+						}
+					];
+				}}
+				class="ml-auto w-fit"
+			>
+				<Icon icon="bi:plus" />
+				Tambah
+			</button>
+		{/if}
 	</Row>
 
 	<table>
@@ -745,23 +753,25 @@
 		number=""
 		title="e. Rincian Spesifikasi Barang Untuk Pekerjaan Buku / Perpustakaan, Barang Bercorak Kesenian / Kebudayaan dan Hewan / Ternak serta Tumbuhan"
 	>
-		<button
-			on:click={() => {
-				form.kib_e = [
-					...form.kib_e,
-					{
-						nama_barang: '',
-						nomor_registrasi: '',
-						judul: '',
-						spesifikasi: ''
-					}
-				];
-			}}
-			class="ml-auto w-fit"
-		>
-			<Icon icon="bi:plus" />
-			Tambah
-		</button>
+		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
+			<button
+				on:click={() => {
+					form.kib_e = [
+						...form.kib_e,
+						{
+							nama_barang: '',
+							nomor_registrasi: '',
+							judul: '',
+							spesifikasi: ''
+						}
+					];
+				}}
+				class="ml-auto w-fit"
+			>
+				<Icon icon="bi:plus" />
+				Tambah
+			</button>
+		{/if}
 	</Row>
 
 	<table>
@@ -810,24 +820,26 @@
 		number=""
 		title="f. Rincian Spesifikasi Barang Untuk Pekerjaan KONSULTAN"
 	>
-		<button
-			on:click={() => {
-				form.kib_f = [
-					...form.kib_f,
-					{
-						nama_barang: '',
-						konstruksi: '',
-						panjang: '',
-						lebar: '',
-						keterangan: ''
-					}
-				];
-			}}
-			class="ml-auto w-fit"
-		>
-			<Icon icon="bi:plus" />
-			Tambah
-		</button>
+		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
+			<button
+				on:click={() => {
+					form.kib_f = [
+						...form.kib_f,
+						{
+							nama_barang: '',
+							konstruksi: '',
+							panjang: '',
+							lebar: '',
+							keterangan: ''
+						}
+					];
+				}}
+				class="ml-auto w-fit"
+			>
+				<Icon icon="bi:plus" />
+				Tambah
+			</button>
+		{/if}
 	</Row>
 	<table>
 		<thead>

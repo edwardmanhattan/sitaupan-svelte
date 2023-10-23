@@ -8,7 +8,8 @@
 	export let form = {
 		username: '',
 		password: '',
-		tipe: 'operator'
+		tipe: 'operator',
+		error: null
 	};
 </script>
 
@@ -50,6 +51,9 @@
 			<br />
 			<br />
 			<button class="bg-blue-3" type="submit"> Masuk </button>
+			{#if form?.error}
+				<p class="italic text-center text-red-1">informasi masuk salah.</p>
+			{/if}
 		</form>
 	</div>
 </div>

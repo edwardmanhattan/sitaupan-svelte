@@ -10,8 +10,9 @@
 	import Table from '$lib/table/table.svelte';
 	import Icon from '@iconify/svelte';
 
-	let year = getYearNow();
-	$: source = `/operator/getLaporanUjiLab?tanggal=${year}`;
+	let year = '';
+	let random = '';
+	$: source = `/operator/getLaporanUjiLab?tanggal=${year}&random=${random}`;
 	let modifier = {
 		id: { show: false },
 		id_uji_lab: { show: false }
@@ -24,13 +25,14 @@
 			textColor: 'white',
 			action: (id) => {
 				snack.confirm('Anda yakin ingin menghapus data ini?', async function () {
-					const res = await fiero(`/operator/deleteP3dn`, 'POST', { id });
+					const res = await fiero(`/operator/deleteLaporanUjiLab`, 'POST', { id });
 					if (res?.status === 200) {
 						snack.info(`Berhasil menghapus data`);
-						year = '';
+						random = Math.random();
 					} else snack.info('Gagal menghapus data.');
 				});
-			}
+			},
+			idKey: 'id_uji_lab'
 		}
 	];
 
@@ -114,7 +116,7 @@
 				snack.info('Berhasil menambah data baru');
 			} else snack.info('Terjadi kesalahan.');
 
-			year = '';
+			random = Math.random();
 			modal.close();
 		}}
 	>

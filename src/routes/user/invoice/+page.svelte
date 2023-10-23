@@ -7,7 +7,7 @@
 	import Modal from '$lib/modal/modal.svelte';
 	import Row from '$lib/table/row.svelte';
 	import Skeleton from '$lib/table/skeleton.svelte';
-	import Table from '$lib/table/table.svelte';
+	import Table from '$lib/table/table-invoice.svelte';
 	import Icon from '@iconify/svelte';
 
 	export let data;
@@ -148,7 +148,10 @@
 				return (acc += cur.total);
 			}, 0);
 			form.detail_nota = JSON.stringify(form.detail_nota);
+
+			console.log(form);
 			const res = await fiero(`/mitra/insertNotaAset`, 'POST', form);
+			console.log(res);
 
 			if (res.status === 200) {
 				snack.info('Berhasil menambah Invoice');

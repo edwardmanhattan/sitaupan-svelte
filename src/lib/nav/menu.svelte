@@ -44,7 +44,7 @@
 
 	{#if $$slots.default && open}
 		<div
-			class="absolute flex flex-col border w-fit left-full border-teal-950/30"
+			class="absolute flex flex-col border w-fit left-full border-teal-950/30 z-[10000]"
 			style="top: calc( -22.5px * {parseInt(childPos)} )"
 		>
 			<slot />

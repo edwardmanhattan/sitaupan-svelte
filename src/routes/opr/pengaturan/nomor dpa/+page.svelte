@@ -46,7 +46,10 @@
 				}
 				snack.confirm('Anda akan menghapus Nomor DPA ini secara permanen. Lanjutkan?', async () => {
 					const res = await fiero(`/operator/deleteNomorDPA`, 'POST', { id: id });
-					if (res.status === 200) snack.info('Nomor DPA berhasil dihapus.');
+
+					if (res?.status === 200) snack.info('Nomor DPA berhasil dihapus.');
+					else snack.info('Terjadi kesalahan');
+
 					source = fiero(`/operator/getAllNomorDPA`);
 					modal.close();
 				});
@@ -108,7 +111,6 @@
 				modal.close();
 			} else {
 				const res = await fiero(`/operator/updateNomorDPA`, 'POST', selected);
-				console.log(res);
 				if (res.status === 200) snack.info('Nomor DPA berhasil diubah.');
 				source = fiero(`/operator/getAllNomorDPA`);
 				modal.close();

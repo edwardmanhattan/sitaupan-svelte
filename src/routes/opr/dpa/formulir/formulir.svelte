@@ -132,7 +132,7 @@
 							{/if}
 						{/each}
 
-						<td>
+						<td class="flex items-center justify-center gap-2">
 							<button
 								on:click={() => {
 									goto(`/formulir-${tr.id_form}`);
@@ -141,6 +141,25 @@
 								class="w-fit"
 							>
 								Lihat Form
+							</button>
+							<button
+								on:click={() => {
+									snack.confirm('Anda yakin ingin menghapus data ini?', async function () {
+										console.log(tr.id_form);
+										const res = await fiero(`/operator/deleteFormulirPenyediaJasa`, 'POST', {
+											id: tr.id_form
+										});
+										console.log(res);
+
+										if (res?.status === 200) {
+											snack.info(`Berhasil menghapus data`);
+											data[mode] = data[mode].filter((x) => x.id_form !== tr.id_form);
+										} else snack.info('Gagal menghapus data.');
+									});
+								}}
+								class="text-white bg-red-1 w-fit"
+							>
+								<Icon icon="bi:trash" />
 							</button>
 						</td>
 						{#if mode === 'menunggu'}
