@@ -25,6 +25,7 @@
 		<Menu
 			anchor="Beranda"
 			icon="streamline:interface-home-2-door-entrance-home-house-map-roof-round"
+			href="/opr"
 		/>
 
 		{#if checkJabatan([2, 11, 12, 16])}

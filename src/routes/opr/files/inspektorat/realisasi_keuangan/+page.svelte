@@ -12,7 +12,7 @@
 	import { snack } from '$lib/js/vanilla';
 
 	let year = getYearNow();
-	$: source = `/operator/getLaporanCapainRealisasi?tanggal=${year}`;
+	$: source = `/operator/getLaporanRealisasiKeuangan?tanggal=${year}`;
 	let modifier = {
 		id: { show: false },
 		id_capaian: { show: false },
@@ -40,7 +40,7 @@
 
 <div>
 	<div class="flex items-center justify-between">
-		<h1>Capaian Realisasi</h1>
+		<h1>Realisasi Keuangan</h1>
 
 		<div class="flex items-center gap-2">
 			<select bind:value={year} class="w-32">
@@ -49,7 +49,7 @@
 					<option value={y}>{y}</option>
 				{/each}
 			</select>
-			<button
+			<!-- <button
 				on:click={() => {
 					form = {
 						id_capaian: 0,
@@ -65,7 +65,7 @@
 			>
 				<Icon icon="bi:plus" />
 				Tambah
-			</button>
+			</button> -->
 		</div>
 	</div>
 	<br />

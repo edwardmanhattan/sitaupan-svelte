@@ -1,10 +1,9 @@
 <script>
 	// @ts-nocheck
 	import { numeric, rupiah } from '$lib/js/currency';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	export let value;
-	value ??= 0;
 
 	let display = rupiah(value);
 	$: value = numeric(display);
@@ -13,10 +12,15 @@
 	export let onChange = () => {};
 
 	const dispatch = createEventDispatcher();
-
 	function linkup(value) {
 		dispatch('linkup', { value });
 	}
+
+	onMount(() => {
+		value ??= 0;
+		linkup(value);
+		onChange();
+	});
 </script>
 
 <div class="w-full">

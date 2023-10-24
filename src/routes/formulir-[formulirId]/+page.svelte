@@ -9,13 +9,16 @@
 	import { snack } from '$lib/js/vanilla.js';
 	import Currency from '$lib/form/currency.svelte';
 	import Select from '$lib/form/select.svelte';
+	import { objectTypeParser, typeParser } from '$lib/js/modifier.js';
 	let modal;
 	export let data;
 
-	const { userId } = data;
+	const { userId, integerKey, objectKey } = data;
 
 	const id = data.formulirId;
-	const form = data.data;
+	let form = data.data;
+
+	let processing = false;
 </script>
 
 <div class="h-screen px-24 py-12 overflow-auto">
@@ -125,7 +128,18 @@
 		title="Persen Pekerjaan / Tahap"
 	>
 		<svelte:fragment>
-			<select bind:value={form.pilihan_pencairan}>
+			<select
+				bind:value={form.pilihan_pencairan}
+				on:change={() => {
+					if (form.pilihan_pencairan === 'Uang Muka') {
+						form.tahap_pekerjaan = 0;
+					} else if (form.pilihan_pencairan === 'MC') {
+						form.tahap_pekerjaan = 0;
+					} else {
+						form.tahap_pekerjaan = 100;
+					}
+				}}
+			>
 				<option value="Uang Muka">Uang Muka</option>
 				<option value="MC">MC (%)</option>
 				<option value="Sekaligus">Sekaligus (100%)</option>
@@ -884,18 +898,26 @@
 	<!-- {form.status} -->
 	{#if form.status === 'baru' || form.status === 'revisi'}
 		<button
+			class:disabled={processing}
 			on:click={async () => {
+				processing = true;
+
+				form = typeParser(form, integerKey, false);
 				const res = await fiero(`/mitra/pengisianFormPenyediaJasa`, 'POST', {
 					form_penyedia_jasa: JSON.stringify(form)
 				});
 
-				if (res.message === 'berhasil') {
+				if (res.status === 200) {
 					form.status = 'menunggu';
 					snack.info('Berhasil menyimpan');
+				} else {
+					snack.info('Terjadi kesalahan.');
 				}
+
+				processing = false;
 			}}
 		>
-			Simpan
+			{!processing ? 'Simpan' : 'Processing...'}
 		</button>
 	{:else if form.status === 'menunggu'}
 		<div class="italic">menunggu proses verifikasi...</div>
@@ -1010,3 +1032,12 @@
 	</table>
 	<br />
 </Modal>
+
+<style lang="postcss">
+	@tailwind components;
+	@layer components {
+		.disabled {
+			@apply pointer-events-none;
+		}
+	}
+</style>

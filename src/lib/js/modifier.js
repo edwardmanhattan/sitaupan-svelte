@@ -39,3 +39,29 @@ export const setModifierHidden = (modifier, keys) => {
 	});
 	return modifier;
 };
+
+export const typeParser = (data, integers = [], object = true) => {
+	for (const key in data) {
+		if (integers.includes(key) && typeof data[key] === 'number') continue;
+
+		if (integers.includes(key) && typeof data[key] !== 'number') data[key] = parseInt(data[key]);
+		else if (typeof data[key] === 'object' && object) data[key] = JSON.stringify(data[key]);
+		else if (typeof data[key] === 'object' && !object) data[key] = data[key];
+		else if (typeof data[key] !== 'string') data[key] = data[key].toString();
+	}
+	return data;
+};
+
+export const stringTypeParser = (data, targets = []) => {
+	for (const key in data) {
+		if (targets.includes(key) && typeof data[key] === 'number') data[key] = data[key].toString();
+	}
+	return data;
+};
+
+export const objectTypeParser = (data, targets = []) => {
+	for (const key in data) {
+		if (targets.includes(key) && typeof data[key] === 'string') data[key] = JSON.parse(data[key]);
+	}
+	return data;
+};

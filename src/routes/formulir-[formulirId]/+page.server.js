@@ -168,8 +168,33 @@ export async function load({ params }) {
 			(res) => res.json()
 		);
 
+	const integerKey = [
+		'id_bidang',
+		'id_jenis_penyedia',
+		'id_sub_kegiatan',
+		'nilai_hps',
+		'id_jenis_belanja_modal',
+		'tahap_pekerjaan',
+		'persentase_keuangan',
+		'persentase_fisik',
+		'id_rincian_sub_kegiatan',
+		'satuan',
+		'jumlah_hari',
+		'nilai_addendum',
+		'adendum_ke',
+		'jaminan_pelaksanaan_masa_berlaku',
+		'jaminan_pemeliharaan_masa_berlaku',
+		'kategori',
+		'ukuran_panjang',
+		'ukuran_lebar',
+		'id_penyedia_jasa'
+	];
+
+	const objectKey = ['nota_tagihan', 'kib_a', 'kib_b', 'kib_c', 'kib_d', 'kib_e', 'kib_f'];
 	return {
 		// data: data,
+		integerKey,
+		objectKey,
 		data: (await form()).data,
 		formulirId: params.formulirId
 	};

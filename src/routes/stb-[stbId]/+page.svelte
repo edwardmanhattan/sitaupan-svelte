@@ -2,12 +2,9 @@
 	// @ts-nocheck
 
 	import { formatFullDate } from '$lib/js/datetime';
-	import Row from '$lib/table/row.svelte';
-	import Kop2 from '$lib/kop2.svelte';
 	import Icon from '@iconify/svelte';
 	import { config, fiero } from '$lib/js/fiero.js';
 	import { exportToPDF } from '$lib/js/download.js';
-	import { angkaTerbilang } from '$lib/js/angkaTerbilang';
 	import { rupiah } from '$lib/js/currency';
 	import Select from '$lib/form/select.svelte';
 	import Back from '$lib/shortcut/back.svelte';
