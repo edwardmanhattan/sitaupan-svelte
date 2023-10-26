@@ -12,6 +12,8 @@
 
 	const form = data.data;
 
+	console.log(form);
+
 	let printWaiting = false;
 
 	let operatorMenyerahkan = '';
@@ -47,13 +49,13 @@
 				<div class="flex items-center gap-4">
 					<div class="w-32">Bidang</div>
 					<div>:</div>
-					<div />
+					<div>{form.bidang}</div>
 				</div>
 
 				<div class="flex items-center gap-4">
 					<div class="w-32">Staf Pengelola</div>
 					<div>:</div>
-					<div />
+					<div>{form.nama_staf}</div>
 				</div>
 				<br />
 

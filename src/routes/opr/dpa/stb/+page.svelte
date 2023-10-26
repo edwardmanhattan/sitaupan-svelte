@@ -8,12 +8,11 @@
 	import { snack } from '$lib/js/vanilla';
 	import Icon from '@iconify/svelte';
 	import Select from '$lib/form/select.svelte';
+	import { goto } from '$app/navigation';
 	let modal;
 
 	export let data;
-	let { operator, formulir } = data;
-
-	formulir = formulir.map((x) => ({ ...x, selected: false }));
+	let { operator } = data;
 
 	let source = fiero(`/operator/getListSerahTerimaBerkas`);
 	let modifier = {
@@ -30,13 +29,15 @@
 			head: '',
 			body: 'Lihat Detail',
 			action: (id, obj) => {
-				document.location.href = `/stb-${obj.id_serah_terima}`;
+				goto(`/stb-${obj.id_serah_terima}`);
 			}
 		}
 	];
 
 	let selected = { id_staf: 2, id_bidang: 0, id_formulir: '' };
 
+	let formulir = [];
+	let selectAll = false;
 	function selectFormulir() {
 		selected.id_formulir = formulir.reduce((acc, cur) => {
 			if (cur.selected) acc += cur.id_form + ',';
@@ -73,24 +74,65 @@
 {/await}
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
-<Modal bind:this={modal}>
+<Modal
+	bind:this={modal}
+	on:closed={() => {
+		selectAll = false;
+	}}
+>
 	<h1>Serah Terima Berkas</h1>
 
 	<label>Staf</label>
-	<input type="text" bind:value={nama} disabled />
+	{#await fiero(`/operator/getStafPengelola`) then data}
+		<Select
+			bind:key={selected.id_staf}
+			{data}
+			on:linkup={async () => {
+				const res = await fiero(
+					`/operator/getListFormPenyediaByStafPengelola?id=${selected.id_staf}`
+				);
+				formulir = res ?? [];
+				formulir = formulir.map((x) => ({ ...x, selected: false }));
+			}}
+			config={{ key: 'id', title: 'nama', title2: 'nip' }}
+		/>
+	{/await}
 
 	<label>Bidang</label>
 	{#await fiero(`/operator/getAllBidangProyek`) then data}
 		<Select bind:key={selected.id_bidang} {data} config={{ key: 'id', title: 'nama_bidang' }} />
 	{/await}
 
-	<label>Formulir</label>
-	<div class="grid grid-cols-3 gap-2">
+	<div class="flex items-center justify-between mt-4">
+		<label>Formulir</label>
+		<label class="flex items-center gap-2 font-mono text-md">
+			<input
+				type="checkbox"
+				bind:checked={selectAll}
+				on:change={() => {
+					if (selectAll) formulir = formulir.map((x) => ({ ...x, selected: true }));
+					else formulir = formulir.map((x) => ({ ...x, selected: false }));
+					selectFormulir();
+				}}
+			/>
+			Semua
+		</label>
+	</div>
+	<div class="grid grid-cols-3 gap-2 my-2">
 		{#each formulir ?? [] as form}
 			<label class="flex items-center gap-2 font-mono text-md">
-				<input on:change={selectFormulir} type="checkbox" bind:checked={form.selected} />
-				<span>{form.kode_rincian_sub_kegiatan} ({form.nomor_spm})</span>
+				<input
+					type="checkbox"
+					bind:checked={form.selected}
+					on:change={() => {
+						selectAll = false;
+						selectFormulir();
+					}}
+				/>
+				<span>{form.kode_rekening_rincian} ({form.no_spm})</span>
 			</label>
+		{:else}
+			<div class="text-sm italic text-slate-600">tidak ada formulir terkait.</div>
 		{/each}
 	</div>
 
@@ -98,13 +140,13 @@
 	<br />
 	<button
 		on:click={async () => {
-			// console.log(selected);
 			const res = await fiero(`/operator/createSerahTerimaBerkas`, 'POST', selected);
 			if (res.status === 200) {
 				snack.info('Berhasil membuat serah terima berkas baru.');
-				source = fiero(`/operator/getListSerahTerimaBerkas`);
-				modal.close();
-			}
+			} else snack.info('Terjadi kesalahan.');
+
+			source = fiero(`/operator/getListSerahTerimaBerkas`);
+			modal.close();
 		}}
 	>
 		Simpan

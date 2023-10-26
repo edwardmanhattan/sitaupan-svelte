@@ -15,7 +15,7 @@ export async function load({ fetch, parent }) {
 		).then((res) => res.json());
 
 	return {
-		operator: (await operator()).data,
-		formulir: (await formulir()).data
+		operator: (await operator()).data
+		// formulir: (await formulir()).data
 	};
 }

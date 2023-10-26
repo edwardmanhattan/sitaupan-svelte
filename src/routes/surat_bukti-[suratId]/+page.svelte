@@ -44,7 +44,19 @@
 				<Kop2 />
 
 				<div class="px-4 py-6 grow">
-					<div class="text-[12pt] font-semibold underline">UNTUK DINAS</div>
+					<div class="relative flex justify-between">
+						<div class="text-[12pt] font-semibold underline">UNTUK DINAS</div>
+						<div class="absolute top-0 right-0 grid grid-cols-2 gap-4 text-sm">
+							<div>Lembar Ke :</div>
+							<div>
+								<div>Satu</div>
+								<div>Dua</div>
+								<div>Tiga</div>
+								<div>Empat</div>
+								<div>Lima</div>
+							</div>
+						</div>
+					</div>
 					<div class="text-[14pt] font-semibold underline text-center">SURAT BUKTI</div>
 					<br />
 
@@ -72,7 +84,7 @@
 
 					<Row number="none" title="Uang Sebesar">
 						<div class="w-full p-2 -skew-x-[20deg] text-center border border-black">
-							{rupiah(form.nilai)}
+							{angkaTerbilang(form.nilai)} rupiah
 						</div>
 					</Row>
 
@@ -94,7 +106,7 @@
 							<div class="flex items-center justify-around my-2">
 								<div>Terbilang</div>
 								<div class="w-fit p-1 px-3 -skew-x-[20deg] text-center border border-black">
-									{angkaTerbilang(form.nilai)} rupiah
+									{rupiah(form.nilai)}
 								</div>
 							</div>
 							<div class="w-full h-1 border-y border-y-black" />
@@ -104,8 +116,8 @@
 							<div>Tanjung Redeb, {formatFullDate()}</div>
 
 							<div>
-								<div class="uppercase">{form.nama_mitra}</div>
-								<div>{form.jabatan_mitra}</div>
+								<div class="underline uppercase">{form.nama_mitra}</div>
+								<div>({form.jabatan_mitra})</div>
 							</div>
 						</div>
 					</div>
@@ -124,7 +136,7 @@
 							</div>
 
 							<div>
-								<div class="uppercase">{form.nama_penjabat_2}</div>
+								<div class="underline uppercase">{form.nama_penjabat_2}</div>
 								<div>NIP. &nbsp; {form.nip_penjabat_2}</div>
 							</div>
 						</div>
@@ -133,7 +145,7 @@
 							<div>Pejabat Pelaksana Teknis Kegiatan</div>
 
 							<div>
-								<div class="uppercase">{form.nama_penjabat_3}</div>
+								<div class="underline uppercase">{form.nama_penjabat_3}</div>
 								<div>NIP. &nbsp; {form.nip_penjabat_3}</div>
 							</div>
 						</div>
@@ -142,13 +154,13 @@
 							<div>
 								<div>Bendahara Pengeluaran Pembantu</div>
 								<div class="flex items-center justify-center gap-2">
-									<span>Dibayar Tanggal</span>
-									<span class="w-12 text-left">...</span>
+									<span>Setuju dibayar tgl.</span>
+									<span class="w-12 text-left" />
 								</div>
 							</div>
 
 							<div>
-								<div class="uppercase">{form.nama_penjabat_4}</div>
+								<div class="underline uppercase">{form.nama_penjabat_4}</div>
 								<div>NIP. &nbsp; {form.nip_penjabat_4}</div>
 							</div>
 						</div>

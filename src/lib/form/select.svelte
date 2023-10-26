@@ -30,7 +30,9 @@
 	}}
 >
 	{#each data ?? [] as x}
-		<option value={x[config.key]}>{x[config.title]} {x[config.title2] ?? ''}</option>
+		<option value={x[config.key]}
+			>{x[config.title]} {x[config.title2] ? `  (NIP. ${x[config.title2]})` : ''}</option
+		>
 	{:else}
 		<option value="-">-</option>
 	{/each}

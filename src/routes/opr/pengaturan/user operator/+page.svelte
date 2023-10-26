@@ -10,6 +10,7 @@
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table.svelte';
 	import Icon from '@iconify/svelte';
+	import { scale } from 'svelte/transition';
 	let modal;
 
 	let source = fiero(`/operator/getAllUserOperator`);
@@ -53,7 +54,7 @@
 					password: '',
 					no_telepon: '',
 					nip: '',
-					id_jabatan: 0,
+					id_jabatan: [],
 					id_bidang: 0,
 					gender: 'Pria'
 				};
@@ -105,9 +106,29 @@
 	</select>
 
 	<label>Jabatan</label>
-	{#await fiero(`/operator/getAllJabatan`) then data}
-		<Select bind:key={selected.id_jabatan} {data} config={{ key: 'id', title: 'nama_jabatan' }} />
-	{/await}
+
+	{#each selected.id_jabatan ?? [] as jab, i (i)}
+		<div transition:scale class="flex items-center gap-2">
+			{#await fiero(`/operator/getAllJabatan`) then data}
+				<Select bind:key={jab} {data} config={{ key: 'id', title: 'nama_jabatan' }} />
+			{/await}
+			<button
+				on:click={() => {
+					selected.id_jabatan = selected.id_jabatan.filter((x, idx) => idx !== 0);
+				}}
+				class="text-white bg-red-1 w-fit"
+			>
+				<Icon icon="basil:cancel-outline" />
+			</button>
+		</div>
+	{/each}
+	<button
+		on:click={() => {
+			selected.id_jabatan = [...selected.id_jabatan, 0];
+		}}
+	>
+		<Icon icon="bi:plus" />
+	</button>
 
 	<label>Bidang</label>
 	{#await fiero(`/operator/getAllBidangProyek`) then data}

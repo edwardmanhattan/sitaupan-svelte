@@ -8,8 +8,7 @@
 	<div class="flex flex-col justify-center gap-4 px-2">
 		<div class="text-center rotate-180 [writing-mode:vertical-rl]">
 			<div class="text-[12pt] font-semibold">PEMERINTAH KABUPATEN BERAU</div>
-			<div class="text-[14pt] font-semibold">DINAS PEKERJAAN UMUM DAN</div>
-			<div class="text-[14pt] font-semibold">PENATAAN RUANG</div>
+			<div class="text-[14pt] font-semibold">DINAS PEKERJAAN UMUM DAN PENATAAN RUANG</div>
 			<p class="">Jl. Gatot Subroto No. 123 Telp.(0554)21065 Tanjung Redeb - Berau</p>
 		</div>
 		<div class="-rotate-90 shrink-0">
