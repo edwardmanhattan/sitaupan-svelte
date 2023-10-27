@@ -40,6 +40,7 @@
 	];
 
 	let selected = {};
+	let privilegeSelected = [];
 </script>
 
 <div class="flex items-center justify-between">
@@ -106,33 +107,33 @@
 	</select>
 
 	<label>Jabatan</label>
-
-	{#each selected.id_jabatan ?? [] as jab, i (i)}
-		<div transition:scale class="flex items-center gap-2">
-			{#await fiero(`/operator/getAllJabatan`) then data}
-				<Select bind:key={jab} {data} config={{ key: 'id', title: 'nama_jabatan' }} />
-			{/await}
-			<button
-				on:click={() => {
-					selected.id_jabatan = selected.id_jabatan.filter((x, idx) => idx !== 0);
-				}}
-				class="text-white bg-red-1 w-fit"
-			>
-				<Icon icon="basil:cancel-outline" />
-			</button>
-		</div>
-	{/each}
-	<button
-		on:click={() => {
-			selected.id_jabatan = [...selected.id_jabatan, 0];
-		}}
-	>
-		<Icon icon="bi:plus" />
-	</button>
+	{#await fiero(`/operator/getAllJabatan`) then data}
+		<Select bind:key={selected.id_jabatan} {data} config={{ key: 'id', title: 'nama_jabatan' }} />
+	{/await}
 
 	<label>Bidang</label>
 	{#await fiero(`/operator/getAllBidangProyek`) then data}
 		<Select bind:key={selected.id_bidang} {data} config={{ key: 'id', title: 'nama_bidang' }} />
+	{/await}
+
+	<label>Privilege Tambahan</label>
+	{#await fiero(`/operator/getAllJabatan?privilege=true`) then priv}
+		<div class="grid grid-cols-4 gap-2 my-1">
+			{#each priv as p}
+				<label>
+					<input
+						type="checkbox"
+						checked={privilegeSelected.includes(p.id)}
+						on:change={() => {
+							if (privilegeSelected.includes(p.id))
+								privilegeSelected = privilegeSelected.filter((x) => x !== p.id);
+							else privilegeSelected = [...privilegeSelected, p.id];
+						}}
+					/>
+					{p.nama_jabatan}
+				</label>
+			{/each}
+		</div>
 	{/await}
 
 	<br />

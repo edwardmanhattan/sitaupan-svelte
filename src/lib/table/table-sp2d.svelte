@@ -62,6 +62,7 @@
 				<tr>
 					<th rowspan="2">No</th>
 					<th rowspan="2">Bidang</th>
+					<th rowspan="2">Sumber Dana</th>
 					<th rowspan="2">Nomor SP2D</th>
 					<th rowspan="2">Pekerjaan</th>
 					<th rowspan="2">Nilai</th>
@@ -78,6 +79,7 @@
 					<tr>
 						<td class="text-center">{tr.pageNum}</td>
 						<td>{tr.nama_bidang}</td>
+						<td>{tr.sumber_dana}</td>
 						<td>{tr.nomor_sp2d}</td>
 						<td>{tr.pekerjaan}</td>
 						<td>{rupiah(tr.nilai)}</td>
