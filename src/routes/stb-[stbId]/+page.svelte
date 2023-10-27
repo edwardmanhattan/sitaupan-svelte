@@ -8,11 +8,10 @@
 	import { rupiah } from '$lib/js/currency';
 	import Select from '$lib/form/select.svelte';
 	import Back from '$lib/shortcut/back.svelte';
+
 	export let data;
 
 	const form = data.data;
-
-	console.log(form);
 
 	let printWaiting = false;
 
