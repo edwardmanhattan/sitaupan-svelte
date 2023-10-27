@@ -3,7 +3,7 @@
 
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { formatFullDate } from '$lib/js/datetime';
-	import { searchBidang, searchEachText } from '$lib/js/search';
+	import { searchBidang, searchEachText, searchKategori } from '$lib/js/search';
 	import { rupiah } from '$lib/js/currency';
 
 	import Icon from '@iconify/svelte';
@@ -14,6 +14,7 @@
 	import Select from '$lib/form/select.svelte';
 	import { fiero } from '$lib/js/fiero';
 	import Bidang from '$lib/shortcut/bidang.svelte';
+	import Kategori from '$lib/shortcut/kategori.svelte';
 
 	export let data;
 	export let modifier = {};
@@ -30,8 +31,15 @@
 	let bidangExist = Object.keys(keyModifier).find((k) => k.includes('bidang'));
 	let bidang = '';
 
+	let kategoriExist = Object.keys(keyModifier).find((k) => k.includes('kategori'));
+	let kategori = '';
+
 	$: page = new Pagination(
-		searchBidang(searchEachText(data, searchText), bidang, bidangExist),
+		searchBidang(
+			searchKategori(searchEachText(data, searchText), kategori, kategoriExist),
+			bidang,
+			bidangExist
+		),
 		parseInt(interval)
 	);
 	$: display = page.chop();
@@ -56,6 +64,11 @@
 			{#if bidangExist}
 				<Bidang bind:bidang />
 			{/if}
+
+			{#if kategoriExist}
+				<Kategori bind:kategori />
+			{/if}
+
 			<button
 				on:click={async () => {
 					let columns = shownKeyModifier(keyModifier)
@@ -92,6 +105,7 @@
 			<input type="text" bind:value={searchText} class="text-sm" placeholder="cari..." />
 		</div>
 	</div>
+
 	<div id="table" class="w-full overflow-auto">
 		<table>
 			<thead>

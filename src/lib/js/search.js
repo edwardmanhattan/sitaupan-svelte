@@ -23,3 +23,9 @@ export const searchBidang = (data, bidang = '', key) => {
 	if (!data || data.length === 0 || !key || bidang === '') return data;
 	return data.filter((x) => x[key] === bidang[0] || x[key] === bidang[1]);
 };
+
+export const searchKategori = (data, kategori = '', key) => {
+	if (!data || data.length === 0 || !key || kategori === '') return data;
+	const [id, nama] = kategori;
+	return data.filter((x) => x[key] === id || x[key] === nama);
+};
