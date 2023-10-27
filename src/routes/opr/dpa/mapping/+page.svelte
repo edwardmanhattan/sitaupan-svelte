@@ -38,7 +38,8 @@
 		id_kode_rekening: { show: false },
 		anggaran: { show: false },
 		jenis_pekerjaan: { show: false },
-		bidang: { show: true }
+		bidang: { show: true },
+		tanggal_dpa: { show: true }
 	};
 
 	function changeSubPage(sub, api) {
@@ -55,13 +56,17 @@
 			modifier = setModifierShown(modifier, ['kode_rek_kegiatan']);
 			modifier = setModifierHidden(modifier, [
 				'no_dpa',
-				'bidang',
+				'tanggal_dpa',
 				'kode_rek_sub_kegiatan',
 				'kode_rek_rincian_sub_kegiatan'
 			]);
 		} else if (sub === 'sub_kegiatan') {
 			modifier = setModifierShown(modifier, ['kode_rek_kegiatan', 'kode_rek_sub_kegiatan']);
-			modifier = setModifierHidden(modifier, ['no_dpa', 'bidang', 'kode_rek_rincian_sub_kegiatan']);
+			modifier = setModifierHidden(modifier, [
+				'no_dpa',
+				'tanggal_dpa',
+				'kode_rek_rincian_sub_kegiatan'
+			]);
 		} else if (sub === 'rincian_sub_kegiatan') {
 			modifier = setModifierShown(modifier, [
 				'kode_rek_kegiatan',
