@@ -11,7 +11,7 @@
 	function checkJabatan(arr = []) {
 		arr = [...arr, 17];
 		for (const a of arr) {
-			if (privilege?.userJabatan?.toString() === a?.toString()) return true;
+			if (privilege?.userJabatan?.toString().includes(a?.toString())) return true;
 		}
 		return false;
 	}

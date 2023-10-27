@@ -20,6 +20,8 @@
 	let form;
 
 	let fileLS, fileKonsultan, fileHonor;
+
+	let nilaiSumber = 0;
 </script>
 
 <div>
@@ -40,7 +42,9 @@
 						id_bidang: 0,
 						ls_fisik: '',
 						konsultan: '',
-						honor: 0
+						honor: 0,
+						id_sumber_dana: 0,
+						nilai_sumber: 0
 					};
 
 					modal.open();
@@ -80,6 +84,20 @@
 	{/await}
 	<br />
 
+	<label>Sumber Dana</label>
+	{#await fiero(`/operator/getSumberdanaByIdFormulir?id_form=${form.id_formulir}`) then data}
+		<Select
+			bind:key={form.id_sumber_dana}
+			{data}
+			config={{ key: 'id', title: 'nama' }}
+			request="nilai"
+			on:linkup={(data) => {
+				nilaiSumber = data.detail.request;
+			}}
+		/>
+	{/await}
+	<br />
+
 	<label>Nomor SP2D</label>
 	<input type="text" bind:value={form.nomor_sp2d} />
 	<br />
@@ -104,6 +122,7 @@
 	<br />
 	<Send
 		on:click={async () => {
+			form.nilai_sumber = nilaiSumber;
 			const res = await fiero(`/operator/insertSp2d`, 'POST', form);
 			if (res.status === 200) {
 				const id = res.data;

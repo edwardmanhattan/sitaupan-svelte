@@ -142,6 +142,8 @@
 		on:click={async () => {
 			let url = 'insert';
 			if (selected.id !== 0) url = 'update';
+
+			selected.privilege = privilegeSelected.join(',');
 			const res = await fiero(`/operator/${url}UserOperator`, 'POST', selected);
 			if (res.status === 200) {
 				if (selected.id === 0) snack.info('Berhasil menambah User Operator baru');

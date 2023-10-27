@@ -1,5 +1,6 @@
 <script>
 	// @ts-nocheck
+	import Select from '$lib/form/select.svelte';
 	import { fiero } from '$lib/js/fiero';
 	import { formatTitle } from '$lib/js/string';
 	import { snack } from '$lib/js/vanilla.js';
@@ -66,6 +67,8 @@
 
 	let mitra = userId;
 	let selected = {};
+	let form = {};
+	let formClone = {};
 </script>
 
 <div class="flex items-center gap-2">
@@ -83,6 +86,11 @@
 
 	<button
 		on:click={() => {
+			form = {
+				id_mapping_dpa: 0,
+				id_penyedia_jasa: parseInt(mitra),
+				id_jenis_penyedia_jasa: 0
+			};
 			modal.open();
 		}}
 		class="ml-auto w-fit"
@@ -103,15 +111,26 @@
 <Modal bind:this={modal}>
 	<h1>Tambah Formulir Penyedia Jasa</h1>
 
+	<!-- svelte-ignore a11y-label-has-associated-control -->
+	<label>Kode Rekening</label>
+	{#await fiero(`/mitra/getIdMappingDPAMitra?id_mitra=${mitra}`) then data}
+		<Select
+			bind:key={form.id_mapping_dpa}
+			{data}
+			config={{ key: 'id_mapping_dpa', title: 'kode_rekening' }}
+			request="id_jenis_penyedia_jasa"
+			on:linkup={(x) => {
+				formClone.id_jenis_penyedia_jasa = x.detail.request;
+			}}
+		/>
+	{/await}
+
 	<br />
 	<br />
 	<button
 		on:click={async () => {
-			const res = await fiero(`/operator/createFormPenyediaJasa`, 'POST', {
-				id_mapping_dpa: parseInt(selected.id),
-				id_penyedia_jasa: parseInt(mitra),
-				id_jenis_penyedia_jasa: parseInt(selected.id_jenis_pekerjaan)
-			});
+			form.id_jenis_penyedia_jasa = formClone.id_jenis_penyedia_jasa;
+			const res = await fiero(`/mitra/createFormPenyediaJasa`, 'POST', form);
 
 			if (res.status === 200) {
 				snack.info('Berhasil membuat formulir penyedia jasa.');

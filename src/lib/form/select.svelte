@@ -15,13 +15,15 @@
 		dispatch('linkup', { key, data, request });
 	}
 
-	onMount(() => {
-		onChange();
-		key ||= data[0][config?.key] ?? '';
-		linkup(key, data, request ?? '');
-	});
-
 	let index = 0;
+
+	onMount(() => {
+		key ||= data[0][config?.key] ?? '';
+		onChange();
+		index = data.findIndex((x) => x[config.key] === key);
+		if (request) request = data[index][request];
+		linkup(key, data, request);
+	});
 </script>
 
 <select
