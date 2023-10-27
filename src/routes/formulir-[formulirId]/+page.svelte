@@ -418,14 +418,17 @@
 		<input type="text" bind:value={form.nomor_spk} />
 	</Row>
 
-	<Row
-		userId={form.id_jenis_penyedia}
-		able="4,5,6"
-		number="23"
-		title="Nota Tagihan / Persediaan Masuk"
-	>
+	<Row userId={form.id_jenis_penyedia} able="4,5,6" number="23" title="Kategori Persediaan Aset">
 		{#await fiero(`/operator/getListPersediaanAset`) then data}
-			<Select bind:key={form.nota_tagihan} {data} config={{ key: 'id', title: 'nama_barang' }} />
+			<Select
+				bind:key={form.nota_tagihan.id_aset}
+				{data}
+				config={{ key: 'id', title: 'nama_barang' }}
+				request="nama_barang"
+				on:linkup={(key, __, requested) => {
+					form.nota_tagihan.nama_aset = requested;
+				}}
+			/>
 		{/await}
 	</Row>
 
@@ -440,12 +443,12 @@
 	<Row userId={form.id_jenis_penyedia} able="4,5,6" number="25" title="Nama Barang">
 		<button on:click={modal.open}>Buka Nota Tagihan</button>
 	</Row>
-
+	<!-- 
 	<Row userId={form.id_jenis_penyedia} able="4,5,6" number="26" title="Kategori">
 		{#await fiero(`/operator/getListPersediaanAset`) then data}
 			<Select bind:key={form.kategori} {data} config={{ key: 'id', title: 'nama_barang' }} />
 		{/await}
-	</Row>
+	</Row> -->
 
 	<Row userId={form.id_jenis_penyedia} able="1,5" number="27" title="Ukuran" />
 
@@ -509,7 +512,8 @@
 							nama_barang: '',
 							luas: '',
 							harga: '',
-							keterangan: ''
+							keterangan: '',
+							lokasi_alamat: ''
 						}
 					];
 				}}
@@ -529,6 +533,7 @@
 				<th>Luas</th>
 				<th>Harga</th>
 				<th>Keterangan Pekerjaan</th>
+				<th>Alamat</th>
 				<th>Aksi</th>
 			</tr>
 		</thead>
@@ -540,6 +545,7 @@
 					<td> <input type="text" bind:value={key.luas} /></td>
 					<td> <Currency bind:value={key.harga} /></td>
 					<td> <input type="text" bind:value={key.keterangan} /></td>
+					<td><input type="text" bind:value={key.lokasi_alamat} /></td>
 					<td>
 						<div class="flex items-center gap-2">
 							<button
@@ -576,7 +582,9 @@
 							merek: '',
 							no_rangka_mesin: '',
 							ukuran: '',
-							keterangan: ''
+							keterangan: '',
+							harga: '0',
+							banyak: '0'
 						}
 					];
 				}}
@@ -597,6 +605,8 @@
 				<th>No. Rangka Mesin</th>
 				<th>Ukuran</th>
 				<th>Keterangan Pekerjaan</th>
+				<th>Harga</th>
+				<th>Banyak</th>
 				<th>Aksi</th>
 			</tr>
 		</thead>
@@ -609,6 +619,12 @@
 					<td><input type="text" bind:value={key.no_rangka_mesin} /></td>
 					<td><input type="text" bind:value={key.ukuran} /></td>
 					<td><input type="text" bind:value={key.keterangan} /></td>
+					<td>
+						<Currency bind:value={key.harga} />
+					</td>
+					<td>
+						<input type="number" bind:value={key.banyak} />
+					</td>
 					<td>
 						<button
 							on:click={() => {
@@ -641,7 +657,8 @@
 						{
 							nama_barang: '',
 							tingkat: '',
-							beton: '',
+							beton: 'beton',
+							harga: '0',
 							luas: '',
 							keterangan: ''
 						}
@@ -662,6 +679,7 @@
 				<th>Nama / Jenis Barang</th>
 				<th>Tingkat / Tidak</th>
 				<th>Beton / Tidak</th>
+				<th>Harga</th>
 				<th>Luas</th>
 				<th>Keterangan Pekerjaan</th>
 				<th>Aksi</th>
@@ -672,8 +690,16 @@
 				<tr>
 					<td>{i + 1}</td>
 					<td><input type="text" bind:value={key.nama_barang} /></td>
-					<td><input type="text" bind:value={key.tingkat} /></td>
-					<td><input type="text" bind:value={key.beton} /></td>
+					<td><input type="number" min="0" bind:value={key.tingkat} /></td>
+					<td>
+						<select bind:value={key.beton}>
+							<option value="beton">beton</option>
+							<option value="tidak">tidak</option>
+						</select>
+					</td>
+					<td>
+						<Currency bind:value={key.harga} />
+					</td>
 					<td><input type="text" bind:value={key.luas} /></td>
 					<td><input type="text" bind:value={key.keterangan} /></td>
 					<td>
@@ -710,6 +736,9 @@
 							konstruksi: '',
 							panjang: '',
 							lebar: '',
+							luas: '',
+							alamat: '',
+							harga: '0',
 							keterangan: ''
 						}
 					];
@@ -730,6 +759,9 @@
 				<th>Konstruksi</th>
 				<th>Panjang</th>
 				<th>Lebar</th>
+				<th>Luas</th>
+				<th>Alamat</th>
+				<th>Harga</th>
 				<th>Keterangan Pekerjaan</th>
 				<th>Aksi</th>
 			</tr>
@@ -740,8 +772,11 @@
 					<td>{i + 1}</td>
 					<td><input type="text" bind:value={key.nama_barang} /></td>
 					<td><input type="text" bind:value={key.konstruksi} /></td>
-					<td><input type="text" bind:value={key.panjang} /></td>
-					<td><input type="text" bind:value={key.lebar} /></td>
+					<td><input type="number" bind:value={key.panjang} /></td>
+					<td><input type="number" bind:value={key.lebar} /></td>
+					<td><input type="number" bind:value={key.luas} /></td>
+					<td><input type="text" bind:value={key.alamat} /></td>
+					<td><Currency bind:value={key.harga} /></td>
 					<td><input type="text" bind:value={key.keterangan} /></td>
 					<td>
 						<button
@@ -776,7 +811,16 @@
 							nama_barang: '',
 							nomor_registrasi: '',
 							judul: '',
-							spesifikasi: ''
+							pencipta: '',
+							spesifikasi: '',
+							asal_daerah: '',
+							asal_usul: '',
+							bahan: '',
+							harga: '0',
+							jumlah: '0',
+							keterangan: '',
+							tahun: '',
+							ukuran: ''
 						}
 					];
 				}}
@@ -794,11 +838,20 @@
 				<th rowspan="2">No</th>
 				<th rowspan="2">Nama / Jenis Barang</th>
 				<th rowspan="2">Nomor Register</th>
-				<th colspan="2">Buku / Perpustakaan</th>
+				<th colspan="3">Buku / Perpustakaan</th>
+				<th rowspan="2">Asal Daerah</th>
+				<th rowspan="2">Asal Usul</th>
+				<th rowspan="2">Bahan</th>
+				<th rowspan="2">Harga</th>
+				<th rowspan="2">Jumlah</th>
+				<th rowspan="2">Keterangan</th>
+				<th rowspan="2">Tahun</th>
+				<th rowspan="2">Ukuran</th>
 				<th rowspan="2">Aksi</th>
 			</tr>
 			<tr>
-				<th>Judul Pencipta</th>
+				<th>Judul</th>
+				<th>Pencipta</th>
 				<th>Spesifikasi</th>
 			</tr>
 		</thead>
@@ -809,7 +862,16 @@
 					<td><input type="text" bind:value={key.nama_barang} /></td>
 					<td><input type="text" bind:value={key.nomor_registrasi} /></td>
 					<td><input type="text" bind:value={key.judul} /></td>
+					<td><input type="text" bind:value={key.pencipta} /></td>
 					<td><input type="text" bind:value={key.spesifikasi} /></td>
+					<td><input type="text" bind:value={key.asal_daerah} /></td>
+					<td><input type="text" bind:value={key.asal_usul} /></td>
+					<td><input type="text" bind:value={key.bahan} /></td>
+					<td><Currency bind:value={key.harga} /></td>
+					<td><input type="number" bind:value={key.jumlah} /></td>
+					<td><input type="number" bind:value={key.keterangan} /></td>
+					<td><input type="number" bind:value={key.tahun} /></td>
+					<td><input type="number" bind:value={key.ukuran} /></td>
 					<td>
 						<button
 							on:click={() => {
@@ -844,6 +906,9 @@
 							konstruksi: '',
 							panjang: '',
 							lebar: '',
+							luas: '',
+							lokasi: '',
+							harga: '0',
 							keterangan: ''
 						}
 					];
@@ -863,6 +928,9 @@
 				<th>Konstruksi</th>
 				<th>Panjang</th>
 				<th>Lebar</th>
+				<th>Luas</th>
+				<th>Lokasi</th>
+				<th>Harga</th>
 				<th>Keterangan Pekerjaan</th>
 				<th>Aksi</th>
 			</tr>
@@ -873,8 +941,11 @@
 					<td>{i + 1}</td>
 					<td><input type="text" bind:value={key.nama_barang} /></td>
 					<td><input type="text" bind:value={key.konstruksi} /></td>
-					<td><input type="text" bind:value={key.panjang} /></td>
-					<td><input type="text" bind:value={key.lebar} /></td>
+					<td><input type="number" bind:value={key.panjang} /></td>
+					<td><input type="number" bind:value={key.lebar} /></td>
+					<td><input type="number" bind:value={key.luas} /></td>
+					<td><input type="text" bind:value={key.lokasi} /></td>
+					<td><Currency bind:value={key.harga} /></td>
 					<td><input type="text" bind:value={key.keterangan} /></td>
 					<td>
 						<button
@@ -928,26 +999,16 @@
 	<h1>Penambahan Invoice</h1>
 	<br />
 
-	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="none" title="ID Nota">
-		<input type="text" bind:value={form.nota_tagihan.id_nota} />
+	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="none" title="Nomor Nota">
+		<input type="text" bind:value={form.nota_tagihan.nomor_nota} />
 	</Row>
 
 	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="none" title="Tanggal">
 		<input type="date" bind:value={form.nota_tagihan.tanggal_nota} />
 	</Row>
 
-	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="none" title="Nama Toko">
-		<input type="text" bind:value={form.nota_tagihan.nama_toko} />
-	</Row>
-
-	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="none" title="Rincian Data">
-		{#await fiero(`/operator/getListPersediaanAset`) then data}
-			<Select
-				bind:key={form.nota_tagihan.rincian_data}
-				{data}
-				config={{ key: 'id', title: 'nama_barang' }}
-			/>
-		{/await}
+	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="none" title="Kategori Aset">
+		<input type="text" bind:value={form.nota_tagihan.nama_aset} disabled />
 	</Row>
 
 	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="none" title="Detail Pembelian">
@@ -974,10 +1035,11 @@
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Uraian</th>
+				<th>Nama Barang</th>
 				<th>Harga</th>
 				<th>Jumlah Barang</th>
 				<th>Total</th>
+				<th>Jenis Aset</th>
 				<th>Aksi</th>
 			</tr>
 		</thead>
@@ -985,7 +1047,7 @@
 			{#each form.nota_tagihan?.detail_pembelian ?? [] as det, i (i)}
 				<tr>
 					<td>{i + 1}</td>
-					<td><input type="text" bind:value={det.uraian} /></td>
+					<td><input type="text" bind:value={det.nama_barang} /></td>
 					<td>
 						<input
 							type="number"
@@ -1013,6 +1075,19 @@
 								det.harga = parseFloat(det.total) / det.jumlah_barang;
 							}}
 						/>
+					</td>
+					<td>
+						{#await fiero(`/operator/getJenisPersedianAset?id_kategori=${form.nota_tagihan.id_aset}`) then data}
+							<Select
+								bind:key={det.id_jenis_barang}
+								{data}
+								config={{ key: 'id', title: 'nama' }}
+								request="nama"
+								on:linkup={(_, __, requested) => {
+									det.nama_jenis_barang = requested;
+								}}
+							/>
+						{/await}
 					</td>
 					<td>
 						<button

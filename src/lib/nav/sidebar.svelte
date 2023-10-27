@@ -180,14 +180,15 @@
 					anchor="Pengaturan Data"
 					icon="streamline:computer-database-raid-storage-code-disk-programming-database-array-hard-disc"
 				>
-					<Menu anchor="Data Master" href="/opr/pengaturan/bidang kegiatan" childPos="8">
+					<Menu anchor="Data Master" href="/opr/pengaturan/bidang kegiatan" childPos="12">
 						<Menu anchor="Bidang Kegiatan" href="/opr/pengaturan/bidang kegiatan" />
 						<Menu anchor="Jenis Kegiatan" href="/opr/pengaturan/jenis kegiatan" />
 						<Menu anchor="Asal Kegiatan" href="/opr/pengaturan/asal kegiatan" />
 						<Menu anchor="Kode Rekening" href="/opr/pengaturan/kode rekening" />
 						<Menu anchor="Nomor DPA" href="/opr/pengaturan/nomor dpa" />
 						<Menu anchor="Jabatan" href="/opr/pengaturan/jabatan" />
-						<Menu anchor="Persediaan" href="/opr/pengaturan/persediaan" />
+						<Menu anchor="Kategori Persediaan" href="/opr/pengaturan/persediaan" />
+						<Menu anchor="Jenis Persediaan" href="/opr/pengaturan/jenis_persediaan" />
 						<Menu anchor="Master Tim" href="/opr/pengaturan/master tim" />
 						<Menu anchor="Sumber Dana" href="/opr/pengaturan/sumber dana" />
 					</Menu>

@@ -12,7 +12,7 @@
 	<a href="/user">Beranda</a>
 	<a href="/user/formulir">Formulir</a>
 	<a href="/user/data_berkas">Data Berkas</a>
-	<a href="/user/invoice">Invoice</a>
+	<!-- <a href="/user/invoice">Invoice</a> -->
 
 	<div class="flex items-center gap-8 ml-auto">
 		<div>
