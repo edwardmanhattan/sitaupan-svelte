@@ -21,7 +21,6 @@
 		id_jenis_pekerjaan: { show: false },
 		nilai_persetujuan: { type: 'currency' },
 		nilai_total_mitra: { type: 'currency' },
-		tombol: { show: false },
 		id_penyedia_jasa: { show: false },
 		nama_proyek: { alias: 'Nama Kegiatan' }
 	};
@@ -99,6 +98,20 @@
 						{#each shownKeyModifier(keyModifier) as key}
 							{#if key === 'pageNum'}
 								<td class="text-center">{tr[key]}</td>
+							{:else if key === 'tombol'}
+								{#if tr[key] === 'hijau'}
+									<td class="text-3xl text-emerald-600">
+										<div class="grid place-items-center">
+											<Icon icon="mdi:circle" />
+										</div>
+									</td>
+								{:else}
+									<td class="text-3xl text-red-600">
+										<div class="grid place-items-center">
+											<Icon icon="mdi:circle" />
+										</div>
+									</td>
+								{/if}
 							{:else if keyModifier[key].type === 'datetime'}
 								<td>{formatFullDate(tr[key])}</td>
 							{:else if keyModifier[key].type === 'currency'}

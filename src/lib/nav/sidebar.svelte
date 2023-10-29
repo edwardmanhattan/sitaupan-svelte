@@ -124,7 +124,10 @@
 				icon="streamline:interface-align-layers-1-design-layer-layers-pile-stack"
 			>
 				<Menu anchor="Aset Tetap" href="/opr/files/aset/tetap" />
-				<Menu anchor="Persediaan" href="/opr/files/aset/persediaan" />
+				<Menu anchor="Persediaan" href="/opr/files/aset/persediaan">
+					<Menu anchor="Stok Awal" href="/opr/files/aset/stok_awal" />
+					<Menu anchor="Persediaan Barang" href="/opr/files/aset/persediaan" />
+				</Menu>
 				<Menu anchor="Berita Acara Pembayaran" href="/opr/files/aset/bap" />
 				<Menu anchor="KIB" href="/opr/files/aset/kib-a" childPos="6">
 					<Menu anchor="KIB A" href="/opr/files/aset/kib-a" />

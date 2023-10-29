@@ -24,52 +24,56 @@ export const actions = {
 			error: false
 		};
 
-		let { status, data } = await fetch(
-			config.api + `/login?username=${username}&password=${password}&tipe=${tipe}`,
-			{
-				method: 'POST'
-			}
-		).then((res) => res.json());
-
-		if (status !== 200) {
-			loginResponse.message = data;
-			loginResponse.error = true;
-		} else {
-			cookies.set(
-				'AuthUser',
-				`${data.key}.${data.user.id}.${data.privilege}.${data.tipe}.${data.user.jabatan}.${data.user.bidang}`,
+		try {
+			let { status, data } = await fetch(
+				config.api + `/login?username=${username}&password=${password}&tipe=${tipe}`,
 				{
-					maxAge: 60 * 60 * 24,
-					sameSite: 'strict',
-					path: '/',
-					secure: false,
-					httpOnly: false
+					method: 'POST'
 				}
-			);
+			).then((res) => res.json());
 
-			cookies.set('UserTipe', data.tipe, {
-				maxAge: 60 * 60 * 24
-			});
+			console.log(status, data);
 
-			cookies.set('UserPrivilege', data.privilege, {
-				maxAge: 60 * 60 * 24
-			});
-
-			cookies.set('UserJabatan', data.user.jabatan, {
-				maxAge: 60 * 60 * 24
-			});
-
-			cookies.set('UserBidang', data.user.bidang, {
-				maxAge: 60 * 60 * 24
-			});
-
-			if (tipe === 'operator') {
-				throw redirect(307, '/opr');
+			if (!status || status !== 200) {
+				loginResponse.message = data;
+				loginResponse.error = true;
 			} else {
-				throw redirect(307, '/user');
-			}
-		}
+				cookies.set(
+					'AuthUser',
+					`${data.key}.${data.user.id}.${data.privilege}.${data.tipe}.${data.user.jabatan}.${data.user.bidang}`,
+					{
+						maxAge: 60 * 60 * 24,
+						sameSite: 'strict',
+						path: '/',
+						secure: false,
+						httpOnly: false
+					}
+				);
 
+				cookies.set('UserTipe', data.tipe, {
+					maxAge: 60 * 60 * 24
+				});
+
+				cookies.set('UserPrivilege', data.privilege, {
+					maxAge: 60 * 60 * 24
+				});
+
+				cookies.set('UserJabatan', data.user.jabatan, {
+					maxAge: 60 * 60 * 24
+				});
+
+				cookies.set('UserBidang', data.user.bidang, {
+					maxAge: 60 * 60 * 24
+				});
+
+				if (tipe === 'operator') {
+					throw redirect(307, '/opr');
+				} else {
+					throw redirect(307, '/user');
+				}
+			}
+		} finally {
+		}
 		return loginResponse;
 	}
 };

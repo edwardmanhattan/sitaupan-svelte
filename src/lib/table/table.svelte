@@ -128,7 +128,7 @@
 								<td class="text-center">{tr[key]}</td>
 							{:else if keyModifier[key].type === 'datetime' || key.includes('tanggal')}
 								<td>{formatFullDate(tr[key])}</td>
-							{:else if keyModifier[key].type === 'currency' || key.includes('nilai') || key.includes('total')}
+							{:else if keyModifier[key].type === 'currency' || ['nilai', 'total', 'harga'].some( (v) => key.includes(v) )}
 								<td>{rupiah(tr[key])}</td>
 							{:else if key.includes('persen')}
 								<td>{tr[key]}%</td>
