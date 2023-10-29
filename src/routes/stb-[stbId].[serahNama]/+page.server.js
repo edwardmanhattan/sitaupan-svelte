@@ -9,8 +9,11 @@ export async function load({ params, fetch }) {
 			config.api + `/operator/getSerahTerimaBerkasById?id_serah_terima=${params.stbId}`
 		).then((res) => res.json());
 
+	const serahNama = params.serahNama == '.' ? null : params.serahNama;
+
 	return {
 		data: (await form()).data,
-		formulirId: params.stbId
+		formulirId: params.stbId,
+		serahNama
 	};
 }

@@ -119,6 +119,7 @@
 									<button
 										on:click={() => {
 											selected = tr[key];
+											delete selected.id;
 											modal.open();
 										}}
 										class="w-16 mx-auto"

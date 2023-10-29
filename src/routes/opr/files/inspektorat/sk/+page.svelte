@@ -5,11 +5,9 @@
 	import Select from '$lib/form/select.svelte';
 	import { getYearNow, getYearsSince } from '$lib/js/datetime';
 	import { fiero } from '$lib/js/fiero';
-	import { snack } from '$lib/js/vanilla';
-	import Modal from '$lib/modal/modal.svelte';
+
 	import Skeleton from '$lib/table/skeleton.svelte';
 	import Table from '$lib/table/table-sk.svelte';
-	import Icon from '@iconify/svelte';
 
 	let year = getYearNow();
 	$: source = `/operator/getLaporanSK?tanggal=${year}`;

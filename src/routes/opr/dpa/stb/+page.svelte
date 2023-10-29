@@ -29,7 +29,7 @@
 			head: '',
 			body: 'Lihat Detail',
 			action: (id, obj) => {
-				goto(`/stb-${obj.id_serah_terima}`);
+				goto(`/stb-${obj.id_serah_terima}..`);
 			}
 		}
 	];

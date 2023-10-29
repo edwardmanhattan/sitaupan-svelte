@@ -27,7 +27,9 @@
 		<button
 			on:click={async () => {
 				printWaiting = true;
-				const link = window.location.href;
+				let link = window.location.href;
+				link = link.replace('..', '.' + operatorMenyerahkan);
+
 				await exportToPDF(link, 'Serah Terima Berkas');
 				printWaiting = false;
 			}}
@@ -44,12 +46,6 @@
 			<div class="p-6 bg-white h-max font-times" id="printTarget">
 				<h1 class="font-semibold text-center underline">SERAH TERIMA BERKAS</h1>
 				<br />
-
-				<div class="flex items-center gap-4">
-					<div class="w-32">Bidang</div>
-					<div>:</div>
-					<div>{form.bidang}</div>
-				</div>
 
 				<div class="flex items-center gap-4">
 					<div class="w-32">Staf Pengelola</div>
@@ -72,7 +68,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each form.formulir as form, i}
+						{#each form.formulir ?? [] as form, i}
 							<tr>
 								<td>{i + 1}</td>
 								<td>{formatFullDate(form.tanggal)}</td>
@@ -82,6 +78,10 @@
 								<td>{rupiah(form.nilai)}</td>
 								<td>{form.penyedia_jasa}</td>
 								<td>{form.keterangan}</td>
+							</tr>
+						{:else}
+							<tr>
+								<td colspan="8">tidak ada formulir</td>
 							</tr>
 						{/each}
 					</tbody>
@@ -105,7 +105,7 @@
 							<div>Sub Bagian Keuangan & Aset</div>
 						</div>
 
-						<div>{operatorMenyerahkan}</div>
+						<div>{data.serahNama ?? operatorMenyerahkan}</div>
 					</div>
 				</div>
 			</div>
