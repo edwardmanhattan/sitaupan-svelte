@@ -8,7 +8,7 @@
 
 	export let data;
 
-	let source = fiero(`/operator/getAllTimKegiatan`);
+	let source = fiero(`/operator/getAllTimKegiatan?id_bidang=${data.userBidang}`);
 	let modifier = {
 		id: { show: false },
 		nama_tim: { alias: 'Uraian Sub Kegiatan' }

@@ -1,24 +1,24 @@
 <script>
 	// @ts-nocheck
 
+	import { searchBidang, searchEachText, searchKategori } from '$lib/js/search';
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { formatFullDate } from '$lib/js/datetime';
-	import { searchBidang, searchEachText, searchKategori } from '$lib/js/search';
 	import { rupiah } from '$lib/js/currency';
 
 	import Icon from '@iconify/svelte';
-	import { Pagination } from '$lib/js/pagination';
-	import { snack } from '$lib/js/vanilla';
-	import { exportToExcel } from '$lib/js/download';
-	import { formatTitle } from '$lib/js/string';
-	import Select from '$lib/form/select.svelte';
-	import { fiero } from '$lib/js/fiero';
-	import Bidang from '$lib/shortcut/bidang.svelte';
 	import Kategori from '$lib/shortcut/kategori.svelte';
+	import Bidang from '$lib/shortcut/bidang.svelte';
+
+	import { snack } from '$lib/js/vanilla';
+	import { Pagination } from '$lib/js/pagination';
+	import { exportToExcel } from '$lib/js/download';
 
 	export let data;
 	export let modifier = {};
 	export let buttons = [];
+
+	export let password = true;
 
 	let searchText = '';
 	let interval = '10';
@@ -126,6 +126,8 @@
 						{#each shownKeyModifier(keyModifier) as key}
 							{#if key === 'pageNum'}
 								<td class="text-center">{tr[key]}</td>
+							{:else if password && key.includes('password')}
+								<td>******</td>
 							{:else if keyModifier[key].type === 'datetime' || key.includes('tanggal')}
 								<td>{formatFullDate(tr[key])}</td>
 							{:else if keyModifier[key].type === 'currency' || ['nilai', 'total', 'harga'].some( (v) => key.includes(v) )}

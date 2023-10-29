@@ -28,7 +28,7 @@
 			<Menu
 				{userJabatan}
 				{userPrivilege}
-				jabatan={[12]}
+				jabatan={[2]}
 				anchor="Mapping DPA"
 				href="/opr/dpa/mapping"
 				icon="streamline:interface-file-clipboard-add-edit-task-edition-add-clipboard-form"
@@ -46,7 +46,7 @@
 			<Menu
 				{userJabatan}
 				{userPrivilege}
-				jabatan={[11, 12, 16, 2, 9, 13, 14, 15, 8, 7, 3, 1, 100, 101]}
+				jabatan={[11, 12, 16, 2, 9, 13, 14, 15, 8, 7, 3, 1, 24, 23]}
 				anchor="Daftar Kegiatan"
 				href="/opr/dpa/daftar"
 				icon="streamline:interface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
@@ -55,7 +55,7 @@
 			<Menu
 				{userJabatan}
 				{userPrivilege}
-				jabatan={[11, 12, 2, 9, 13, 14, 15, 8, 7, 3, 1, 100, 101]}
+				jabatan={[11, 12, 2, 9, 13, 14, 15, 8, 7, 3, 1, 24, 23]}
 				anchor="Serah Terima Berkas"
 				href="/opr/dpa/stb"
 				icon="streamline:interface-file-clipboard-check-checkmark-edit-task-edition-checklist-check-success-clipboard-form"
@@ -64,18 +64,18 @@
 			<Menu
 				{userJabatan}
 				{userPrivilege}
-				jabatan={[12]}
+				jabatan={[2]}
 				anchor="Tim Kegiatan"
 				href="/opr/dpa/tim"
 				icon="streamline:interface-user-multiple-close-geometric-human-multiple-person-up-user"
 			/>
 		</Menu>
 
-		<!-- 100 = sekretaris, 101 = kabid -->
+		<!-- 24 = sekretaris, 23 = kabid -->
 		<Menu
 			{userJabatan}
 			{userPrivilege}
-			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 100, 101, 21]}
+			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 24, 23, 21]}
 			anchor="BPJS Ketenagakerjaan"
 			href="/opr/files/bpjs"
 			icon="streamline:interface-add-square-square-remove-cross-buttons-add-plus-button"
@@ -84,7 +84,7 @@
 		<Menu
 			{userJabatan}
 			{userPrivilege}
-			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 100, 101, 19]}
+			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 24, 23, 19]}
 			anchor="Bidang Akuntansi BPKAD"
 			href="/opr/laporan/bpkad"
 			icon="streamline:interface-file-bookmark-text-common-bookmark"
@@ -93,7 +93,7 @@
 		<Menu
 			{userJabatan}
 			{userPrivilege}
-			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 100, 101, 18]}
+			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 24, 23, 18]}
 			anchor="Inspektorat"
 			icon="streamline:interface-edit-zoom-in-enhance-glass-in-magnify-magnifying-zoom"
 			childPos="8"
@@ -115,7 +115,7 @@
 		<Menu
 			{userJabatan}
 			{userPrivilege}
-			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 100, 101, 4, 19]}
+			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 24, 23, 4, 19]}
 			anchor="Bidang Aset BPKAD"
 			icon="streamline:interface-align-layers-1-design-layer-layers-pile-stack"
 		>
@@ -138,7 +138,7 @@
 		<Menu
 			{userJabatan}
 			{userPrivilege}
-			jabatan={[7, 3, 1, 100, 101, 5, 20]}
+			jabatan={[7, 3, 1, 24, 23, 5, 20]}
 			anchor="Bidang Perbendaharaan BPKAD"
 			icon="streamline:interface-edit-clip-binder-clip-clipper-company-office-supplies-work"
 		>
@@ -164,7 +164,7 @@
 		<Menu
 			{userJabatan}
 			{userPrivilege}
-			jabatan={[]}
+			jabatan={[2]}
 			anchor="Pengaturan"
 			icon="streamline:interface-setting-slider-horizontal-adjustment-adjust-controls-fader-horizontal-settings-slider"
 		>
@@ -178,7 +178,7 @@
 			<Menu
 				{userJabatan}
 				{userPrivilege}
-				jabatan={[]}
+				jabatan={[2]}
 				anchor="Pengaturan Data"
 				icon="streamline:computer-database-raid-storage-code-disk-programming-database-array-hard-disc"
 			>
@@ -264,7 +264,7 @@
 				<Menu
 					{userJabatan}
 					{userPrivilege}
-					jabatan={[]}
+					jabatan={[2]}
 					anchor="Data User"
 					href="/opr/pengaturan/user operator"
 				>
@@ -278,7 +278,7 @@
 					<Menu
 						{userJabatan}
 						{userPrivilege}
-						jabatan={[]}
+						jabatan={[2]}
 						anchor="User Mitra"
 						href="/opr/pengaturan/user mitra"
 					/>

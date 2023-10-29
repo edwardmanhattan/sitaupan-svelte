@@ -11,6 +11,10 @@
 	import Icon from '@iconify/svelte';
 	let modal;
 
+	export let data;
+
+	let password = data.userJabatan == 17 ? false : true;
+
 	let source = fiero(`/operator/getAllUserMitra`);
 
 	let modifier = {
@@ -25,47 +29,53 @@
 		pageNum: { show: false }
 	};
 
-	let buttons = [
-		{
-			head: 'Edit',
-			icon: 'mdi:pencil',
-			action: (_, obj) => {
-				selected = obj;
-				modal.open();
-			}
-		}
-	];
+	let buttons =
+		data.userJabatan == 17
+			? [
+					{
+						head: 'Edit',
+						icon: 'mdi:pencil',
+						action: (_, obj) => {
+							selected = obj;
+							modal.open();
+						}
+					}
+			  ]
+			: [];
 
 	let selected = {};
 </script>
 
 <div class="flex items-center justify-between">
 	<h1>User Mitra</h1>
-	<div>
-		<button
-			on:click={async () => {
-				selected = {
-					id: 0,
-					nama: '',
-					username: '',
-					password: '',
-					nama_perusahaan: '',
-					no_telepon: '',
-					email: ''
-				};
-				modal.open();
-			}}
-		>
-			<Icon icon="bi:plus" />
-			Tambah
-		</button>
-	</div>
+
+	{#if data.userJabatan == 2 || data.userJabatan == 17}
+		<div>
+			<button
+				on:click={async () => {
+					selected = {
+						id: 0,
+						nama: '',
+						username: '',
+						password: '',
+						nama_perusahaan: '',
+						no_telepon: '',
+						email: ''
+					};
+					modal.open();
+				}}
+			>
+				<Icon icon="bi:plus" />
+				Tambah
+			</button>
+		</div>
+	{/if}
 </div>
 
 {#await source}
 	<Skeleton />
 {:then data}
-	<Table {data} {modifier} {buttons} />
+	<Table {data} {modifier} {buttons} {password} />
 {:catch err}
 	<div>{err}</div>
 {/await}

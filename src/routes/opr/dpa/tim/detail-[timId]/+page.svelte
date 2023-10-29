@@ -9,6 +9,7 @@
 	import { redirect } from '@sveltejs/kit';
 	import Back from '$lib/shortcut/back.svelte';
 	export let data;
+
 	let { form, bidang, operator, kegiatan, tim } = data;
 
 	$: pptkPresent = tim.pptk?.id !== 0;
@@ -57,13 +58,19 @@
 					bind:key={pptkIdSelect}
 					{data}
 					config={{ key: 'id', title: 'nama', title2: 'nip' }}
+					on:linkup={(response) => {
+						const { key, data } = response.detail;
+						const chosen = data.find((x) => x.id === key);
+						tim.pptk.nama = chosen.nama;
+						tim.pptk.nip = chosen.nip;
+					}}
 				/>
 			{/await}
 			<button
 				on:click={async () => {
 					const res = await fiero(`/operator/updatePPTKTimKegiatan?`, 'POST', {
 						id_pptk: pptkIdSelect,
-						id_kegiatan: tim.kegiatan
+						id_tim: tim.id
 					});
 
 					if (res.status === 200) {
