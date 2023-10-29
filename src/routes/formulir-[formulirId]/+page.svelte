@@ -501,6 +501,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="a. Rincian Spesifikasi Barang Untuk Pekerjaan TANAH"
+		bgColor="emerald-600"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -571,6 +572,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="b. Rincian Spesifikasi Barang Untuk Pekerjaan / Pengadaan"
+		bgColor="amber-600"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -648,6 +650,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="c. Rincian Spesifikasi Barang Untuk Pekerjaan BANGUNAN GEDUNG"
+		bgColor="rose-600"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -725,6 +728,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="d. Rincian Spesifikasi Barang Untuk Pekerjaan FISIK (Kecuali Bangunan Gedung)"
+		bgColor="orange-600"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -801,6 +805,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="e. Rincian Spesifikasi Barang Untuk Pekerjaan Buku / Perpustakaan, Barang Bercorak Kesenian / Kebudayaan dan Hewan / Ternak serta Tumbuhan"
+		bgColor="lime-600"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -895,6 +900,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="f. Rincian Spesifikasi Barang Untuk Pekerjaan KONSULTAN"
+		bgColor="violet-600"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button

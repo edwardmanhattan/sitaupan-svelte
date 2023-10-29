@@ -29,3 +29,9 @@ export const searchKategori = (data, kategori = '', key) => {
 	const [id, nama] = kategori;
 	return data.filter((x) => x[key] === id || x[key] === nama);
 };
+
+export const searchByStatus = (data, statusName, statusValue = []) => {
+	if (typeof statusValue === 'string') statusValue = [statusValue];
+
+	return data.filter((x) => statusValue.includes(x[statusName]));
+};

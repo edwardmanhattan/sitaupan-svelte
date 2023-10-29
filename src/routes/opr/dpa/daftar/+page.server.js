@@ -13,6 +13,7 @@ export async function load({ fetch, parent }) {
 
 	const operator = async () =>
 		await fetch(config.api + `/operator/getAllUserOperator`).then((res) => res.json());
+
 	return {
 		_data: (await data()).data,
 		// _data: [{ id: 0 }, { id: 1 }],

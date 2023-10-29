@@ -25,13 +25,12 @@
 
 <input
 	type="search"
-	placeholder="Masukan Nomor SPM, Nomor Kontrak, Kode Rekening, Uraian Pekerjaan"
+	placeholder="Masukan Nomor SPM / Nomor Kontrak / Kode Rekening / Uraian Pekerjaan ... (klik 'Enter' untuk mencari)"
 	class="p-2 text-base"
 	bind:value={keyword}
 	on:keydown={({ key }) => {
 		if (key !== 'Enter') return;
 		source = `/mitra/searchFormulir?id_mitra=${userId}&keyword=${keyword}`;
-		console.log(source);
 	}}
 />
 

@@ -14,6 +14,7 @@
 	import { getYearsSince } from '$lib/js/datetime.js';
 	import { setModifierHidden, setModifierShown } from '$lib/js/modifier';
 	import Year from '$lib/shortcut/year.svelte';
+	import Send from '$lib/shortcut/send.svelte';
 
 	export let data;
 	const { barebone, dpa, bidang, jenis, userBidang } = data;
@@ -448,8 +449,8 @@
 		<Row number="8" title="Sumber Dana">
 			<button
 				on:click={() => {
-					selected.rincian_sub_kegiatan.sumber_dana = [
-						...selected.rincian_sub_kegiatan.sumber_dana,
+					selected.rincian_sub_kegiatan.sumber_dana_dummy = [
+						...selected.rincian_sub_kegiatan.sumber_dana_dummy,
 						{ sumber_dana: '', nilai: 0 }
 					];
 				}}
@@ -470,7 +471,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each selected.rincian_sub_kegiatan.sumber_dana ?? [{ sumber_dana: '', nilai: 0 }] as { sumber_dana, nilai }, i (i)}
+				{#each selected.rincian_sub_kegiatan.sumber_dana_dummy ?? [{ sumber_dana: '', nilai: 0 }] as { sumber_dana, nilai }, i (i)}
 					<tr>
 						<td>{i + 1}</td>
 						<td>
@@ -514,16 +515,11 @@
 		</table>
 
 		<br />
-		<button
+		<Send
 			on:click={async () => {
 				selected.rincian_sub_kegiatan.sumber_dana = JSON.stringify(
-					selected.rincian_sub_kegiatan.sumber_dana
+					selected.rincian_sub_kegiatan.sumber_dana_dummy
 				);
-
-				console.log({
-					jenis: subPage,
-					...selected.rincian_sub_kegiatan
-				});
 
 				try {
 					const res = await fiero(`/operator/insertDataMapping`, 'POST', {
@@ -536,7 +532,6 @@
 				} catch (err) {
 					snack.info('Terjadi kesalahan.');
 				} finally {
-					selected.rincian_sub_kegiatan.sumber_dana = { sumber_dana: 1, nilai: 0 };
 					modal.close();
 					changeSubPage('rincian_sub_kegiatan');
 					source = fiero(
@@ -544,8 +539,6 @@
 					);
 				}
 			}}
-		>
-			Simpan
-		</button>
+		/>
 	{/if}
 </Modal>

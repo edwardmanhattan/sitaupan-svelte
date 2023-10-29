@@ -16,6 +16,7 @@
 
 	let { _data = [], modifier = {}, operator } = data;
 
+	// console.log(data);
 	_data = _data.map((obj) => ({ ...obj, edit_spm: false }));
 
 	let searchText = '';

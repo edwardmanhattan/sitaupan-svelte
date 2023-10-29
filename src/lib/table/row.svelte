@@ -1,6 +1,7 @@
 <script>
 	export let number = '';
 	export let title = '';
+	export let bgColor = 'transparent';
 
 	export let userId = '';
 	export let able = '';
@@ -13,13 +14,13 @@
 	{/if}
 
 	{#if li}
-		<div class="w-4/12 shrink-0">
+		<div class="w-4/12 shrink-0 bg-{bgColor}">
 			<li style="padding-left: -1em">
 				{title}
 			</li>
 		</div>
 	{:else}
-		<div class="w-4/12 shrink-0">{title}</div>
+		<div class="w-4/12 shrink-0 bg-{bgColor}">{title}</div>
 	{/if}
 
 	<div class="w-2">:</div>

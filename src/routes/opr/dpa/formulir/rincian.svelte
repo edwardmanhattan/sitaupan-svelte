@@ -4,7 +4,7 @@
 
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { formatFullDate } from '$lib/js/datetime';
-	import { searchEachText } from '$lib/js/search';
+	import { searchByStatus, searchEachText } from '$lib/js/search';
 	import { rupiah } from '$lib/js/currency';
 
 	import Icon from '@iconify/svelte';
@@ -28,7 +28,11 @@
 	let searchText = '';
 	let interval = '10';
 
-	$: page = new Pagination(searchEachText(rincianData, searchText), parseInt(interval));
+	let tombolOn = ['hijau', 'merah'];
+	$: page = new Pagination(
+		searchEachText(searchByStatus(rincianData, 'tombol', tombolOn), searchText),
+		parseInt(interval)
+	);
 	$: display = page.chop();
 	$: currentPage = page.getCurrentPage();
 
@@ -68,7 +72,7 @@
 
 <div>
 	<div class="flex items-center justify-between gap-2">
-		<div />
+		<div class="flex items-center gap-2" />
 		<div class="flex items-center gap-2">
 			<select class="w-24 text-sm" bind:value={interval}>
 				<option value="10">10</option>
@@ -77,6 +81,26 @@
 				<option value="100">100</option>
 			</select>
 			<input type="text" bind:value={searchText} class="text-sm" placeholder="cari..." />
+			<button
+				on:click={() => {
+					if (tombolOn.includes('hijau')) tombolOn = tombolOn.filter((x) => x !== 'hijau');
+					else tombolOn = [...tombolOn, 'hijau'];
+				}}
+				class:bg-amber-400={tombolOn.includes('hijau')}
+				class="grid w-16 text-2xl place-items-center text-emerald-600"
+			>
+				<Icon icon="mdi:circle" />
+			</button>
+			<button
+				on:click={() => {
+					if (tombolOn.includes('merah')) tombolOn = tombolOn.filter((x) => x !== 'merah');
+					else tombolOn = [...tombolOn, 'merah'];
+				}}
+				class:bg-amber-400={tombolOn.includes('merah')}
+				class="grid w-16 text-2xl text-red-600 place-items-center"
+			>
+				<Icon icon="mdi:circle" />
+			</button>
 		</div>
 	</div>
 	<div id="table" class="w-full overflow-auto">

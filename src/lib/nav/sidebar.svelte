@@ -49,7 +49,7 @@
 					/>
 				{/if}
 
-				{#if checkJabatan([2, 12, 16])}
+				{#if checkJabatan([12, 16])}
 					<Menu
 						anchor="Daftar Kegiatan"
 						href="/opr/dpa/daftar"
