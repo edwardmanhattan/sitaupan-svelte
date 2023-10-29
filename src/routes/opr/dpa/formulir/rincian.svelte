@@ -4,7 +4,7 @@
 
 	import { getKeyModifier, shownKeyModifier } from '$lib/js/modifier';
 	import { formatFullDate } from '$lib/js/datetime';
-	import { searchByStatus, searchEachText } from '$lib/js/search';
+	import { searchBidang, searchByStatus, searchEachText } from '$lib/js/search';
 	import { rupiah } from '$lib/js/currency';
 
 	import Icon from '@iconify/svelte';
@@ -12,6 +12,7 @@
 	import { snack } from '$lib/js/vanilla';
 	import { fiero } from '$lib/js/fiero';
 	import { createEventDispatcher } from 'svelte';
+	import Bidang from '$lib/shortcut/bidang.svelte';
 
 	export let rincianData = [];
 	export let listMitra = [];
@@ -28,18 +29,26 @@
 	let searchText = '';
 	let interval = '10';
 
-	let tombolOn = ['hijau', 'merah'];
-	$: page = new Pagination(
-		searchEachText(searchByStatus(rincianData, 'tombol', tombolOn), searchText),
-		parseInt(interval)
-	);
-	$: display = page.chop();
-	$: currentPage = page.getCurrentPage();
-
 	let keyModifier = getKeyModifier(rincianData, {
 		pageNum: { alias: 'No', show: true, export: true },
 		...modifier
 	});
+
+	let tombolOn = ['hijau', 'merah'];
+
+	let bidangExist = Object.keys(keyModifier).find((k) => k.includes('bidang'));
+	let bidang = '';
+
+	$: page = new Pagination(
+		searchBidang(
+			searchEachText(searchByStatus(rincianData, 'tombol', tombolOn), searchText),
+			bidang,
+			bidangExist
+		),
+		parseInt(interval)
+	);
+	$: display = page.chop();
+	$: currentPage = page.getCurrentPage();
 
 	///////////////////////////////////////////////////////////
 
@@ -72,7 +81,9 @@
 
 <div>
 	<div class="flex items-center justify-between gap-2">
-		<div class="flex items-center gap-2" />
+		<div class="flex items-center gap-2">
+			<Bidang bind:bidang />
+		</div>
 		<div class="flex items-center gap-2">
 			<select class="w-24 text-sm" bind:value={interval}>
 				<option value="10">10</option>

@@ -14,7 +14,7 @@
 	let source = fiero(`/operator/getAllJabatan`);
 
 	let modifier = {
-		// id: { show: false },
+		id: { show: false },
 		edit: { show: false }
 	};
 

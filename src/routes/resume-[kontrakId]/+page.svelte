@@ -173,7 +173,7 @@
 						<div>{formatFullDate(form.tgl_ba_pemeriksaan)}</div>
 					</Row>
 
-					<Row number="22" title="Nomor Berita Acara Pembayaran">
+					<Row number="19" title="Nomor Berita Acara Pembayaran">
 						<div>{form.no_ba_pembayaran}</div>
 					</Row>
 
@@ -181,7 +181,7 @@
 						<div>{formatFullDate(form.tgl_ba_pembayaran)}</div>
 					</Row>
 
-					<Row number="23" title="Lampiran Perincian Total Pengeluaran" />
+					<Row number="20" title="Lampiran Perincian Total Pengeluaran" />
 
 					<br />
 

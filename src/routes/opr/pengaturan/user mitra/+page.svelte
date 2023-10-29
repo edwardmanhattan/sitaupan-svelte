@@ -30,7 +30,7 @@
 	};
 
 	let buttons =
-		data.userJabatan == 17
+		data.userJabatan == 17 || data.userJabatan == 2
 			? [
 					{
 						head: 'Edit',
@@ -89,11 +89,19 @@
 	<br />
 
 	<label>Username</label>
-	<input type="text" bind:value={selected.username} />
+	{#if data.userJabatan == 17}
+		<input type="text" bind:value={selected.username} />
+	{:else}
+		<input type="text" bind:value={selected.username} disabled />
+	{/if}
 	<br />
 
 	<label>Password</label>
-	<input type="password" bind:value={selected.password} />
+	{#if data.userJabatan == 17}
+		<input type="password" bind:value={selected.password} />
+	{:else}
+		<input type="password" bind:value={selected.password} disabled />
+	{/if}
 	<br />
 
 	<label>Email</label>
