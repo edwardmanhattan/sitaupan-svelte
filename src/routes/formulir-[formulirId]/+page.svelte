@@ -450,7 +450,7 @@
 		{/await}
 	</Row> -->
 
-	<Row userId={form.id_jenis_penyedia} able="1,5" number="27" title="Ukuran" />
+	<Row userId={form.id_jenis_penyedia} able="1,5" number="26" title="Ukuran" />
 
 	<Row userId={form.id_jenis_penyedia} able="1,5" number="" title="a. Panjang">
 		<input type="number" bind:value={form.ukuran_panjang} />
@@ -460,14 +460,14 @@
 		<input type="number" bind:value={form.ukuran_lebar} />
 	</Row>
 
-	<Row userId={form.id_jenis_penyedia} able="1,2,3" number="28" title="Konstruksi">
+	<Row userId={form.id_jenis_penyedia} able="1,2,3" number="27" title="Konstruksi">
 		<input type="text" bind:value={form.kontruksi} />
 	</Row>
 
 	<Row
 		userId={form.id_jenis_penyedia}
 		able="1,2,3,4,5,6"
-		number="29"
+		number="28"
 		title="Berita Acara Pemeriksaan"
 	/>
 
@@ -482,7 +482,7 @@
 	<Row
 		userId={form.id_jenis_penyedia}
 		able="1,2,3,4,5,6"
-		number="30"
+		number="29"
 		title="Berita Acara Pembayaran"
 	/>
 
@@ -494,7 +494,7 @@
 		<input type="date" bind:value={form.tanggal_ba_pembayaran} />
 	</Row>
 
-	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="31" title="Rincian KIB (Aset)" />
+	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="30" title="Rincian KIB (Aset)" />
 
 	<Row
 		userId={form.id_jenis_penyedia}

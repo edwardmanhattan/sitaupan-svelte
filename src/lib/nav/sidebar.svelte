@@ -6,7 +6,7 @@
 
 	export let privilege = { userJabatan: 17, userPrivilege: 17 };
 
-	let { userJabatan, userPrivilege } = privilege;
+	let { userJabatan, userPrivilege, userNama, userNamaJabatan } = privilege;
 	userJabatan = userJabatan.split(',').map((x) => parseInt(x));
 </script>
 
@@ -287,6 +287,10 @@
 		</Menu>
 
 		<div class="mt-auto" />
+		<div class="px-3">
+			<div>{userNama}</div>
+			<div class="text-xs font-normal">{userNamaJabatan ?? ''}</div>
+		</div>
 
 		<Menu anchor="Logout" href="/logout" icon="basil:logout-solid" />
 	</nav>

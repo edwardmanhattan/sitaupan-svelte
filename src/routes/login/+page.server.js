@@ -40,7 +40,7 @@ export const actions = {
 			} else {
 				cookies.set(
 					'AuthUser',
-					`${data.key}.${data.user.id}.${data.privilege}.${data.tipe}.${data.user.jabatan}.${data.user.bidang}`,
+					`${data.key}.${data.user.id}.${data.privilege}.${data.tipe}.${data.user.jabatan}.${data.user.bidang}.${data.user.nama}.${data.user.nama_jabatan}`,
 					{
 						maxAge: 60 * 60 * 24,
 						sameSite: 'strict',

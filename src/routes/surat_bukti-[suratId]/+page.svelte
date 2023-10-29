@@ -128,7 +128,7 @@
 
 					<!--  -->
 
-					<div class="grid grid-cols-3 text-sm">
+					<div class="grid grid-cols-{form.tipe_surat} text-sm">
 						<div class="p-2 border border-black signature border-e-0">
 							<div>
 								<div>Mengetahui / Menyetujui</div>
@@ -136,10 +136,21 @@
 							</div>
 
 							<div>
-								<div class="underline uppercase">{form.nama_penjabat_2}</div>
-								<div>NIP. &nbsp; {form.nip_penjabat_2}</div>
+								<div class="underline uppercase">{form.nama_penjabat_1}</div>
+								<div>NIP. &nbsp; {form.nip_penjabat_1}</div>
 							</div>
 						</div>
+
+						{#if form.tipe_surat == 4}
+							<div class="p-2 border border-black signature border-e-0">
+								<div>Pejabat Pembuat Komitmen</div>
+
+								<div>
+									<div class="underline uppercase">{form.nama_penjabat_2}</div>
+									<div>NIP. &nbsp; {form.nip_penjabat_2}</div>
+								</div>
+							</div>
+						{/if}
 
 						<div class="p-2 border border-black signature border-e-0">
 							<div>Pejabat Pelaksana Teknis Kegiatan</div>

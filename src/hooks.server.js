@@ -8,9 +8,20 @@ export const handle = async ({ event, resolve }) => {
 	const userTipe = auth?.split('.')[3] ?? 'operator';
 	const userJabatan = auth?.split('.')[4] ?? 17;
 	const userBidang = auth?.split('.')[5] ?? 1;
+	const userNama = auth?.split('.')[6] ?? '';
+	const userNamaJabatan = auth?.split('.')[7] ?? '';
 
 	if (auth) {
-		event.locals = { apiKey, userId, userPrivilege, userTipe, userJabatan, userBidang };
+		event.locals = {
+			apiKey,
+			userId,
+			userPrivilege,
+			userTipe,
+			userJabatan,
+			userBidang,
+			userNama,
+			userNamaJabatan
+		};
 	} else {
 	}
 

@@ -30,7 +30,7 @@
 		id_form: { show: false }
 	};
 
-	let keyModifier = getKeyModifier(data[mode] ?? [{}], {
+	$: keyModifier = getKeyModifier(data[mode] ?? [{}], {
 		pageNum: { alias: 'No', show: true, export: true },
 		...modifier
 	});
@@ -57,25 +57,29 @@
 	<div class="flex items-center gap-4">
 		<button
 			class:active={mode === 'formulir_baru'}
-			on:click={() => {
+			on:click={async () => {
 				mode = 'formulir_baru';
 			}}
-			class="subpage">Formulir Baru</button
+			class="subpage"
 		>
+			Formulir Baru
+		</button>
 		<button
 			class:active={mode === 'menunggu'}
-			on:click={() => {
+			on:click={async () => {
 				mode = 'menunggu';
 			}}
 			class="subpage">Menunggu</button
 		>
 		<button
 			class:active={mode === 'selesai'}
-			on:click={() => {
+			on:click={async () => {
 				mode = 'selesai';
 			}}
-			class="subpage">Selesai</button
+			class="subpage"
 		>
+			Selesai
+		</button>
 
 		<div class="flex items-center gap-4 ml-auto w-fit">
 			<div class="ml-auto font-semibold">{origin}</div>
@@ -199,6 +203,7 @@
 												data.selesai =
 													(await fiero(apiUrl + `?id_mapping_dpa=${selected.id}&mode=selesai`)) ??
 													[];
+												console.log(data.selesai);
 												mode = 'selesai';
 											}
 										}}
