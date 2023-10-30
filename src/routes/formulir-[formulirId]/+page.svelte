@@ -10,6 +10,8 @@
 	import Currency from '$lib/form/currency.svelte';
 	import Select from '$lib/form/select.svelte';
 	import { objectTypeParser, typeParser } from '$lib/js/modifier.js';
+	import Back from '$lib/shortcut/back.svelte';
+
 	let modal;
 	export let data;
 
@@ -22,7 +24,10 @@
 </script>
 
 <div class="h-screen px-24 py-12 overflow-auto">
-	<h1>FORMULIR PENYEDIA JASA</h1>
+	<div class="flex items-center gap-2">
+		<Back />
+		<h1>FORMULIR PENYEDIA JASA</h1>
+	</div>
 	<br />
 
 	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="1" title="Nomor SPM">
@@ -501,7 +506,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="a. Rincian Spesifikasi Barang Untuk Pekerjaan TANAH"
-		bgColor="emerald-600"
+		bgColor="green"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -572,7 +577,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="b. Rincian Spesifikasi Barang Untuk Pekerjaan / Pengadaan"
-		bgColor="amber-600"
+		bgColor="teal"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -650,7 +655,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="c. Rincian Spesifikasi Barang Untuk Pekerjaan BANGUNAN GEDUNG"
-		bgColor="rose-600"
+		bgColor="crimson"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -728,7 +733,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="d. Rincian Spesifikasi Barang Untuk Pekerjaan FISIK (Kecuali Bangunan Gedung)"
-		bgColor="orange-600"
+		bgColor="orange"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -805,7 +810,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="e. Rincian Spesifikasi Barang Untuk Pekerjaan Buku / Perpustakaan, Barang Bercorak Kesenian / Kebudayaan dan Hewan / Ternak serta Tumbuhan"
-		bgColor="lime-600"
+		bgColor="lime"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button
@@ -900,7 +905,7 @@
 		able="1,2,3,4,5,6"
 		number=""
 		title="f. Rincian Spesifikasi Barang Untuk Pekerjaan KONSULTAN"
-		bgColor="violet-600"
+		bgColor="violet"
 	>
 		{#if form.status !== 'menunggu' && form.status !== 'selesai'}
 			<button

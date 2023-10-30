@@ -14,13 +14,13 @@
 	{/if}
 
 	{#if li}
-		<div class="w-4/12 shrink-0 bg-{bgColor}">
+		<div class="w-4/12 shrink-0" style="background-color: {bgColor};">
 			<li style="padding-left: -1em">
 				{title}
 			</li>
 		</div>
 	{:else}
-		<div class="w-4/12 shrink-0 bg-{bgColor}">{title}</div>
+		<div class="w-4/12 bg-white shrink-0" style="background-color: {bgColor};">{title}</div>
 	{/if}
 
 	<div class="w-2">:</div>
