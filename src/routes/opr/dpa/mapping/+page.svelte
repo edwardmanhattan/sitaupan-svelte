@@ -497,8 +497,8 @@
 						<td>
 							<button
 								on:click={() => {
-									selected.rincian_sub_kegiatan.sumber_dana =
-										selected.rincian_sub_kegiatan.sumber_dana.filter((x, idx) => idx !== i);
+									selected.rincian_sub_kegiatan.sumber_dana_dummy =
+										selected.rincian_sub_kegiatan.sumber_dana_dummy.filter((x, idx) => idx !== i);
 								}}
 								class="p-1 bg-red-1 text-white-1"
 							>
