@@ -6,7 +6,7 @@
 	export let value;
 
 	let display = rupiah(value);
-	$: value = numeric(display);
+	$: value = numeric(display, up);
 
 	let element;
 	export let onChange = () => {};

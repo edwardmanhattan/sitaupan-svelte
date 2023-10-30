@@ -78,13 +78,16 @@
 		}
 	}
 
+	let currentRekening = '';
 	$: buttons = [
 		{
 			head: `List ${formatTitle(subPages[subPages.findIndex((str) => str === subPage) + 1] ?? '')}`,
 			body: `Lihat ${formatTitle(
 				subPages[subPages.findIndex((str) => str === subPage) + 1] ?? ''
 			)}`,
-			action: (id) => {
+			icon: 'bi:eye',
+			action: (id, data) => {
+				currentRekening = data[`kode_rek_${subPage}`];
 				changeSubPage(
 					subPages[subPages.findIndex((str) => str === subPage) + 1],
 					`getChildDPA?id=${id}&`
@@ -94,6 +97,7 @@
 		},
 		{
 			head: 'Aksi',
+			body: 'Hapus',
 			icon: 'bi:trash',
 			color: 'red-1',
 			textColor: 'white',
@@ -136,8 +140,15 @@
 	</div>
 	<div>
 		<button
-			on:click={() => {
-				selected[subPage] = JSON.parse(JSON.stringify(barebone[subPage]));
+			on:click={async () => {
+				selected[subPage] = await JSON.parse(JSON.stringify(barebone[subPage]));
+
+				if (subPage === 'kegiatan') selected[subPage]['kode_rekening_program'] = currentRekening;
+				else if (subPage === 'sub_kegiatan')
+					selected[subPage]['kode_rekening_kegiatan'] = currentRekening;
+				else if (subPage === 'rincian_sub_kegiatan')
+					selected[subPage]['kode_rekening_sub_kegiatan'] = currentRekening;
+
 				modal.open();
 			}}
 		>
@@ -146,6 +157,7 @@
 		</button>
 	</div>
 </div>
+
 <div class="flex items-center justify-end gap-2">
 	<Year bind:year={tahun} />
 </div>
@@ -242,7 +254,7 @@
 					bind:key={selected.kegiatan.kode_rekening_program}
 					{data}
 					config={{ key: 'kode_rek_program', title: 'kode_rek_program' }}
-					onChange={async () => {
+					on:linkup={async () => {
 						const list = await fiero(
 							`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=kegiatan`
 						);
@@ -303,7 +315,7 @@
 					bind:key={selected.sub_kegiatan.kode_rekening_kegiatan}
 					{data}
 					config={{ key: 'kode_rek_kegiatan', title: 'kode_rek_kegiatan' }}
-					onChange={async () => {
+					on:linkup={async () => {
 						const list = await fiero(
 							`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=sub_kegiatan`
 						);

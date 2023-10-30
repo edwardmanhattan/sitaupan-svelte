@@ -21,6 +21,7 @@
 		status: { show: false },
 		privilege: { show: false },
 		id_jabatan: { show: false },
+		nama_jabatan: { show: false },
 		id_bidang: { show: false }
 	};
 
@@ -120,18 +121,20 @@
 	{#await fiero(`/operator/getAllJabatan?privilege=true`) then priv}
 		<div class="grid grid-cols-4 gap-2 my-1">
 			{#each priv as p}
-				<label>
-					<input
-						type="checkbox"
-						checked={privilegeSelected.includes(p.id)}
-						on:change={() => {
-							if (privilegeSelected.includes(p.id))
-								privilegeSelected = privilegeSelected.filter((x) => x !== p.id);
-							else privilegeSelected = [...privilegeSelected, p.id];
-						}}
-					/>
-					{p.nama_jabatan}
-				</label>
+				{#if p.nama_jabatan !== 'joker'}
+					<label>
+						<input
+							type="checkbox"
+							checked={privilegeSelected.includes(p.id)}
+							on:change={() => {
+								if (privilegeSelected.includes(p.id))
+									privilegeSelected = privilegeSelected.filter((x) => x !== p.id);
+								else privilegeSelected = [...privilegeSelected, p.id];
+							}}
+						/>
+						{p.nama_jabatan}
+					</label>
+				{/if}
 			{/each}
 		</div>
 	{/await}
