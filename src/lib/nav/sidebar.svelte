@@ -5,15 +5,22 @@
 	import { fiero } from '$lib/js/fiero';
 	import { snack } from '$lib/js/vanilla';
 	import Modal from '$lib/modal/modal.svelte';
+	import { userInfo } from '$lib/stores/stores';
 	import Menu from './menu.svelte';
 
 	export let privilege = { userJabatan: 17, userPrivilege: 17 };
 
-	let { userJabatan, userPrivilege, userNama, userNamaJabatan, userFullData } = privilege;
+	let { userJabatan, userBidang, userPrivilege, userNama, userNamaJabatan, userFullData } =
+		privilege;
 	userJabatan = userJabatan.split(',').map((x) => parseInt(x));
 
 	let selected = userFullData;
 	let modal;
+
+	$userInfo = {
+		jabatan: userJabatan[0],
+		bidang: parseInt(userBidang)
+	};
 </script>
 
 <div class="flex flex-col h-screen gap-4 py-5 font-semibold text-teal-950 w-fit bg-blue-2">
