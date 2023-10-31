@@ -7,8 +7,8 @@
 	import { rupiah } from '$lib/js/currency';
 
 	import Icon from '@iconify/svelte';
-	import Kategori from '$lib/shortcut/kategori.svelte';
 	import Bidang from '$lib/shortcut/bidang.svelte';
+	import Kategori from '$lib/shortcut/kategori.svelte';
 
 	import { snack } from '$lib/js/vanilla';
 	import { Pagination } from '$lib/js/pagination';

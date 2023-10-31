@@ -2,12 +2,18 @@
 	// @ts-nocheck
 
 	import logo from '$lib/assets/logo.webp';
+	import { fiero } from '$lib/js/fiero';
+	import { snack } from '$lib/js/vanilla';
+	import Modal from '$lib/modal/modal.svelte';
 	import Menu from './menu.svelte';
 
 	export let privilege = { userJabatan: 17, userPrivilege: 17 };
 
-	let { userJabatan, userPrivilege, userNama, userNamaJabatan } = privilege;
+	let { userJabatan, userPrivilege, userNama, userNamaJabatan, userFullData } = privilege;
 	userJabatan = userJabatan.split(',').map((x) => parseInt(x));
+
+	let selected = userFullData;
+	let modal;
 </script>
 
 <div class="flex flex-col h-screen gap-4 py-5 font-semibold text-teal-950 w-fit bg-blue-2">
@@ -287,14 +293,68 @@
 		</Menu>
 
 		<div class="mt-auto" />
-		<div class="px-3">
+		<button
+			on:click={() => {
+				modal.open();
+			}}
+			class="flex-col items-start px-3"
+		>
 			<div>{userNama}</div>
 			<div class="text-xs font-normal">{userNamaJabatan ?? ''}</div>
-		</div>
+		</button>
 
 		<Menu anchor="Logout" href="/logout" icon="basil:logout-solid" />
 	</nav>
 </div>
+
+<!-- svelte-ignore a11y-label-has-associated-control -->
+<Modal bind:this={modal}>
+	<label>Nama</label>
+	<input type="text" bind:value={selected.nama} />
+	<br />
+
+	<label>Jabatan</label>
+	<input type="text" bind:value={selected.nama_jabatan} disabled />
+	<br />
+
+	<label>Username</label>
+	<input type="text" bind:value={selected.username} disabled />
+	<br />
+
+	<label>Password</label>
+	<input type="password" bind:value={selected.password} />
+	<br />
+
+	<label>No Telepon</label>
+	<input type="text" bind:value={selected.no_telepon} />
+	<br />
+
+	<label>NIP</label>
+	<input type="text" bind:value={selected.nip} />
+	<br />
+
+	<label>Jenis Kelamin</label>
+	<select bind:value={selected.gender}>
+		<option value="Pria">Pria</option>
+		<option value="Wanita">Wanita</option>
+	</select>
+
+	<br />
+	<br />
+	<button
+		on:click={async () => {
+			selected.id_jabatan = selected.jabatan;
+			const res = await fiero(`/operator/updateUserOperator`, 'POST', selected);
+			if (res.status === 200) {
+				snack.info('Berhasil mengubah informasi User');
+			} else snack.info('Terjadi Kesalahan');
+			userNama = selected.nama;
+			modal.close();
+		}}
+	>
+		Simpan
+	</button>
+</Modal>
 
 <style lang="postcss">
 	@tailwind components;

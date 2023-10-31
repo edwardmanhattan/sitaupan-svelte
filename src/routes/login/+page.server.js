@@ -32,15 +32,15 @@ export const actions = {
 				}
 			).then((res) => res.json());
 
-			console.log(status, data);
-
 			if (!status || status !== 200) {
 				loginResponse.message = data;
 				loginResponse.error = true;
 			} else {
 				cookies.set(
 					'AuthUser',
-					`${data.key}.${data.user.id}.${data.privilege}.${data.tipe}.${data.user.jabatan}.${data.user.bidang}.${data.user.nama}.${data.user.nama_jabatan}`,
+					`${data.key}.${data.user.id}.${data.privilege}.${data.tipe}.${data.user.jabatan}.${
+						data.user.bidang
+					}.${data.user.nama}.${data.user.nama_jabatan}.${JSON.stringify(data.user)}`,
 					{
 						maxAge: 60 * 60 * 24,
 						sameSite: 'strict',

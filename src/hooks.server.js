@@ -11,6 +11,8 @@ export const handle = async ({ event, resolve }) => {
 	const userNama = auth?.split('.')[6] ?? '';
 	const userNamaJabatan = auth?.split('.')[7] ?? '';
 
+	const userFullData = auth === undefined ? {} : JSON.parse(auth?.split('.')[8]);
+
 	if (auth) {
 		event.locals = {
 			apiKey,
@@ -20,7 +22,8 @@ export const handle = async ({ event, resolve }) => {
 			userJabatan,
 			userBidang,
 			userNama,
-			userNamaJabatan
+			userNamaJabatan,
+			userFullData
 		};
 	} else {
 	}
