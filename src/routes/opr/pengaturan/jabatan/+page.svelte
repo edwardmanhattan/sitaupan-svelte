@@ -22,40 +22,6 @@
 		pageNum: { show: false }
 	};
 
-	let buttons = [
-		{
-			head: 'Edit',
-			icon: 'mdi:pencil',
-			action: (_, obj) => {
-				if (obj.edit === 0) {
-					snack.info('Data ini tidak bisa diubah.');
-					return;
-				}
-				selected = obj;
-				modal.open();
-			},
-			exception: [{ key: 'edit', value: 0, body: '(no edit)' }]
-		},
-		{
-			head: 'Hapus',
-			icon: 'bi:trash',
-			color: 'red-1',
-			textColor: 'white',
-			action: async (id, obj) => {
-				if (obj.edit === 0) {
-					snack.info('Data ini tidak bisa dihapus.');
-					return;
-				}
-
-				const res = await fiero(`/operator/deleteJabatan`, 'POST', { id });
-				if (res.status === 200) snack.info('Berhasil menghapus data');
-				else snack.info('Terjadi kesalahan');
-				source = fiero(`/operator/getAllJabatan`);
-			},
-			exception: [{ key: 'edit', value: 0, body: '(no delete)' }]
-		}
-	];
-
 	let selected = {};
 </script>
 
@@ -77,7 +43,45 @@
 {#await source}
 	<Skeleton />
 {:then data}
-	<Table {data} {modifier} {buttons} />
+	<Table {data} {modifier}>
+		<svelte:fragment slot="head">
+			<th>Edit</th>
+			<th>Hapus</th>
+		</svelte:fragment>
+		<svelte:fragment slot="body" let:tr>
+			<td>
+				{#if tr.edit == 1}
+					<button
+						on:click={() => {
+							selected = tr;
+							modal.open();
+						}}
+						class="mx-auto w-fit"
+					>
+						<Icon icon="mdi:pencil" />
+					</button>
+				{/if}
+			</td>
+
+			<td>
+				{#if tr.edit == 1}
+					<button
+						on:click={() => {
+							snack.confirm('Anda yakin ingin menghapus jabatan ini?', async () => {
+								const res = await fiero(`/operator/deleteJabatan`, 'POST', { id: tr.id });
+								if (res.status === 200) snack.info('Berhasil menghapus data');
+								else snack.info('Terjadi kesalahan');
+								source = fiero(`/operator/getAllJabatan`);
+							});
+						}}
+						class="mx-auto w-fit bg-red-1 text-white-1"
+					>
+						<Icon icon="mdi:trash-can" />
+					</button>
+				{/if}
+			</td>
+		</svelte:fragment>
+	</Table>
 {:catch err}
 	<div>{err}</div>
 {/await}

@@ -13,7 +13,7 @@ export async function load({ fetch, params }) {
 		).then((res) => res.json());
 
 	return {
-		kib: (await kib()).data.map((x) => ({ ...x, ...x.detail_kib })) ?? [],
+		kib: (await kib())?.data?.map((x) => ({ ...x, ...x.detail_kib })) ?? [],
 		kode: params.kode,
 		modifier: {
 			id: { show: false },

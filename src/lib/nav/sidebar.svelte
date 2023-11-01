@@ -6,6 +6,7 @@
 	import { snack } from '$lib/js/vanilla';
 	import Modal from '$lib/modal/modal.svelte';
 	import { userInfo } from '$lib/stores/stores';
+	import Icon from '@iconify/svelte';
 	import Menu from './menu.svelte';
 
 	export let privilege = { userJabatan: 17, userPrivilege: 17 };
@@ -304,10 +305,13 @@
 			on:click={() => {
 				modal.open();
 			}}
-			class="flex-col items-start px-3"
+			class="justify-between px-3 border-0"
 		>
-			<div>{userNama}</div>
-			<div class="text-xs font-normal">{userNamaJabatan ?? ''}</div>
+			<div class="text-left">
+				<div>{userNama}</div>
+				<div class="text-xs font-normal">{userNamaJabatan ?? ''}</div>
+			</div>
+			<Icon icon="basil:settings-alt-outline" />
 		</button>
 
 		<Menu anchor="Logout" href="/logout" icon="basil:logout-solid" />

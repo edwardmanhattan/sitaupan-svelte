@@ -118,6 +118,7 @@
 					{#each buttons as button}
 						<th>{button.head}</th>
 					{/each}
+					<slot name="head" />
 				</tr>
 			</thead>
 			<tbody>
@@ -168,6 +169,7 @@
 								</button>
 							</td>
 						{/each}
+						<slot name="body" {tr} />
 					</tr>
 				{:else}
 					<tr class="text-center border border-gray-1">
