@@ -2,9 +2,9 @@
 
 export const config = {
 	self: 'http://localhost:5173',
-	api: 'http://sw.crossnet.co.id:3456',
-	photo: 'http://sw.crossnet.co.id:2682/getPhoto',
-	online: 'http://sitaupan.annieprojects.id'
+	api: 'https://sitaupan.annieprojects.id:3456',
+	photo: 'https://sitaupan.annieprojects.id:2682/getPhoto',
+	online: 'https://sitaupan.annieprojects.id'
 };
 
 export const defaultHeaders = {

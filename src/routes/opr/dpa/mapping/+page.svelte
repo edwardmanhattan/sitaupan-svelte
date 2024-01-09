@@ -22,7 +22,7 @@
 
 	let sourceAPI = `getListDataDPAByJenis?`;
 	let subPage = 'program';
-	let subPages = ['program', 'kegiatan', 'sub_kegiatan', 'rincian_sub_kegiatan'];
+	let subPages = ['program', 'kegiatan', 'sub_kegiatan', 'rincian_sub_kegiatan', 'nama_pekerjaan'];
 
 	let tahun = '';
 
@@ -74,7 +74,15 @@
 				'kode_rek_sub_kegiatan',
 				'kode_rek_rincian_sub_kegiatan'
 			]);
-			modifier = setModifierHidden(modifier, ['no_dpa', 'bidang']);
+			modifier = setModifierHidden(modifier, ['no_dpa', 'bidang', 'jenis_pekerjaan']);
+		} else if (sub === 'nama_pekerjaan') {
+			modifier = setModifierShown(modifier, [
+				'kode_rek_kegiatan',
+				'kode_rek_sub_kegiatan',
+				'kode_rek_rincian_sub_kegiatan',
+				'jenis_pekerjaan'
+			]);
+			modifier = setModifierHidden(modifier, ['tanggal_dpa', 'no_dpa', 'bidang']);
 		}
 	}
 
@@ -118,10 +126,16 @@
 	];
 
 	$: {
-		if (subPage === 'rincian_sub_kegiatan') buttons = [buttons[1]];
+		if (subPage === 'nama_pekerjaan') buttons = [buttons[1]];
 	}
 
-	let selected = { program: {}, kegiatan: {}, sub_kegiatan: {}, rincian_sub_kegiatan: {} };
+	let selected = {
+		program: {},
+		kegiatan: {},
+		sub_kegiatan: {},
+		rincian_sub_kegiatan: {},
+		nama_pekerjaan: {}
+	};
 </script>
 
 <div class="flex items-center justify-between mb-2">
@@ -148,6 +162,8 @@
 					selected[subPage]['kode_rekening_kegiatan'] = currentRekening;
 				else if (subPage === 'rincian_sub_kegiatan')
 					selected[subPage]['kode_rekening_sub_kegiatan'] = currentRekening;
+				else if (subPage === 'nama_pekerjaan')
+					selected[subPage]['kode_rekening_rincian_sub_kegiatan'] = currentRekening;
 
 				modal.open();
 			}}
@@ -350,31 +366,20 @@
 		<br />
 		<button
 			on:click={async () => {
-				try {
-					const res = await fiero(`/operator/insertDataMapping`, 'POST', {
-						jenis: subPage,
-						...selected.sub_kegiatan
-					});
-					if (res.status === 200) {
-						snack.info('Berhasil menambah sub kegiatan baru');
-					} else snack.info('Kesalahan isian data');
-				} catch (err) {
-					console.log(err);
-					snack.info('Terjadi kesalahan');
-				} finally {
-					modal.close();
-					changeSubPage('sub_kegiatan');
-					source = fiero(
-						`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=${subPage}`
-					);
-				}
+				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+					jenis: subPage,
+					...selected.sub_kegiatan
+				});
+				if (res.status === 200) {
+					snack.info('Berhasil menambah sub kegiatan baru');
+				} else snack.info('Kesalahan isian data');
 			}}
 		>
 			Simpan
 		</button>
-	{:else}
+	{:else if subPage == 'rincian_sub_kegiatan'}
 		<Row number="1" title="Kode Rekening Sub Kegiatan">
-			{#await fiero(`/operator/getListDataDPAByJenisForInsert?id_bidang=${userBidang}&jenis=sub_kegiatan`) then data}
+			{#await fiero(`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=sub_kegiatan`) then data}
 				<Select
 					bind:key={selected.rincian_sub_kegiatan.kode_rekening_sub_kegiatan}
 					{data}
@@ -404,15 +409,7 @@
 			{/await}
 		</Row>
 
-		<Row number="2" title="Jenis Kegiatan">
-			<Select
-				bind:key={selected.rincian_sub_kegiatan.jenis_pekerjaan}
-				data={jenis}
-				config={{ key: 'id', title: 'jenis_proyek' }}
-			/>
-		</Row>
-
-		<Row number="3" title="Kode Rekening & Uraian Rincian  Sub Kegiatan">
+		<Row number="2" title="Kode Rekening & Uraian Rincian Sub Kegiatan">
 			<svelte:fragment>
 				<input type="text" bind:value={selected.rincian_sub_kegiatan.kode_rekening} />
 				<span>/</span>
@@ -420,38 +417,91 @@
 			</svelte:fragment>
 		</Row>
 
-		<Row number="4" title="Anggaran Rincian Sub Kegiatan">
+		<Row number="3" title="Anggaran Rincian Sub Kegiatan">
 			<Currency bind:value={selected.rincian_sub_kegiatan.anggaran} />
 		</Row>
 
-		<Row number="5" title="Keterangan Rincian Sub Kegiatan">
-			<textarea bind:value={selected.rincian_sub_kegiatan.keterangan} />
+		<br />
+		<button
+			on:click={async () => {
+				const res = await fiero(`/operator/insertDataMapping`, 'POST', {
+					jenis: subPage,
+					...selected.rincian_sub_kegiatan
+				});
+				if (res.status === 200) {
+					snack.info('Berhasil menambah rincian sub kegiatan baru');
+				} else snack.info('Kesalahan isian data');
+			}}
+		>
+			Simpan
+		</button>
+	{:else if subPage == 'nama_pekerjaan'}
+		<Row number="1" title="Kode Rekening Rincian Sub Kegiatan">
+			{#await fiero(`/operator/getListDataDPAByJenisForInsert?id_bidang=${userBidang}&jenis=rincian_sub_kegiatan`) then data}
+				<Select
+					bind:key={selected.nama_pekerjaan.kode_rekening_rincian_sub_kegiatan}
+					{data}
+					config={{ key: 'kode_rek_rincian_sub_kegiatan', title: 'kode_rek_rincian_sub_kegiatan' }}
+					on:linkup={async () => {
+						const list = await fiero(
+							`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=nama_pekerjaan`
+						);
+						const num =
+							list.filter(
+								(x) =>
+									x.kode_rek_sub_kegiatan === selected.nama_pekerjaan.kode_rekening_sub_kegiatan
+							).length + 1;
+
+						selected.nama_pekerjaan.kode_rekening =
+							selected.nama_pekerjaan.kode_rekening_rincian_sub_kegiatan + `.${num}`;
+
+						selected.nama_pekerjaan.id_parent =
+							data.find(
+								(x) =>
+									x.kode_rek_rincian_sub_kegiatan ===
+									selected.nama_pekerjaan.kode_rekening_rincian_sub_kegiatan
+							)?.id_kode_rekening ?? 0;
+					}}
+				/>
+			{/await}
+		</Row>
+
+		<Row number="2" title="Jenis Kegiatan">
+			<Select
+				bind:key={selected.nama_pekerjaan.jenis_pekerjaan}
+				data={jenis}
+				config={{ key: 'id', title: 'jenis_proyek' }}
+			/>
+		</Row>
+
+		<Row number="3" title="Uraian Pekerjaan">
+			<svelte:fragment>
+				<input type="text" bind:value={selected.nama_pekerjaan.uraian} />
+			</svelte:fragment>
+		</Row>
+
+		<Row number="4" title="Anggaran Pekerjaan">
+			<Currency bind:value={selected.nama_pekerjaan.anggaran} />
+		</Row>
+
+		<Row number="5" title="Keterangan Pekerjaan">
+			<textarea bind:value={selected.nama_pekerjaan.keterangan} />
 		</Row>
 
 		<Row number="6" title="PPK">
 			{#await fiero(`/operator/getAllUserOperator`) then data}
 				<Select
-					bind:key={selected.rincian_sub_kegiatan.ppk}
+					bind:key={selected.nama_pekerjaan.ppk}
 					{data}
 					config={{ key: 'id', title: 'nama', title2: 'nip' }}
 				/>
 			{/await}
 		</Row>
 
-		<!-- <Row number="7" title="PPTK">
-			{#await fiero(`/operator/getAllUserOperator`) then data}
-				<Select
-					bind:key={selected.rincian_sub_kegiatan.pptk}
-					{data}
-					config={{ key: 'id', title: 'nama', title2: 'nip' }}
-				/>
-			{/await}
-		</Row> -->
-
 		<Row number="7" title="Staf Pengelola">
 			{#await fiero(`/operator/getAllUserOperator`) then data}
 				<Select
-					bind:key={selected.rincian_sub_kegiatan.staf_pengelola}
+					bind:key={selected.nama_pekerjaan.staf_pengelola}
 					{data}
 					config={{ key: 'id', title: 'nama', title2: 'nip' }}
 				/>
@@ -461,8 +511,8 @@
 		<Row number="8" title="Sumber Dana">
 			<button
 				on:click={() => {
-					selected.rincian_sub_kegiatan.sumber_dana_dummy = [
-						...selected.rincian_sub_kegiatan.sumber_dana_dummy,
+					selected.nama_pekerjaan.sumber_dana_dummy = [
+						...selected.nama_pekerjaan.sumber_dana_dummy,
 						{ sumber_dana: '', nilai: 0 }
 					];
 				}}
@@ -483,7 +533,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each selected.rincian_sub_kegiatan.sumber_dana_dummy ?? [{ sumber_dana: '', nilai: 0 }] as { sumber_dana, nilai }, i (i)}
+				{#each selected.nama_pekerjaan.sumber_dana_dummy ?? [{ sumber_dana: '', nilai: 0 }] as { sumber_dana, nilai }, i (i)}
 					<tr>
 						<td>{i + 1}</td>
 						<td>
@@ -509,8 +559,8 @@
 						<td>
 							<button
 								on:click={() => {
-									selected.rincian_sub_kegiatan.sumber_dana_dummy =
-										selected.rincian_sub_kegiatan.sumber_dana_dummy.filter((x, idx) => idx !== i);
+									selected.nama_pekerjaan.sumber_dana_dummy =
+										selected.nama_pekerjaan.sumber_dana_dummy.filter((x, idx) => idx !== i);
 								}}
 								class="p-1 bg-red-1 text-white-1"
 							>
@@ -529,23 +579,23 @@
 		<br />
 		<Send
 			on:click={async () => {
-				selected.rincian_sub_kegiatan.sumber_dana = JSON.stringify(
-					selected.rincian_sub_kegiatan.sumber_dana_dummy
+				selected.nama_pekerjaan.sumber_dana = JSON.stringify(
+					selected.nama_pekerjaan.sumber_dana_dummy
 				);
 
 				try {
 					const res = await fiero(`/operator/insertDataMapping`, 'POST', {
 						jenis: subPage,
-						...selected.rincian_sub_kegiatan
+						...selected.nama_pekerjaan
 					});
 
-					if (res.status === 200) snack.info('Berhasil menambah rincian sub kegiatan baru');
+					if (res.status === 200) snack.info('Berhasil menambah nama pekerjaan baru');
 					else snack.info('Kesalahan isian data.');
 				} catch (err) {
 					snack.info('Terjadi kesalahan.');
 				} finally {
 					modal.close();
-					changeSubPage('rincian_sub_kegiatan');
+					changeSubPage('nama_pekerjaan');
 					source = fiero(
 						`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=${subPage}`
 					);

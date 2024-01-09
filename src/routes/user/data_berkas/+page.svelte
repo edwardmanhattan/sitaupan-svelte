@@ -105,9 +105,13 @@
 							{#if tr.id_kontrak_fisik === '0'}
 								Resume belum dibuat.
 							{:else}
-								<a href="/resume-{tr.id_kontrak_fisik}">
+								<!-- <a href="/resume-{tr.id_kontrak_fisik}">
 									<button> Detail Resume </button>
-								</a>
+								</a> -->
+								<div class="flex items-center gap-2">
+									<span>Resume sudah terbuat.</span>
+									<Icon icon="basil:checked-box-solid" color="green" width="24px" />
+								</div>
 							{/if}
 						</td>
 
@@ -115,9 +119,13 @@
 							{#if tr.id_surat_bukti === '0'}
 								Surat bukti belum dibuat.
 							{:else}
-								<a href="/surat_bukti-{tr.id_surat_bukti}">
+								<!-- <a href="/surat_bukti-{tr.id_surat_bukti}">
 									<button> Detail Surat </button>
-								</a>
+								</a> -->
+								<div class="flex items-center gap-2">
+									<span>Surat Bukti sudah terbuat.</span>
+									<Icon icon="basil:checked-box-solid" color="green" width="24px" />
+								</div>
 							{/if}
 						</td>
 						<!-- 
@@ -133,9 +141,13 @@
 							{:else if tr.id_surat_pengantar === '0' && !tr.edit_spm}
 								Surat pengantar belum dibuat.
 							{:else if !tr.edit_spm}
-								<a href="/surat_pengantar-{tr.id_surat_pengantar}">
+								<!-- <a href="/surat_pengantar-{tr.id_surat_pengantar}">
 									<button> Detail Surat </button>
-								</a>
+								</a> -->
+								<div class="flex items-center gap-2">
+									<span>Surat Pengantar sudah terbuat.</span>
+									<Icon icon="basil:checked-box-solid" color="green" width="24px" />
+								</div>
 							{:else}
 								<div>...</div>
 							{/if}

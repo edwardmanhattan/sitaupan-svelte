@@ -36,6 +36,15 @@ export async function load({ fetch }) {
 		sumber_dana_dummy: [{ sumber_dana: '', nilai: 0 }]
 	};
 
+	const nama_pekerjaan = {
+		kode_rekening_rincian_sub_kegiatan: null,
+		kode_rekening: null,
+		uraian: null,
+		anggaran: null,
+		keterangan: null,
+		sumber_dana_dummy: [{ sumber_dana: '', nilai: 0 }]
+	};
+
 	const dpa = async () =>
 		await fetch(config.api + `/operator/getAllNomorDPA`).then((res) => res.json());
 	const bidang = async () =>
@@ -48,7 +57,8 @@ export async function load({ fetch }) {
 			program: program,
 			kegiatan: kegiatan,
 			sub_kegiatan: sub_kegiatan,
-			rincian_sub_kegiatan: rincian
+			rincian_sub_kegiatan: rincian,
+			nama_pekerjaan
 		},
 		dpa: (await dpa()).data,
 		bidang: (await bidang()).data,

@@ -19,6 +19,7 @@
 		<div class="w-24">
 			<img src={logo} alt="logo" />
 		</div>
+
 		<h1 class="text-3xl">Selamat Datang</h1>
 
 		<br />
