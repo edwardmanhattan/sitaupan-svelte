@@ -379,15 +379,16 @@
 		</button>
 	{:else if subPage == 'rincian_sub_kegiatan'}
 		<Row number="1" title="Kode Rekening Sub Kegiatan">
-			{#await fiero(`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=sub_kegiatan`) then data}
+			{#await fiero(`/operator/getListDataDPAByJenisForInsert?id_bidang=${userBidang}&jenis=sub_kegiatan`) then data}
 				<Select
 					bind:key={selected.rincian_sub_kegiatan.kode_rekening_sub_kegiatan}
 					{data}
-					config={{ key: 'kode_rek_sub_kegiatan', title: 'kode_rek_sub_kegiatan' }}
+					config={{ key: 'kode_rek_sub_kegiatan', title: 'uraian' }}
 					on:linkup={async () => {
 						const list = await fiero(
-							`/operator/getListDataDPAByJenis?id_bidang=${userBidang}&jenis=rincian_sub_kegiatan`
+							`/operator/getListDataDPAByJenisForInsert?id_bidang=${userBidang}&jenis=rincian_sub_kegiatan`
 						);
+						// console.log(list);
 						const num =
 							list.filter(
 								(x) =>

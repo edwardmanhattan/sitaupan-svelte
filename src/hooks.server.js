@@ -25,7 +25,6 @@ export const handle = async ({ event, resolve }) => {
 			userNamaJabatan,
 			userFullData
 		};
-	} else {
 	}
 
 	return await resolve(event);

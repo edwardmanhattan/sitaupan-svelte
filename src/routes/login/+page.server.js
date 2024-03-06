@@ -1,10 +1,8 @@
 // @ts-nocheck
-import { browser } from '$app/environment';
-import { config, fiero } from '$lib/js/fiero.js';
-import { snack } from '$lib/js/vanilla.js';
+import { config } from '$lib/js/fiero.js';
 import { redirect } from '@sveltejs/kit';
 
-export async function load({ cookies, fetch }) {
+export async function load({ cookies }) {
 	// throw redirect(307, '/oprs');
 	const authToken = cookies.get('authToken');
 	if (!authToken) return { clearUser: true };

@@ -21,6 +21,21 @@ const httpsServer = https.createServer(credentials, app);
 const PORT = 80;
 const SSLPORT = 443;
 
+// Middleware to redirect HTTP to HTTPS
+const redirectToHttps = function (req, res, next) {
+	if (req.protocol === 'http') {
+		const httpsUrl = `https://sitaupan.annieprojects.id/login`;
+		return res.redirect(301, httpsUrl);
+	}
+	next();
+};
+
+// Use the middleware
+app.use(redirectToHttps);
+
+// Your existing route handler
+app.use(handler);
+
 httpServer.listen(PORT, function () {
 	console.log('HTTP Server is running on: http://localhost:%s', PORT);
 });
@@ -28,5 +43,3 @@ httpServer.listen(PORT, function () {
 httpsServer.listen(SSLPORT, function () {
 	console.log('HTTPS Server is running on: https://localhost:%s', SSLPORT);
 });
-
-app.use(handler);

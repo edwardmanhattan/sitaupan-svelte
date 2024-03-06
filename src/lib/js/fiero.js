@@ -2,6 +2,7 @@
 
 export const config = {
 	self: 'http://localhost:5173',
+	// api: 'http://sw.crossnet.co.id:3457',
 	api: 'https://sitaupan.annieprojects.id:3456',
 	photo: 'https://sitaupan.annieprojects.id:2682/getPhoto',
 	online: 'https://sitaupan.annieprojects.id'
