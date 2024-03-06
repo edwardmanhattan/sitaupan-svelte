@@ -2,15 +2,13 @@
 	// @ts-nocheck
 
 	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
 	import bg from '$lib/assets/login.webp';
 	import logo from '$lib/assets/logo.webp';
+	import { superForm } from 'sveltekit-superforms/client';
 
-	export let form = {
-		username: '',
-		password: '',
-		tipe: 'operator',
-		error: null
-	};
+	export let data;
+	const { form, errors, message } = superForm(data.form);
 </script>
 
 <div class="flex w-screen h-screen">
@@ -24,27 +22,35 @@
 
 		<br />
 		<form use:enhance method="post" action="?/login" class="w-full">
-			<div>Username</div>
+			<label for="username">Username</label>
 			<input
 				type="text"
 				placeholder="masukkan username..."
 				name="username"
-				value={form?.username ?? ''}
+				id="username"
+				bind:value={$form.username}
 			/>
+			{#if $errors.username}
+				<p class="text-red-500">{$errors.username}</p>
+			{/if}
 
-			<div>Password</div>
+			<label for="password">Password</label>
 			<input
 				type="password"
 				placeholder="masukkan password..."
 				name="password"
-				value={form?.password ?? ''}
+				id="password"
+				bind:value={$form.password}
 			/>
+			{#if $errors.password}
+				<p class="text-red-500">{$errors.password}</p>
+			{/if}
 
 			<br />
 			<br />
 			<div>Masuk Sebagai</div>
 
-			<select name="tipe" value={form?.tipe ?? 'operator'}>
+			<select name="tipe" id="tipe" bind:value={$form.tipe}>
 				<option value="operator">Operator</option>
 				<option value="mitra">Mitra</option>
 			</select>
@@ -52,9 +58,18 @@
 			<br />
 			<br />
 			<button class="bg-blue-3" type="submit"> Masuk </button>
-			{#if form?.error}
-				<p class="italic text-center text-red-1">informasi masuk salah.</p>
+			{#if $message}
+				<section class:text-red-500={$page.status != 200} class="text-center">{$message}</section>
 			{/if}
 		</form>
 	</div>
 </div>
+
+<style lang="postcss">
+	@tailwind components;
+	@layer components {
+		p {
+			@apply text-xs p-0;
+		}
+	}
+</style>

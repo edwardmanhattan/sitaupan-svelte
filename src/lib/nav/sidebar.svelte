@@ -13,6 +13,7 @@
 
 	let { userJabatan, userBidang, userPrivilege, userNama, userNamaJabatan, userFullData } =
 		privilege;
+
 	userJabatan = userJabatan.split(',').map((x) => parseInt(x));
 
 	let selected = userFullData;

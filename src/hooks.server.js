@@ -1,31 +1,28 @@
 // @ts-nocheck
 
+import { redirect } from '@sveltejs/kit';
+
 export const handle = async ({ event, resolve }) => {
-	const auth = event.cookies.get('AuthUser');
-	const apiKey = auth?.split('.')[0];
-	const userId = auth?.split('.')[1] ?? 2;
-	const userPrivilege = auth?.split('.')[2];
-	const userTipe = auth?.split('.')[3] ?? 'operator';
-	const userJabatan = auth?.split('.')[4] ?? 17;
-	const userBidang = auth?.split('.')[5] ?? 1;
-	const userNama = auth?.split('.')[6] ?? '';
-	const userNamaJabatan = auth?.split('.')[7] ?? '';
+	let auth = event.cookies.get('auth');
+	if (!auth) if (!event.url.pathname.startsWith('/login')) throw redirect(301, '/login');
 
-	const userFullData = auth === undefined ? {} : JSON.parse(auth?.split('.')[8]);
+	auth = auth ? JSON.parse(auth) : { user: {} };
 
-	if (auth) {
-		event.locals = {
-			apiKey,
-			userId,
-			userPrivilege,
-			userTipe,
-			userJabatan,
-			userBidang,
-			userNama,
-			userNamaJabatan,
-			userFullData
-		};
-	}
+	event.locals.auth = auth;
+	event.locals = {
+		...event.locals,
+		apiKey: auth.key,
+		userId: auth.user?.id,
+		userPrivilege: auth.privilege,
+		userTipe: auth.tipe,
+		userJabatan: auth.user?.jabatan,
+		userBidang: auth.user?.bidang,
+		userNama: auth.user?.nama,
+		userNamaJabatan: auth.user?.nama_jabatan,
+		userFullData: auth.user
+	};
 
-	return await resolve(event);
+	const response = await resolve(event);
+
+	return response;
 };

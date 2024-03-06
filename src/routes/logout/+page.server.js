@@ -3,6 +3,6 @@ import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ cookies }) {
-	cookies.set('AuthUser', {}, { maxAge: 0 });
+	cookies.set('auth', undefined, { maxAge: 0 });
 	throw new redirect(307, '/login');
 }
