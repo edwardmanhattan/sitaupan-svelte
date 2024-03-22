@@ -142,8 +142,8 @@
 						{#each buttons as button}
 							<td>
 								<button
-									class="px-4 mx-auto w-fit bg-{button.color ?? 'blue-2'} text-{button.textColor ??
-										'black'}"
+									class="px-4 mx-auto w-fit bg-{button.color ?? 'blue-2'} text-{button.size ??
+										'sm'} text-{button.textColor ?? 'black'} flex-wrap"
 									on:click={() => {
 										button.action(
 											tr[button.idKey ?? 'id'],
@@ -169,7 +169,13 @@
 								</button>
 							</td>
 						{/each}
-						<slot name="body" {tr} />
+						<slot
+							name="body"
+							{tr}
+							edit={(prop) => {
+								tr = { ...tr, ...prop };
+							}}
+						/>
 					</tr>
 				{:else}
 					<tr class="text-center border border-gray-1">

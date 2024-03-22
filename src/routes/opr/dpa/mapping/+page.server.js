@@ -1,6 +1,9 @@
 // @ts-nocheck
 
-import { config } from '$lib/js/fiero';
+import { numeric } from '$lib/js/currency';
+import { config, fiero } from '$lib/js/fiero';
+import { fail } from '@sveltejs/kit';
+import { z } from 'zod';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch }) {
@@ -65,3 +68,31 @@ export async function load({ fetch }) {
 		jenis: (await jenis()).data
 	};
 }
+
+const editSchema = z.object({
+	id: z.coerce.number(),
+	jenis: z.string(),
+	id_parent: z.coerce.number(),
+	kode_rekening: z.string(),
+	uraian: z.string(),
+	anggaran: z.string()
+});
+
+/** @type {import('./$types').Actions} */
+export const actions = {
+	edit: async ({ request }) => {
+		const formData = await request.formData();
+		const safeParse = editSchema.safeParse(Object.fromEntries(formData));
+
+		if (!safeParse.success) return fail(400, { issues: safeParse.error.issues });
+
+		const entry = safeParse.data;
+		entry.anggaran = numeric(entry.anggaran);
+
+		const result = await fiero('/operator/updateMappingDpa', 'POST', entry);
+
+		if (result.status !== 200) return fail(500, { success: false, message: 'terjadi kesalahan.' });
+
+		return { message: 'berhasil mengubah data.', success: true, resdata: result.data };
+	}
+};

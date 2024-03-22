@@ -11,10 +11,12 @@
 	import { fiero } from '$lib/js/fiero';
 	import { formatTitle } from '$lib/js/string';
 	import { snack } from '$lib/js/vanilla.js';
-	import { getYearsSince } from '$lib/js/datetime.js';
 	import { setModifierHidden, setModifierShown } from '$lib/js/modifier';
 	import Year from '$lib/shortcut/year.svelte';
 	import Send from '$lib/shortcut/send.svelte';
+	import { enhance } from '$app/forms';
+	import { hierarchy, hierarchyChild, hierarchyParent } from './utils.js';
+	import { invalidateAll } from '$app/navigation';
 
 	export let data;
 	const { barebone, dpa, bidang, jenis, userBidang } = data;
@@ -22,7 +24,6 @@
 
 	let sourceAPI = `getListDataDPAByJenis?`;
 	let subPage = 'program';
-	let subPages = ['program', 'kegiatan', 'sub_kegiatan', 'rincian_sub_kegiatan', 'nama_pekerjaan'];
 
 	let tahun = '';
 
@@ -31,6 +32,7 @@
 	);
 
 	let modifier = {
+		id_parent: { show: false },
 		no_dpa: { alias: 'Nomor DPA', show: true },
 		kode_rek_program: { show: true },
 		kode_rek_kegiatan: { show: false },
@@ -51,7 +53,8 @@
 			modifier = setModifierHidden(modifier, [
 				'kode_rek_kegiatan',
 				'kode_rek_sub_kegiatan',
-				'kode_rek_rincian_sub_kegiatan'
+				'kode_rek_rincian_sub_kegiatan',
+				'jenis_pekerjaan'
 			]);
 		} else if (sub === 'kegiatan') {
 			modifier = setModifierShown(modifier, ['kode_rek_kegiatan']);
@@ -59,14 +62,16 @@
 				'no_dpa',
 				'tanggal_dpa',
 				'kode_rek_sub_kegiatan',
-				'kode_rek_rincian_sub_kegiatan'
+				'kode_rek_rincian_sub_kegiatan',
+				'jenis_pekerjaan'
 			]);
 		} else if (sub === 'sub_kegiatan') {
 			modifier = setModifierShown(modifier, ['kode_rek_kegiatan', 'kode_rek_sub_kegiatan']);
 			modifier = setModifierHidden(modifier, [
 				'no_dpa',
 				'tanggal_dpa',
-				'kode_rek_rincian_sub_kegiatan'
+				'kode_rek_rincian_sub_kegiatan',
+				'jenis_pekerjaan'
 			]);
 		} else if (sub === 'rincian_sub_kegiatan') {
 			modifier = setModifierShown(modifier, [
@@ -89,15 +94,18 @@
 	let currentRekening = '';
 	$: buttons = [
 		{
-			head: `List ${formatTitle(subPages[subPages.findIndex((str) => str === subPage) + 1] ?? '')}`,
-			body: `Lihat ${formatTitle(
-				subPages[subPages.findIndex((str) => str === subPage) + 1] ?? ''
+			head: `List ${formatTitle(
+				hierarchy[hierarchy.findIndex((str) => str === subPage) + 1] ?? ''
 			)}`,
+			body: `Lihat ${formatTitle(
+				hierarchy[hierarchy.findIndex((str) => str === subPage) + 1] ?? ''
+			)}`,
+			size: 'xs',
 			icon: 'bi:eye',
 			action: (id, data) => {
 				currentRekening = data[`kode_rek_${subPage}`];
 				changeSubPage(
-					subPages[subPages.findIndex((str) => str === subPage) + 1],
+					hierarchy[hierarchy.findIndex((str) => str === subPage) + 1],
 					`getChildDPA?id=${id}&`
 				);
 			},
@@ -125,9 +133,7 @@
 		}
 	];
 
-	$: {
-		if (subPage === 'nama_pekerjaan') buttons = [buttons[1]];
-	}
+	$: if (subPage === 'nama_pekerjaan') buttons = [buttons[1]];
 
 	let selected = {
 		program: {},
@@ -136,11 +142,14 @@
 		rincian_sub_kegiatan: {},
 		nama_pekerjaan: {}
 	};
+
+	let modal_edit;
+	let selected_edit = {};
 </script>
 
 <div class="flex items-center justify-between mb-2">
 	<div class="flex items-center gap-2">
-		{#each subPages as sub}
+		{#each hierarchy as sub}
 			<button
 				on:click={() => {
 					changeSubPage(sub);
@@ -181,7 +190,23 @@
 {#await source}
 	<Skeleton />
 {:then data}
-	<Table {data} {modifier} {buttons} />
+	<Table {data} {modifier} {buttons}>
+		<svelte:fragment slot="body" let:tr let:edit>
+			<td>
+				<button
+					on:click={() => {
+						modal_edit.open();
+						selected_edit = tr;
+						selected_edit.edit = edit;
+					}}
+					class="flex-wrap"
+				>
+					<Icon icon="ri:pencil-fill" />
+					Edit
+				</button>
+			</td>
+		</svelte:fragment>
+	</Table>
 {:catch err}
 	<div>{err}</div>
 {/await}
@@ -604,4 +629,66 @@
 			}}
 		/>
 	{/if}
+</Modal>
+
+<Modal bind:this={modal_edit}>
+	{@const parent = hierarchyParent(subPage)}
+
+	<span class="font-semibold">Edit</span>
+
+	<hr />
+
+	<form
+		action="?/edit"
+		method="POST"
+		use:enhance={() => {
+			return async ({ result }) => {
+				snack.info(result.data.message);
+				modal_edit.close();
+
+				if (result.data.success) subPage = parent;
+				subPage = hierarchyChild(subPage);
+			};
+		}}
+	>
+		<input type="hidden" name="id" id="id" bind:value={selected_edit.id_kode_rekening} />
+		<input type="hidden" name="jenis" id="jenis" bind:value={subPage} />
+
+		<label for="id_parent">{formatTitle(parent)}</label>
+		{#if parent === 'DPA'}
+			<select name="id_parent" id="id_parent" bind:value={selected_edit.id_parent}>
+				{#each dpa as { id, nomor_dpa }}
+					<option value={id}>{nomor_dpa}</option>
+				{/each}
+			</select>
+		{:else}
+			{#await fiero(`/operator/getListDataDPAByJenisForInsert?jenis=${parent}&id_bidang=${userBidang}`) then resdata}
+				<select name="id_parent" id="id_parent" bind:value={selected_edit.id_parent}>
+					{#each resdata as { id_kode_rekening, uraian }}
+						<option value={id_kode_rekening}>
+							{uraian}
+						</option>
+					{:else}
+						<option value="" />
+					{/each}
+				</select>
+			{/await}
+		{/if}
+
+		<label for="kode_rekening">Kode Rekening</label>
+		<input
+			type="text"
+			name="kode_rekening"
+			id="kode_rekening"
+			bind:value={selected_edit[`kode_rek_${subPage}`]}
+		/>
+
+		<label for="uraian">Uraian</label>
+		<input type="text" name="uraian" id="uraian" bind:value={selected_edit.uraian} />
+
+		<label for="anggaran">Anggaran</label>
+		<Currency name="anggaran" bind:value={selected_edit.anggaran} />
+
+		<button type="submit" class="my-3">Simpan</button>
+	</form>
 </Modal>

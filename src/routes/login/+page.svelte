@@ -48,7 +48,7 @@
 
 			<br />
 			<br />
-			<div>Masuk Sebagai</div>
+			<p class="font-semibold">Masuk Sebagai</p>
 
 			<select name="tipe" id="tipe" bind:value={$form.tipe}>
 				<option value="operator">Operator</option>

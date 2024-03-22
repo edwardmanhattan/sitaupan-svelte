@@ -22,7 +22,7 @@
 	}
 	function goToHref() {
 		if (!href || href === '') return;
-		goto(href);
+		// goto(href);
 	}
 
 	function jabatanAllowed() {
@@ -35,21 +35,21 @@
 </script>
 
 {#if jabatanAllowed() || privilegeAllowed()}
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div
+	<a
 		on:mouseenter={hover}
 		on:mouseleave={hover}
+		{href}
+		on:click={goToHref}
 		class="relative border-b border-b-teal-800/30 bg-blue-2 hover:bg-blue-1 hover:border-white"
 	>
-		<div on:click|stopPropagation={goToHref} class="menu">
+		<div class="menu">
 			{#if icon !== ''}
 				<Icon width="18px" {icon} />
 			{:else}
 				<div />
 			{/if}
 
-			<a class="w-max" {href}>{anchor}</a>
+			<span class="w-max">{anchor}</span>
 
 			{#if $$slots.default}
 				<div class="ml-auto">
@@ -68,7 +68,7 @@
 				<slot />
 			</div>
 		{/if}
-	</div>
+	</a>
 {/if}
 
 <style lang="postcss">

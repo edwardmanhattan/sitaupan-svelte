@@ -4,6 +4,7 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	export let value;
+	export let name;
 
 	let display = rupiah(value);
 	$: value = numeric(display);
@@ -28,6 +29,8 @@
 		type="text"
 		bind:value={display}
 		bind:this={element}
+		{name}
+		id={name}
 		on:focus={() => {
 			display = numeric(display);
 		}}
