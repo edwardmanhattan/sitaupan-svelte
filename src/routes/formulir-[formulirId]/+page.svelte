@@ -285,7 +285,7 @@
 	</Row>
 
 	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="" title="b. Nilai Adendum">
-		<input type="number" bind:value={form.nilai_adendum} />
+		<Currency bind:value={form.nilai_adendum} />
 	</Row>
 
 	<Row

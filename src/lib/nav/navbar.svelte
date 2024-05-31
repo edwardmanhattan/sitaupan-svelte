@@ -1,6 +1,8 @@
 <script>
 	import logo from '$lib/assets/logo.webp';
 	import Icon from '@iconify/svelte';
+
+	export let locals;
 </script>
 
 <div class="flex items-center w-full gap-8 px-8 py-2 bg-blue-1">
@@ -16,7 +18,7 @@
 
 	<div class="flex items-center gap-8 ml-auto">
 		<div>
-			<div>Terius Jeremiah</div>
+			<div>{locals.userNama}</div>
 			<div class="text-xs">Partner</div>
 		</div>
 		<a href="/logout" class="cursor-pointer hover:text-blue-2">

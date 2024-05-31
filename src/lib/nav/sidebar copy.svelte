@@ -197,7 +197,9 @@
 					</Menu>
 					<Menu anchor="Data User" href="/opr/pengaturan/user operator">
 						<Menu anchor="User Operator" href="/opr/pengaturan/user operator" />
-						<Menu anchor="User Mitra" href="/opr/pengaturan/user mitra" />
+						{#if checkJabatan([27])}
+							<Menu anchor="User Mitra" href="/opr/pengaturan/user mitra" />
+						{/if}
 					</Menu>
 				</Menu>
 			</Menu>

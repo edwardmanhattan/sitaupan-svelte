@@ -279,7 +279,7 @@
 				<Menu
 					{userJabatan}
 					{userPrivilege}
-					jabatan={[2]}
+					jabatan={[2, 27]}
 					anchor="Data User"
 					href="/opr/pengaturan/user operator"
 				>
@@ -293,7 +293,7 @@
 					<Menu
 						{userJabatan}
 						{userPrivilege}
-						jabatan={[2]}
+						jabatan={[2, 27]}
 						anchor="User Mitra"
 						href="/opr/pengaturan/user mitra"
 					/>

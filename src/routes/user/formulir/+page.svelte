@@ -1,5 +1,7 @@
 <script>
 	// @ts-nocheck
+	import { goto } from '$app/navigation';
+
 	import Select from '$lib/form/select.svelte';
 	import { fiero } from '$lib/js/fiero';
 	import { formatTitle } from '$lib/js/string';
@@ -31,8 +33,9 @@
 		{
 			head: 'Aksi',
 			body: 'Mulai Pengisian',
+			idKey: 'id_form',
 			action: (idx, obj) => {
-				document.location.href = `/formulir-${obj.id_form}`;
+				goto(`/formulir-${idx}`);
 			}
 		}
 	];
@@ -45,8 +48,9 @@
 				{
 					head: 'Aksi',
 					body: 'Mulai Pengisian',
+					idKey: 'id_form',
 					action: (idx, obj) => {
-						document.location.href = `/formulir-${obj.id_form}`;
+						goto(`/formulir-${idx}`);
 					}
 				}
 			];
@@ -55,8 +59,9 @@
 				{
 					head: 'Aksi',
 					body: 'Lihat Formulir',
+					idKey: 'id_form',
 					action: (idx, obj) => {
-						document.location.href = `/formulir-${obj.id_form}`;
+						goto(`/formulir-${idx}`);
 					}
 				}
 			];
