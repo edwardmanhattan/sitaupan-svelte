@@ -11,6 +11,7 @@
 	import Select from '$lib/form/select.svelte';
 	import { objectTypeParser, typeParser } from '$lib/js/modifier.js';
 	import Back from '$lib/shortcut/back.svelte';
+	import { exportToPDF } from '$lib/js/download.js';
 
 	let modal;
 	export let data;
@@ -21,7 +22,21 @@
 	let form = data.data;
 
 	let processing = false;
+	let printWaiting = false;
 </script>
+
+<button
+	class="sticky top-0"
+	on:click={async () => {
+		printWaiting = true;
+		const link = window.location.href + `/print`;
+		console.log(link);
+		await exportToPDF(link, 'Formulir');
+		printWaiting = false;
+	}}
+>
+	Print
+</button>
 
 <div class="h-screen px-24 py-12 overflow-auto">
 	<div class="flex items-center gap-2">
