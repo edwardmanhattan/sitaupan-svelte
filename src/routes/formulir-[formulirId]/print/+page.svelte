@@ -1,17 +1,17 @@
 <script>
+	import { rupiah } from '$lib/js/currency';
+	import { formatFullDate } from '$lib/js/datetime.js';
 	import Row from '$lib/table/row.svelte';
 
 	export let data;
 	console.log(data);
 
 	$: form = data.data;
+	$: ntg = data.data.nota_tagihan;
 </script>
 
 <div class="border border-black w-fit h-max">
-	<div
-		class="w-[21cm] h-max px-[0.54cm] pb-[2.54cm] pt-[1cm] font-times bg-white text-xs"
-		id="printTarget"
-	>
+	<div class="w-[21cm] h-max px-[0.54cm] pb-[2.54cm] pt-[1cm] font-times bg-white" id="printTarget">
 		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="1" title="Nomor SPM">
 			{form.no_spm}
 		</Row>
@@ -43,7 +43,9 @@
 			{form.uraian_sub_kegiatan}
 		</Row>
 
-		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="3" title="Nilai Kontrak" />
+		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="3" title="Nilai Kontrak">
+			{rupiah(form.nilai_kontrak)}
+		</Row>
 
 		<Row
 			userId={form.id_jenis_penyedia}
@@ -64,7 +66,7 @@
 			number="6"
 			title="Nama Penyedia Barang / Kontraktor / Pelaksana / Penyedia Jasa / Nama Penyedia"
 		>
-			{form.nama_penyedia}
+			{form.nama_perusahaan}
 		</Row>
 
 		<Row
@@ -103,7 +105,7 @@
 		>
 			<svelte:fragment>
 				{form.pilihan_pencairan}
-				<span class="mx-auto">/</span>
+				<span>/</span>
 				<div class="flex items-center gap-2">
 					{form.tahap_pekerjaan}
 					<div>%</div>
@@ -128,9 +130,9 @@
 		>
 			<svelte:fragment>
 				{form.realisasi_keuangan}
-				<span class="mx-auto">/</span>
+				<span>/</span>
 				<div class="flex items-center gap-2">
-					{form.presentase_keuangan}
+					{form.persentase_keuangan}
 					<span>%</span>
 				</div>
 			</svelte:fragment>
@@ -144,9 +146,9 @@
 		>
 			<svelte:fragment>
 				{form.realisasi_fisik}
-				<span class="mx-auto">/</span>
+				<span>/</span>
 				<div class="flex items-center gap-2">
-					{form.presentase_fisik}
+					{form.persentase_fisik}
 					<span>%</span>
 				</div>
 			</svelte:fragment>
@@ -219,7 +221,7 @@
 		</Row>
 
 		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="" title="b. Nilai Adendum">
-			{form.nilai_adendum}
+			{rupiah(form.nilai_adendum)}
 		</Row>
 
 		<Row
@@ -259,7 +261,7 @@
 		</Row>
 
 		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="" title="b. Nilai">
-			{form.jaminan_pelaksanaan_nilai}
+			{rupiah(form.jaminan_pelaksanaan_nilai)}
 		</Row>
 
 		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="" title="c. Masa Berlaku">
@@ -278,7 +280,7 @@
 		</Row>
 
 		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="" title="b. Nilai">
-			{form.jaminan_pemeliharaan_nilai}
+			{rupiah(form.jaminan_pemeliharaan_nilai)}
 		</Row>
 
 		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="" title="c. Masa Berlaku">
@@ -309,7 +311,7 @@
 		</Row>
 
 		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="" title="c. Nilai">
-			{form.bast_nilai}
+			{rupiah(form.bast_nilai)}
 		</Row>
 
 		<Row
@@ -352,7 +354,7 @@
 		</Row>
 
 		<Row userId={form.id_jenis_penyedia} able="1,2,3" number="" title="b. Nilai">
-			{form.jaminan_uang_muka_nilai}
+			{rupiah(form.jaminan_uang_muka_nilai)}
 		</Row>
 
 		<Row userId={form.id_jenis_penyedia} able="1,2,3" number="" title="c. Masa Berlaku">
@@ -385,6 +387,10 @@
 
 		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="24" title="Bulan">
 			{form.bulan}
+		</Row>
+
+		<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="25" title="Nama Barang">
+			<div class="italic">terlampir.</div>
 		</Row>
 
 		<!--  -->
@@ -466,7 +472,7 @@
 						<td>{i + 1}</td>
 						<td> {key.nama_barang}</td>
 						<td> {key.luas}</td>
-						<td> {key.harga}</td>
+						<td> {rupiah(key.harga)}</td>
 						<td> {key.keterangan}</td>
 						<td>{key.lokasi_alamat}</td>
 					</tr>
@@ -507,9 +513,7 @@
 						<td>{key.no_rangka_mesin}</td>
 						<td>{key.ukuran}</td>
 						<td>{key.keterangan}</td>
-						<td>
-							{key.harga}
-						</td>
+						<td>{rupiah(key.harga)}</td>
 						<td>
 							{key.banyak}
 						</td>
@@ -550,9 +554,7 @@
 						<td>
 							{key.beton}
 						</td>
-						<td>
-							{key.harga}
-						</td>
+						<td>{rupiah(key.harga)}</td>
 						<td>{key.luas}</td>
 						<td>{key.keterangan}</td>
 					</tr>
@@ -595,7 +597,7 @@
 						<td>{key.lebar}</td>
 						<td>{key.luas}</td>
 						<td>{key.alamat}</td>
-						<td>{key.harga}</td>
+						<td>{rupiah(key.harga)}</td>
 						<td>{key.keterangan}</td>
 					</tr>
 				{:else}
@@ -647,7 +649,7 @@
 						<td>{key.asal_daerah}</td>
 						<td>{key.asal_usul}</td>
 						<td>{key.bahan}</td>
-						<td>{key.harga}</td>
+						<td>{rupiah(key.harga)}</td>
 						<td>{key.jumlah}</td>
 						<td>{key.keterangan}</td>
 						<td>{key.tahun}</td>
@@ -691,7 +693,7 @@
 						<td>{key.lebar}</td>
 						<td>{key.luas}</td>
 						<td>{key.lokasi}</td>
-						<td>{key.harga}</td>
+						<td>{rupiah(key.harga)}</td>
 						<td>{key.keterangan}</td>
 					</tr>
 				{:else}
@@ -701,6 +703,63 @@
 		</table>
 		<br />
 		<br />
+
+		<div class="font-semibold">Lampiran</div>
+
+		<div class="text-sm">
+			<h1>Nota Tagihan</h1>
+			<br />
+
+			<div class="flex gap-2">
+				<div class="w-32">ID Nota</div>
+				<span>:</span>
+				<div>{ntg.id_nota}</div>
+			</div>
+
+			<div class="flex gap-2">
+				<div class="w-32">Tanggal</div>
+				<span>:</span>
+				<div>{formatFullDate(ntg.tanggal_nota)}</div>
+			</div>
+
+			<div>Detail Pembelian</div>
+			<br />
+
+			<table>
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Uraian</th>
+						<th>Harga</th>
+						<th>Jumlah Barang</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each ntg.detail_pembelian ?? [] as d, i}
+						<tr>
+							<td>{i + 1}</td>
+							<td>{d.uraian}</td>
+							<td>{rupiah(d.harga)}</td>
+							<td>{d.jumlah_barang}</td>
+							<td>{rupiah(d.total)}</td>
+						</tr>
+					{:else}
+						<tr>
+							<td colspan="5">tidak ada data</td>
+						</tr>
+					{/each}
+					<tr>
+						<td colspan="3" style="border:none" />
+						<td class="font-semibold">Total</td>
+						<td class="font-semibold">{rupiah(ntg.total)}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br />
+			<br />
+		</div>
 	</div>
 </div>
 

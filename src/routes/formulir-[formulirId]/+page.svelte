@@ -23,6 +23,7 @@
 
 	let processing = false;
 	let printWaiting = false;
+
 </script>
 
 <button
@@ -80,12 +81,12 @@
 		<Currency
 			bind:value={form.nilai_kontrak}
 			onChange={() => {
-				form.presentase_keuangan = (
+				form.persentase_keuangan = (
 					(parseFloat(form.realisasi_keuangan) / parseFloat(form.nilai_kontrak)) *
 					100.0
 				).toFixed(2);
 
-				form.presentase_fisik = (
+				form.persentase_fisik = (
 					(parseFloat(form.realisasi_fisik) / parseFloat(form.nilai_kontrak)) *
 					100.0
 				).toFixed(2);
@@ -112,7 +113,7 @@
 		number="6"
 		title="Nama Penyedia Barang / Kontraktor / Pelaksana / Penyedia Jasa / Nama Penyedia"
 	>
-		<input type="text" bind:value={form.nama_penyedia} />
+		<input type="text" bind:value={form.nama_perusahaan} />
 	</Row>
 
 	<Row
@@ -191,7 +192,7 @@
 			<Currency
 				bind:value={form.realisasi_keuangan}
 				onChange={() => {
-					form.presentase_keuangan = (
+					form.persentase_keuangan = (
 						(parseFloat(form.realisasi_keuangan) / parseFloat(form.nilai_kontrak)) *
 						100.0
 					).toFixed(2);
@@ -199,7 +200,7 @@
 			/>
 			<span class="mx-auto">/</span>
 			<div class="flex items-center gap-2">
-				<input disabled type="text" bind:value={form.presentase_keuangan} />
+				<input disabled type="text" bind:value={form.persentase_keuangan} />
 				<span>%</span>
 			</div>
 		</svelte:fragment>
@@ -215,7 +216,7 @@
 			<Currency
 				bind:value={form.realisasi_fisik}
 				onChange={() => {
-					form.presentase_fisik = (
+					form.persentase_fisik = (
 						(parseFloat(form.realisasi_fisik) / parseFloat(form.nilai_kontrak)) *
 						100.0
 					).toFixed(2);
@@ -223,7 +224,7 @@
 			/>
 			<span class="mx-auto">/</span>
 			<div class="flex items-center gap-2">
-				<input disabled type="text" bind:value={form.presentase_fisik} />
+				<input disabled type="text" bind:value={form.persentase_fisik} />
 				<span>%</span>
 			</div>
 		</svelte:fragment>
@@ -1000,7 +1001,7 @@
 				processing = true;
 
 				form = typeParser(form, integerKey, false);
-				const res = await fiero(`/mitra/pengisianFormPenyediaJasa`, 'POST', {
+				const res = await fiero(`/${data.userTipe}/pengisianFormPenyediaJasa`, 'POST', {
 					form_penyedia_jasa: JSON.stringify(form)
 				});
 

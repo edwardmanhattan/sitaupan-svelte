@@ -16,7 +16,8 @@
 	let modifier = {
 		id: { show: false },
 		id_capaian: { show: false },
-		tahun: { show: false }
+		tahun: { show: false },
+		sisa_pembayaran: { type: 'currency' }
 	};
 	let buttons = [];
 
@@ -49,23 +50,6 @@
 					<option value={y}>{y}</option>
 				{/each}
 			</select>
-			<!-- <button
-				on:click={() => {
-					form = {
-						id_capaian: 0,
-						perangkat_daerah: '-',
-						target: '-',
-						...persentaseList,
-						keterangan: '-',
-						tahun: '2023'
-					};
-
-					modal.open();
-				}}
-			>
-				<Icon icon="bi:plus" />
-				Tambah
-			</button> -->
 		</div>
 	</div>
 	<br />

@@ -17,7 +17,9 @@
 		id: { show: false },
 		id_sp2d: { show: false },
 		id_bidang: { show: false },
-		id_master_formulir: { show: false }
+		id_master_formulir: { show: false },
+		realisasi_fisik: { type: 'currency' },
+		realisasi_keuangan: { type: 'currency' }
 	};
 	let buttons = [];
 </script>

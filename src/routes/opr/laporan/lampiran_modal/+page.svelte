@@ -7,7 +7,7 @@
 	import Table from '$lib/table/table.svelte';
 
 	let year = getYearNow();
-	$: source = `/operator/getLaporan1C?tanggal=${year}`;
+	$: source = `/operator/getLaporan1CBelanjaModal?tanggal=${year}`;
 	let modifier = {
 		id: { show: false }
 	};
