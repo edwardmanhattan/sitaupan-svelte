@@ -32,6 +32,14 @@
 	function privilegeAllowed() {
 		return userPrivilege === 'all' || privilege.some((v) => userPrivilege.includes(v));
 	}
+
+	export let inspect = false;
+	if (inspect) {
+		console.log(jabatanAllowed());
+		console.log(privilege);
+		console.log(userPrivilege);
+		console.log(privilegeAllowed());
+	}
 </script>
 
 {#if jabatanAllowed() || privilegeAllowed()}

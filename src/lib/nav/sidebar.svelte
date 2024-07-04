@@ -15,6 +15,7 @@
 		privilege;
 
 	userJabatan = userJabatan.split(',').map((x) => parseInt(x));
+	userPrivilege = userPrivilege.split(',').map((x) => parseInt(x));
 
 	let selected = userFullData;
 	let modal;
@@ -31,12 +32,20 @@
 	</div>
 	<nav class="flex flex-col text-sm grow">
 		<Menu
+			{userJabatan}
+			{userPrivilege}
+			jabatan={[
+				1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 27
+			]}
 			anchor="Beranda"
 			icon="streamline:interface-home-2-door-entrance-home-house-map-roof-round"
 			href="/opr"
 		/>
 
 		<Menu
+			{userJabatan}
+			{userPrivilege}
+			jabatan={[11, 12, 2, 9, 13, 14, 15, 8, 7, 3, 1, 24, 23]}
 			anchor="DPA"
 			icon="streamline:interface-file-clipboard-text-edition-form-task-checklist-edit-clipboard"
 		>
@@ -84,17 +93,37 @@
 				href="/opr/dpa/tim"
 				icon="streamline:interface-user-multiple-close-geometric-human-multiple-person-up-user"
 			/>
+
+			<Menu
+				{userJabatan}
+				{userPrivilege}
+				jabatan={[2]}
+				anchor="Checklist Mitra"
+				href="/opr/dpa/checklist_mitra"
+				icon="ri:checkbox-line"
+			/>
 		</Menu>
 
 		<!-- 24 = sekretaris, 23 = kabid -->
 		<Menu
 			{userJabatan}
 			{userPrivilege}
-			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 24, 23, 21]}
-			anchor="BPJS Ketenagakerjaan"
+			jabatan={[2, 9, 13, 14, 15, 8, 7, 3, 1, 24, 23, 21, 26]}
+			anchor="BPJS"
 			href="/opr/files/bpjs"
 			icon="streamline:interface-add-square-square-remove-cross-buttons-add-plus-button"
-		/>
+		>
+			<Menu
+				anchor="Ketenagakerjaan"
+				href="/opr/files/bpjs"
+				icon="streamline:interface-add-square-square-remove-cross-buttons-add-plus-button"
+			/>
+			<Menu
+				anchor="Rekap"
+				href="/opr/files/bpjs/rekap"
+				icon="streamline:interface-add-square-square-remove-cross-buttons-add-plus-button"
+			/>
+		</Menu>
 
 		<Menu
 			{userJabatan}

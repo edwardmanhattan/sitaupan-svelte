@@ -39,7 +39,10 @@ export const actions = {
 			httpOnly: false
 		});
 
-		if (tipe === 'operator') throw redirect(302, '/opr');
-		else if (tipe === 'mitra') throw redirect(302, '/user');
+		if (tipe === 'operator') {
+			if (res.data.user.jabatan == 18) throw redirect(302, '/opr/files/inspektorat/data kontrak');
+			if (res.data.user.jabatan == 26) throw redirect(302, '/opr/files/bpjs');
+			throw redirect(302, '/opr');
+		} else if (tipe === 'mitra') throw redirect(302, '/user');
 	}
 };

@@ -23,7 +23,6 @@
 
 	let processing = false;
 	let printWaiting = false;
-
 </script>
 
 <button
@@ -47,7 +46,7 @@
 	<br />
 
 	<Row userId={form.id_jenis_penyedia} able="1,2,3,4,5,6" number="1" title="Nomor SPM">
-		<input type="text" bind:value={form.no_spm} disabled class="bg-transparent disabled" />
+		<input type="text" bind:value={form.no_spm} class="bg-transparent" />
 	</Row>
 
 	<Row
@@ -137,7 +136,7 @@
 		userId={form.id_jenis_penyedia}
 		able="1,2,3,4,5,6"
 		number="7"
-		title="Uraian Pengadaan Sesuai Kontrak"
+		title="Uraian Pengadaan (diisi sesuai uraian permohonan pembayaran)"
 	>
 		<input type="text" bind:value={form.uraian_kontrak} />
 	</Row>
